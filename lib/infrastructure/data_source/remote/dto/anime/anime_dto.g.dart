@@ -13,13 +13,14 @@ AnimeDto _$AnimeDtoFromJson(Map<String, dynamic> json) => AnimeDto(
       titles: (json['titles'] as List<dynamic>)
           .map((e) => TitleDto.fromJson(e as Map<String, dynamic>))
           .toList(),
-      type: json['type'] as String,
+      title: json['title'] as String,
+      type: $enumDecode(_$AnimeTypeEnumMap, json['type']),
       episodes: (json['episodes'] as num).toInt(),
       status: json['status'] as String,
       isAiring: json['airing'] as bool,
       score: (json['score'] as num).toDouble(),
       scoredBy: (json['scored_by'] as num).toInt(),
-      rank: json['rank'] as String,
+      rank: (json['rank'] as num).toInt(),
       aired: AiringDto.fromJson(json['aired'] as Map<String, dynamic>),
       duration: json['duration'] as String,
       rating: json['rating'] as String,
@@ -61,8 +62,9 @@ Map<String, dynamic> _$AnimeDtoToJson(AnimeDto instance) => <String, dynamic>{
       'mal_id': instance.malId,
       'url': instance.url,
       'images': instance.images,
+      'title': instance.title,
       'titles': instance.titles,
-      'type': instance.type,
+      'type': _$AnimeTypeEnumMap[instance.type]!,
       'episodes': instance.episodes,
       'status': instance.status,
       'airing': instance.isAiring,
@@ -88,6 +90,18 @@ Map<String, dynamic> _$AnimeDtoToJson(AnimeDto instance) => <String, dynamic>{
               'openings': instance.theme!.openings,
             },
     };
+
+const _$AnimeTypeEnumMap = {
+  AnimeType.tv: 'tv',
+  AnimeType.movie: 'movie',
+  AnimeType.ova: 'ova',
+  AnimeType.special: 'special',
+  AnimeType.ona: 'ona',
+  AnimeType.music: 'music',
+  AnimeType.cm: 'cm',
+  AnimeType.pv: 'pv',
+  AnimeType.tv_special: 'tv_special',
+};
 
 $Rec? _$recordConvertNullable<$Rec>(
   Object? value,

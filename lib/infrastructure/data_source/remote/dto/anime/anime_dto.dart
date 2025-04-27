@@ -1,3 +1,4 @@
+import 'package:ani_sleuth/domain/model/anime/enum/anime_type.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/airing_dto.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/external_dto.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/service_dto.dart';
@@ -13,8 +14,9 @@ class AnimeDto {
   final int malId;
   final String url;
   final ImageDto images;
+  final String title;
   final List<TitleDto> titles;
-  final String type;
+  final AnimeType type;
   final int episodes;
   final String status;
   @JsonKey(name: 'airing')
@@ -22,7 +24,7 @@ class AnimeDto {
   final double score;
   @JsonKey(name: 'scored_by')
   final int scoredBy;
-  final String rank;
+  final int rank;
   final AiringDto aired;
   final String duration;
   final String rating;
@@ -40,11 +42,12 @@ class AnimeDto {
     List<String> endings,
   })? theme;
 
-  AnimeDto({
+  const AnimeDto({
     required this.malId,
     required this.url,
     required this.images,
     required this.titles,
+    required this.title,
     required this.type,
     required this.episodes,
     required this.status,

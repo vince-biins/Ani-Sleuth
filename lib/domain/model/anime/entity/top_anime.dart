@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 class TopAnime extends Equatable {
   final int malId;
   final String url;
-  final String image;
+  final String? imageUrl;
   final String title;
   final AnimeType type;
   final String episodes;
@@ -14,13 +14,13 @@ class TopAnime extends Equatable {
   final int scoredBy;
   final String airingStatus;
   final int popularity;
-  final int rank;
+  final String rank;
   final List<String> genres;
 
   const TopAnime({
     required this.malId,
     required this.url,
-    required this.image,
+    required this.imageUrl,
     required this.title,
     required this.type,
     required this.episodes,
@@ -38,7 +38,7 @@ class TopAnime extends Equatable {
   List<Object?> get props => [
         malId,
         url,
-        image,
+        imageUrl,
         title,
         type,
         episodes,
