@@ -1,6 +1,8 @@
 import 'package:ani_sleuth/application/api_util/a_failure.dart';
 import 'package:ani_sleuth/domain/mapper/anime_mapper.dart';
+import 'package:ani_sleuth/domain/model/anime/entity/genre.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/top_anime.dart';
+import 'package:ani_sleuth/domain/model/character/entity/top_character.dart';
 import 'package:ani_sleuth/domain/repository/a_dashboard_repository.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/service/dashboard_service.dart';
 import 'package:dartz/dartz.dart';
@@ -11,17 +13,28 @@ class ADashboardRepositoryImpl implements ADashboardRepository {
 
   ADashboardRepositoryImpl({required DashboardService dashboardService})
       : _dashboardService = dashboardService;
+
+  final _maxTopAnimeLimit = 25;
+  final _maxTopSeasonalAnimeLimit = 25;
+  final _maxTopCharacterLimit = 25;
+
   @override
-  Future<Either<AFailure, List<TopAnime>>> getAllGenre({
-    required int limit,
-  }) async {
+  Future<Either<AFailure, List<Genre>>> getAllGenre() async {
     try {
-      return await _dashboardService.getAllGenre(limit: limit).then((value) {
+      return await _dashboardService.getAllGenre().then((value) {
         return Right(value.data?.map((e) => e.transform()).toList() ?? []);
       });
     } on DioException catch (e) {
       return Left(
         AFailure.fromDioException(e),
+      );
+    } catch (e) {
+      return Left(
+        AFailure(
+          message: e.toString(),
+          error: e.toString(),
+          statusCode: 500,
+        ),
       );
     }
   }
@@ -32,11 +45,12 @@ class ADashboardRepositoryImpl implements ADashboardRepository {
   }) async {
     try {
       return await _dashboardService
-          .getAllSeasonalAnime(limit: limit)
+          .getAllSeasonalAnime(
+              limit: _checkMaxLimit(limit, _maxTopSeasonalAnimeLimit))
           .then((value) {
         return Right(value.data?.map((e) => e.transform()).toList() ?? []);
       });
-    } on DioException catch (e) {
+    } catch (e) {
       return Left(
         AFailure.fromDioException(e),
       );
@@ -48,10 +62,12 @@ class ADashboardRepositoryImpl implements ADashboardRepository {
     required int limit,
   }) async {
     try {
-      return await _dashboardService.getTopAnime(limit: limit).then((value) {
-        return Right(value.data?.map((e) => e.transform()).toList() ?? []);
-      });
-    } on DioException catch (e) {
+      final res = await _dashboardService.getTopAnime(
+        limit: _checkMaxLimit(limit, _maxTopAnimeLimit),
+      );
+
+      return Right(res.data?.map((e) => e.transform()).toList() ?? []);
+    } catch (e) {
       return Left(
         AFailure.fromDioException(e),
       );
@@ -59,19 +75,22 @@ class ADashboardRepositoryImpl implements ADashboardRepository {
   }
 
   @override
-  Future<Either<AFailure, List<TopAnime>>> getTopCharacters({
+  Future<Either<AFailure, List<TopCharacter>>> getTopCharacters({
     required int limit,
   }) async {
     try {
       return await _dashboardService
-          .getTopCharacters(limit: limit)
+          .getTopCharacters(limit: _checkMaxLimit(limit, _maxTopCharacterLimit))
           .then((value) {
         return Right(value.data?.map((e) => e.transform()).toList() ?? []);
       });
-    } on DioException catch (e) {
+    } catch (e) {
       return Left(
         AFailure.fromDioException(e),
       );
     }
   }
+
+  int _checkMaxLimit(int limit, int maxLimit) =>
+      limit > maxLimit ? maxLimit : limit;
 }

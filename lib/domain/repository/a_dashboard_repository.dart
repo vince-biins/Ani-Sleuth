@@ -1,5 +1,7 @@
 import 'package:ani_sleuth/application/api_util/a_failure.dart';
+import 'package:ani_sleuth/domain/model/anime/entity/genre.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/top_anime.dart';
+import 'package:ani_sleuth/domain/model/character/entity/top_character.dart';
 import 'package:dartz/dartz.dart';
 
 /// Todo: [ADashboardRepository] -
@@ -14,12 +16,10 @@ abstract class ADashboardRepository {
   Future<Either<AFailure, List<TopAnime>>> getTopAnime({
     required int limit,
   });
-  Future<Either<AFailure, List<TopAnime>>> getTopCharacters({
+  Future<Either<AFailure, List<TopCharacter>>> getTopCharacters({
     required int limit,
   });
-  Future<Either<AFailure, List<TopAnime>>> getAllGenre({
-    required int limit,
-  });
+  Future<Either<AFailure, List<Genre>>> getAllGenre();
   Future<Either<AFailure, List<TopAnime>>> getSeasonalAnime({
     required int limit,
   });

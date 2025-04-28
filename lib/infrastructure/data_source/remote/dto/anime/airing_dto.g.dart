@@ -34,9 +34,9 @@ $Rec? _$recordConvertNullable<$Rec>(
     value == null ? null : convert(value as Map<String, dynamic>);
 
 DateDto _$DateDtoFromJson(Map<String, dynamic> json) => DateDto(
-      day: (json['day'] as num).toInt(),
-      month: (json['month'] as num).toInt(),
-      year: (json['year'] as num).toInt(),
+      day: (json['day'] as num?)?.toInt(),
+      month: (json['month'] as num?)?.toInt(),
+      year: (json['year'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$DateDtoToJson(DateDto instance) => <String, dynamic>{

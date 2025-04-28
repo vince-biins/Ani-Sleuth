@@ -15,11 +15,11 @@ class Anime extends Equatable {
   final String rating;
   final AnimeType type;
   final String episodes;
-  final String score;
-  final int scoredBy;
+  final double? score;
+  final int? scoredBy;
   final String airingStatus;
   final int popularity;
-  final String rank;
+  final String? rank;
   final Airing airing;
   final List<String> genres;
   final List<AService> studios;

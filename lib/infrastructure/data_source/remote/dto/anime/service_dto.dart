@@ -1,12 +1,14 @@
+import 'package:ani_sleuth/domain/model/enum/entry_type.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'service_dto.g.dart';
 
 @JsonSerializable()
 class ServiceDto {
+  @JsonKey(name: 'mal_id')
   final int malId;
   final String name;
-  final String type;
+  final EntryType type;
   final String url;
 
   ServiceDto({

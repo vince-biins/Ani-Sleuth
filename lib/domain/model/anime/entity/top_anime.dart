@@ -10,8 +10,8 @@ class TopAnime extends Equatable {
   final String title;
   final AnimeType type;
   final String episodes;
-  final String score;
-  final int scoredBy;
+  final double? score;
+  final int? scoredBy;
   final String airingStatus;
   final int popularity;
   final String rank;

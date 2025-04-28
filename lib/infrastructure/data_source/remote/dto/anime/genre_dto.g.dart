@@ -1,27 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'service_dto.dart';
+part of 'genre_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ServiceDto _$ServiceDtoFromJson(Map<String, dynamic> json) => ServiceDto(
+GenreDto _$GenreDtoFromJson(Map<String, dynamic> json) => GenreDto(
       malId: (json['mal_id'] as num).toInt(),
       name: json['name'] as String,
-      type: $enumDecode(_$EntryTypeEnumMap, json['type']),
       url: json['url'] as String,
+      count: (json['count'] as num).toInt(),
     );
 
-Map<String, dynamic> _$ServiceDtoToJson(ServiceDto instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$GenreDtoToJson(GenreDto instance) => <String, dynamic>{
       'mal_id': instance.malId,
       'name': instance.name,
-      'type': _$EntryTypeEnumMap[instance.type]!,
       'url': instance.url,
+      'count': instance.count,
     };
-
-const _$EntryTypeEnumMap = {
-  EntryType.anime: 'anime',
-  EntryType.manga: 'manga',
-};

@@ -1,4 +1,4 @@
-import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/image_format_dto.dart';
+import 'package:ani_sleuth/infrastructure/data_source/remote/dto/common/image_format_dto.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'trailer_dto.g.dart';

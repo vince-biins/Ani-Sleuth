@@ -3,30 +3,30 @@
 import 'package:json_annotation/json_annotation.dart';
 
 enum AnimeType {
-  @JsonValue('tv')
-  tv,
+  @JsonValue('TV')
+  TV,
 
-  @JsonValue('movie')
+  @JsonValue('Movie')
   movie,
 
-  @JsonValue('ova')
+  @JsonValue('OVA')
   ova,
 
-  @JsonValue('special')
+  @JsonValue('Special')
   special,
 
-  @JsonValue('ona')
+  @JsonValue('ONA')
   ona,
 
-  @JsonValue('music')
+  @JsonValue('Music')
   music,
 
-  @JsonValue('cm')
+  @JsonValue('CM')
   cm,
 
-  @JsonValue('pv')
+  @JsonValue('PV')
   pv,
 
-  @JsonValue('tv_special')
+  @JsonValue('TV Special')
   tv_special,
 }

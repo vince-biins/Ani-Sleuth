@@ -20,9 +20,9 @@ class AiringDto {
 
 @JsonSerializable()
 class DateDto {
-  final int day;
-  final int month;
-  final int year;
+  final int? day;
+  final int? month;
+  final int? year;
   DateDto({
     required this.day,
     required this.month,

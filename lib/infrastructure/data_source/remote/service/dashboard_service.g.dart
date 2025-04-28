@@ -55,13 +55,13 @@ class _DashboardService implements DashboardService {
   }
 
   @override
-  Future<ApiSuccess<List<AnimeDto>>> getTopCharacters({int? limit}) async {
+  Future<ApiSuccess<List<CharacterDto>>> getTopCharacters({int? limit}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'limit': limit};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ApiSuccess<List<AnimeDto>>>(
+    final _options = _setStreamType<ApiSuccess<List<CharacterDto>>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -72,14 +72,14 @@ class _DashboardService implements DashboardService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ApiSuccess<List<AnimeDto>> _value;
+    late ApiSuccess<List<CharacterDto>> _value;
     try {
-      _value = ApiSuccess<List<AnimeDto>>.fromJson(
+      _value = ApiSuccess<List<CharacterDto>>.fromJson(
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<AnimeDto>(
-                  (i) => AnimeDto.fromJson(i as Map<String, dynamic>),
+                .map<CharacterDto>(
+                  (i) => CharacterDto.fromJson(i as Map<String, dynamic>),
                 )
                 .toList()
             : List.empty(),
@@ -92,13 +92,12 @@ class _DashboardService implements DashboardService {
   }
 
   @override
-  Future<ApiSuccess<List<AnimeDto>>> getAllGenre({int? limit}) async {
+  Future<ApiSuccess<List<GenreDto>>> getAllGenre() async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'limit': limit};
-    queryParameters.removeWhere((k, v) => v == null);
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ApiSuccess<List<AnimeDto>>>(
+    final _options = _setStreamType<ApiSuccess<List<GenreDto>>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -109,14 +108,14 @@ class _DashboardService implements DashboardService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ApiSuccess<List<AnimeDto>> _value;
+    late ApiSuccess<List<GenreDto>> _value;
     try {
-      _value = ApiSuccess<List<AnimeDto>>.fromJson(
+      _value = ApiSuccess<List<GenreDto>>.fromJson(
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<AnimeDto>(
-                  (i) => AnimeDto.fromJson(i as Map<String, dynamic>),
+                .map<GenreDto>(
+                  (i) => GenreDto.fromJson(i as Map<String, dynamic>),
                 )
                 .toList()
             : List.empty(),

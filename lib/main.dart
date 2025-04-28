@@ -1,18 +1,48 @@
+import 'package:ani_sleuth/application/api_util/a_failure.dart';
+import 'package:ani_sleuth/domain/model/anime/entity/genre.dart';
+import 'package:ani_sleuth/domain/model/anime/entity/top_anime.dart';
+import 'package:ani_sleuth/domain/model/character/entity/top_character.dart';
+import 'package:ani_sleuth/domain/repository/a_dashboard_repository.dart';
+import 'package:ani_sleuth/utils/injectors/service_locator.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  initializeDependencies();
   runApp(const MainApp());
 }
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
+  ADashboardRepository get dashboardRepository => getIt<ADashboardRepository>();
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    final Future<Either<AFailure, List<Genre>>> topAnimeFuture =
+        dashboardRepository.getAllGenre();
+
+    return MaterialApp(
       home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Top Anime'),
+        ),
         body: Center(
-          child: Text('Hello World!'),
+          child: FutureBuilder<Either<AFailure, List<Genre>>>(
+            future: topAnimeFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator(); // Show loading indicator
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else if (snapshot.hasData) {
+                return snapshot.data!.fold(
+                    (failure) => Text('Error: ${failure.message}'),
+                    (animeList) => Text(animeList.toString()));
+              } else {
+                return const Text('No data received.');
+              }
+            },
+          ),
         ),
       ),
     );

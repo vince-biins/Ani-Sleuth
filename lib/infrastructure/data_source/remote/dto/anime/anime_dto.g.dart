@@ -15,17 +15,17 @@ AnimeDto _$AnimeDtoFromJson(Map<String, dynamic> json) => AnimeDto(
           .toList(),
       title: json['title'] as String,
       type: $enumDecode(_$AnimeTypeEnumMap, json['type']),
-      episodes: (json['episodes'] as num).toInt(),
+      episodes: (json['episodes'] as num?)?.toInt(),
       status: json['status'] as String,
       isAiring: json['airing'] as bool,
-      score: (json['score'] as num).toDouble(),
-      scoredBy: (json['scored_by'] as num).toInt(),
-      rank: (json['rank'] as num).toInt(),
+      score: (json['score'] as num?)?.toDouble(),
+      scoredBy: (json['scored_by'] as num?)?.toInt(),
+      rank: (json['rank'] as num?)?.toInt(),
       aired: AiringDto.fromJson(json['aired'] as Map<String, dynamic>),
       duration: json['duration'] as String,
       rating: json['rating'] as String,
-      synopsis: json['synopsis'] as String,
-      background: json['background'] as String,
+      synopsis: json['synopsis'] as String?,
+      background: json['background'] as String?,
       popularity: (json['popularity'] as num).toInt(),
       genres: (json['genres'] as List<dynamic>)
           .map((e) => ServiceDto.fromJson(e as Map<String, dynamic>))
@@ -56,6 +56,9 @@ AnimeDto _$AnimeDtoFromJson(Map<String, dynamic> json) => AnimeDto(
               .toList(),
         ),
       ),
+      trailer: json['trailer'] == null
+          ? null
+          : TrailerDto.fromJson(json['trailer'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AnimeDtoToJson(AnimeDto instance) => <String, dynamic>{
@@ -77,6 +80,7 @@ Map<String, dynamic> _$AnimeDtoToJson(AnimeDto instance) => <String, dynamic>{
       'synopsis': instance.synopsis,
       'background': instance.background,
       'popularity': instance.popularity,
+      'trailer': instance.trailer,
       'genres': instance.genres,
       'studios': instance.studios,
       'licensors': instance.licensors,
@@ -92,15 +96,15 @@ Map<String, dynamic> _$AnimeDtoToJson(AnimeDto instance) => <String, dynamic>{
     };
 
 const _$AnimeTypeEnumMap = {
-  AnimeType.tv: 'tv',
-  AnimeType.movie: 'movie',
-  AnimeType.ova: 'ova',
-  AnimeType.special: 'special',
-  AnimeType.ona: 'ona',
-  AnimeType.music: 'music',
-  AnimeType.cm: 'cm',
-  AnimeType.pv: 'pv',
-  AnimeType.tv_special: 'tv_special',
+  AnimeType.TV: 'TV',
+  AnimeType.movie: 'Movie',
+  AnimeType.ova: 'OVA',
+  AnimeType.special: 'Special',
+  AnimeType.ona: 'ONA',
+  AnimeType.music: 'Music',
+  AnimeType.cm: 'CM',
+  AnimeType.pv: 'PV',
+  AnimeType.tv_special: 'TV Special',
 };
 
 $Rec? _$recordConvertNullable<$Rec>(
