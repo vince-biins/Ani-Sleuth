@@ -1,1 +1,8 @@
-enum EntryType { anime, manga }
+import 'package:json_annotation/json_annotation.dart';
+
+enum EntryType {
+  @JsonValue('anime')
+  anime,
+  @JsonValue('manga')
+  manga,
+}

@@ -1,4 +1,4 @@
-import 'package:ani_sleuth/domain/model/anime/entity/genre.dart';
+import 'package:ani_sleuth/domain/model/common/genre.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/top_anime.dart';
 import 'package:ani_sleuth/domain/model/character/entity/top_character.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/anime_dto.dart';
