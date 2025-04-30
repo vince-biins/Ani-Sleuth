@@ -9,7 +9,7 @@ class FullManga extends Manga {
   final bool isPublishing;
   final Airing published;
   final int favorites;
-  final String rating;
+  final String? rating;
   final List<Genre> genres;
   final List<AService> authors;
   final List<AService> serializations;
@@ -40,4 +40,17 @@ class FullManga extends Manga {
 
   @override
   bool get stringify => true;
+  @override
+  List<Object?> get props => [
+        ...super.props,
+        synopsis,
+        background,
+        isPublishing,
+        published,
+        favorites,
+        rating,
+        genres,
+        authors,
+        serializations,
+      ];
 }

@@ -28,7 +28,7 @@ class _MangaService implements MangaService {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'v4/top/manga',
+            '/v4/top/manga',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -55,35 +55,27 @@ class _MangaService implements MangaService {
   }
 
   @override
-  Future<ApiSuccess<List<MangaDto>>> fetchMangaFullById({
-    required int id,
-  }) async {
+  Future<ApiSuccess<MangaDto>> fetchMangaFullById({required int id}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ApiSuccess<List<MangaDto>>>(
+    final _options = _setStreamType<ApiSuccess<MangaDto>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'v4/manga/${id}/full',
+            '/v4/manga/${id}/full',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ApiSuccess<List<MangaDto>> _value;
+    late ApiSuccess<MangaDto> _value;
     try {
-      _value = ApiSuccess<List<MangaDto>>.fromJson(
+      _value = ApiSuccess<MangaDto>.fromJson(
         _result.data!,
-        (json) => json is List<dynamic>
-            ? json
-                .map<MangaDto>(
-                  (i) => MangaDto.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
-            : List.empty(),
+        (json) => MangaDto.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
@@ -104,7 +96,7 @@ class _MangaService implements MangaService {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'v4/manga/${id}/reviews',
+            '/v4/manga/${id}/reviews',
             queryParameters: queryParameters,
             data: _data,
           )

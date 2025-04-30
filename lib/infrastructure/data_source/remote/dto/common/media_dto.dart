@@ -27,7 +27,7 @@ class MediaDto {
   final int popularity;
   final int members;
   final int favorites;
-  final String rating;
+  final String? rating;
   final List<GenreDto> genres;
   final List<ServiceDto> themes;
   final List<ExternalDto>? external;

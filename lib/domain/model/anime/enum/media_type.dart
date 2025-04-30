@@ -32,4 +32,10 @@ enum MediaType {
 
   @JsonValue('Manga')
   manga,
+
+  @JsonValue('Novel')
+  novel,
+
+  @JsonValue('Light Novel')
+  light_novel,
 }

@@ -11,17 +11,17 @@ part 'manga_service.g.dart';
 abstract class MangaService {
   factory MangaService(Dio dio, {String baseUrl}) = _MangaService;
 
-  @GET('v4/top/manga')
+  @GET('/v4/top/manga')
   Future<ApiSuccess<List<MangaDto>>> fetchListOfTopManga({
     @Query('limit') int? limit,
   });
 
-  @GET('v4/manga/{id}/full')
-  Future<ApiSuccess<List<MangaDto>>> fetchMangaFullById({
+  @GET('/v4/manga/{id}/full')
+  Future<ApiSuccess<MangaDto>> fetchMangaFullById({
     @Path('id') required int id,
   });
 
-  @GET('v4/manga/{id}/reviews')
+  @GET('/v4/manga/{id}/reviews')
   Future<ApiSuccess<List<ReviewDto>>> fetchMangaReviews({
     @Path('id') required int id,
   });

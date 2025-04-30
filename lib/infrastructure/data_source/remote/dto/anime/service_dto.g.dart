@@ -24,4 +24,5 @@ Map<String, dynamic> _$ServiceDtoToJson(ServiceDto instance) =>
 const _$EntryTypeEnumMap = {
   EntryType.anime: 'anime',
   EntryType.manga: 'manga',
+  EntryType.people: 'people',
 };

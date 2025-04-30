@@ -34,6 +34,7 @@ Map<String, dynamic> _$ReviewDtoToJson(ReviewDto instance) => <String, dynamic>{
 const _$EntryTypeEnumMap = {
   EntryType.anime: 'anime',
   EntryType.manga: 'manga',
+  EntryType.people: 'people',
 };
 
 ReactionDto _$ReactionDtoFromJson(Map<String, dynamic> json) => ReactionDto(

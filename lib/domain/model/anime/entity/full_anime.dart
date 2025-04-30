@@ -9,7 +9,7 @@ class FullAnime extends Anime {
   final Airing airing;
   final bool isAiring;
   final String duration;
-  final String rating;
+  final String? rating;
   final List<AService> studios;
   final List<AService> licensors;
   final List<AService> producers;

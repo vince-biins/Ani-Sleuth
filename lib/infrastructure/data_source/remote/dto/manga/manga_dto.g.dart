@@ -34,7 +34,7 @@ MangaDto _$MangaDtoFromJson(Map<String, dynamic> json) => MangaDto(
       popularity: (json['popularity'] as num).toInt(),
       members: (json['members'] as num).toInt(),
       favorites: (json['favorites'] as num).toInt(),
-      rating: json['rating'] as String,
+      rating: json['rating'] as String?,
       genres: (json['genres'] as List<dynamic>)
           .map((e) => GenreDto.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -85,4 +85,6 @@ const _$MediaTypeEnumMap = {
   MediaType.pv: 'PV',
   MediaType.tv_special: 'TV Special',
   MediaType.manga: 'Manga',
+  MediaType.novel: 'Novel',
+  MediaType.light_novel: 'Light Novel',
 };
