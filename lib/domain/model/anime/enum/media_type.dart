@@ -2,7 +2,7 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
-enum AnimeType {
+enum MediaType {
   @JsonValue('TV')
   TV,
 
@@ -29,4 +29,7 @@ enum AnimeType {
 
   @JsonValue('TV Special')
   tv_special,
+
+  @JsonValue('Manga')
+  manga,
 }

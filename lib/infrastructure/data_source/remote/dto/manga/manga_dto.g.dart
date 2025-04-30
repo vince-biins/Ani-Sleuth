@@ -1,42 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'anime_dto.dart';
+part of 'manga_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-AnimeDto _$AnimeDtoFromJson(Map<String, dynamic> json) => AnimeDto(
-      episodes: (json['episodes'] as num?)?.toInt(),
-      isAiring: json['airing'] as bool,
-      aired: AiringDto.fromJson(json['aired'] as Map<String, dynamic>),
-      duration: json['duration'] as String,
-      studios: (json['studios'] as List<dynamic>)
+MangaDto _$MangaDtoFromJson(Map<String, dynamic> json) => MangaDto(
+      chapters: (json['chapters'] as num?)?.toInt(),
+      volumes: (json['volumes'] as num?)?.toInt(),
+      isPublishing: json['publishing'] as bool,
+      published: AiringDto.fromJson(json['published'] as Map<String, dynamic>),
+      authors: (json['authors'] as List<dynamic>)
           .map((e) => ServiceDto.fromJson(e as Map<String, dynamic>))
           .toList(),
-      licensors: (json['licensors'] as List<dynamic>)
+      serializations: (json['serializations'] as List<dynamic>)
           .map((e) => ServiceDto.fromJson(e as Map<String, dynamic>))
           .toList(),
-      producers: (json['producers'] as List<dynamic>)
-          .map((e) => ServiceDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      streaming: (json['streaming'] as List<dynamic>?)
-          ?.map((e) => ExternalDto.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      theme: _$recordConvertNullable(
-        json['theme'],
-        ($jsonValue) => (
-          endings: ($jsonValue['endings'] as List<dynamic>)
-              .map((e) => e as String)
-              .toList(),
-          openings: ($jsonValue['openings'] as List<dynamic>)
-              .map((e) => e as String)
-              .toList(),
-        ),
-      ),
-      trailer: json['trailer'] == null
-          ? null
-          : TrailerDto.fromJson(json['trailer'] as Map<String, dynamic>),
       malId: (json['mal_id'] as num).toInt(),
       url: json['url'] as String,
       images: ImageDto.fromJson(json['images'] as Map<String, dynamic>),
@@ -66,7 +46,7 @@ AnimeDto _$AnimeDtoFromJson(Map<String, dynamic> json) => AnimeDto(
           .toList(),
     );
 
-Map<String, dynamic> _$AnimeDtoToJson(AnimeDto instance) => <String, dynamic>{
+Map<String, dynamic> _$MangaDtoToJson(MangaDto instance) => <String, dynamic>{
       'mal_id': instance.malId,
       'url': instance.url,
       'images': instance.images,
@@ -86,28 +66,13 @@ Map<String, dynamic> _$AnimeDtoToJson(AnimeDto instance) => <String, dynamic>{
       'genres': instance.genres,
       'themes': instance.themes,
       'external': instance.external,
-      'episodes': instance.episodes,
-      'airing': instance.isAiring,
-      'aired': instance.aired,
-      'duration': instance.duration,
-      'trailer': instance.trailer,
-      'studios': instance.studios,
-      'licensors': instance.licensors,
-      'producers': instance.producers,
-      'streaming': instance.streaming,
-      'theme': instance.theme == null
-          ? null
-          : <String, dynamic>{
-              'endings': instance.theme!.endings,
-              'openings': instance.theme!.openings,
-            },
+      'chapters': instance.chapters,
+      'volumes': instance.volumes,
+      'publishing': instance.isPublishing,
+      'published': instance.published,
+      'authors': instance.authors,
+      'serializations': instance.serializations,
     };
-
-$Rec? _$recordConvertNullable<$Rec>(
-  Object? value,
-  $Rec Function(Map) convert,
-) =>
-    value == null ? null : convert(value as Map<String, dynamic>);
 
 const _$MediaTypeEnumMap = {
   MediaType.TV: 'TV',

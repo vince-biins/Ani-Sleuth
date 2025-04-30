@@ -1,6 +1,6 @@
 import 'package:ani_sleuth/application/api_util/api_success.dart';
-import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/anime_dto.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/common/review_dto.dart';
+import 'package:ani_sleuth/infrastructure/data_source/remote/dto/manga/manga_dto.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
@@ -12,12 +12,12 @@ abstract class MangaService {
   factory MangaService(Dio dio, {String baseUrl}) = _MangaService;
 
   @GET('v4/top/manga')
-  Future<ApiSuccess<List<AnimeDto>>> fetchListOfTopManga({
+  Future<ApiSuccess<List<MangaDto>>> fetchListOfTopManga({
     @Query('limit') int? limit,
   });
 
   @GET('v4/manga/{id}/full')
-  Future<ApiSuccess<List<AnimeDto>>> fetchMangaFullById({
+  Future<ApiSuccess<List<MangaDto>>> fetchMangaFullById({
     @Path('id') required int id,
   });
 

@@ -1,6 +1,7 @@
 import 'package:ani_sleuth/application/api_util/a_failure.dart';
 import 'package:ani_sleuth/domain/mapper/anime_mapper.dart';
-import 'package:ani_sleuth/domain/model/anime/entity/anime.dart';
+import 'package:ani_sleuth/domain/model/anime/entity/full_anime.dart';
+import 'package:ani_sleuth/domain/model/anime/entity/seasonal_anime.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/top_anime.dart';
 import 'package:ani_sleuth/domain/repository/anime_repository.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/service/anime/anime_service.dart';
@@ -12,15 +13,15 @@ class AnimeRepositoryImpl implements AnimeRepository {
       : _animeService = animeService;
 
   @override
-  Future<Either<AFailure, List<Anime>>> getAnimeFullById({
+  Future<Either<AFailure, List<FullAnime>>> getAnimeFullById({
     required int id,
   }) {
     return _animeService
         .fetchAnimeFullById(id: id)
-        .then<Either<AFailure, List<Anime>>>((value) {
+        .then<Either<AFailure, List<FullAnime>>>((value) {
       return Right(value.data?.map((e) => e.transformFull()).toList() ?? []);
     }).catchError((e) {
-      return Left<AFailure, List<Anime>>(
+      return Left<AFailure, List<FullAnime>>(
         AFailure.fromDioException(e),
       );
     });
@@ -57,15 +58,17 @@ class AnimeRepositoryImpl implements AnimeRepository {
   }
 
   @override
-  Future<Either<AFailure, List<TopAnime>>> getSeasonNowAnime({
+  Future<Either<AFailure, List<SeasonalAnime>>> getSeasonNowAnime({
     required int limit,
   }) {
     return _animeService
         .fetchSeasonNowAnime(limit: limit)
-        .then<Either<AFailure, List<TopAnime>>>((value) {
-      return Right(value.data?.map((e) => e.transform()).toList() ?? []);
+        .then<Either<AFailure, List<SeasonalAnime>>>((value) {
+      return Right(
+        value.data?.map((e) => e.transformSeasonal()).toList() ?? [],
+      );
     }).catchError((e) {
-      return Left<AFailure, List<TopAnime>>(
+      return Left<AFailure, List<SeasonalAnime>>(
         AFailure.fromDioException(e),
       );
     });

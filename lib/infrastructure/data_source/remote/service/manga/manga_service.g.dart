@@ -18,13 +18,13 @@ class _MangaService implements MangaService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<ApiSuccess<List<AnimeDto>>> fetchListOfTopManga({int? limit}) async {
+  Future<ApiSuccess<List<MangaDto>>> fetchListOfTopManga({int? limit}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'limit': limit};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ApiSuccess<List<AnimeDto>>>(
+    final _options = _setStreamType<ApiSuccess<List<MangaDto>>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -35,14 +35,14 @@ class _MangaService implements MangaService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ApiSuccess<List<AnimeDto>> _value;
+    late ApiSuccess<List<MangaDto>> _value;
     try {
-      _value = ApiSuccess<List<AnimeDto>>.fromJson(
+      _value = ApiSuccess<List<MangaDto>>.fromJson(
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<AnimeDto>(
-                  (i) => AnimeDto.fromJson(i as Map<String, dynamic>),
+                .map<MangaDto>(
+                  (i) => MangaDto.fromJson(i as Map<String, dynamic>),
                 )
                 .toList()
             : List.empty(),
@@ -55,14 +55,14 @@ class _MangaService implements MangaService {
   }
 
   @override
-  Future<ApiSuccess<List<AnimeDto>>> fetchMangaFullById({
+  Future<ApiSuccess<List<MangaDto>>> fetchMangaFullById({
     required int id,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ApiSuccess<List<AnimeDto>>>(
+    final _options = _setStreamType<ApiSuccess<List<MangaDto>>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -73,14 +73,14 @@ class _MangaService implements MangaService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ApiSuccess<List<AnimeDto>> _value;
+    late ApiSuccess<List<MangaDto>> _value;
     try {
-      _value = ApiSuccess<List<AnimeDto>>.fromJson(
+      _value = ApiSuccess<List<MangaDto>>.fromJson(
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<AnimeDto>(
-                  (i) => AnimeDto.fromJson(i as Map<String, dynamic>),
+                .map<MangaDto>(
+                  (i) => MangaDto.fromJson(i as Map<String, dynamic>),
                 )
                 .toList()
             : List.empty(),

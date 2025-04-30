@@ -1,52 +1,23 @@
-import 'package:ani_sleuth/domain/model/anime/enum/anime_type.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
+import 'package:ani_sleuth/domain/model/anime/entity/anime.dart';
 
-@immutable
-class TopAnime extends Equatable {
-  final int malId;
-  final String url;
-  final String? imageUrl;
-  final String title;
-  final AnimeType type;
-  final String episodes;
-  final double? score;
-  final int? scoredBy;
-  final String airingStatus;
-  final int popularity;
-  final String rank;
-  final List<String> genres;
-
+class TopAnime extends Anime {
+  final List<String> sGenres;
   const TopAnime({
-    required this.malId,
-    required this.url,
-    required this.imageUrl,
-    required this.title,
-    required this.type,
-    required this.episodes,
-    required this.score,
-    required this.scoredBy,
-    required this.airingStatus,
-    required this.popularity,
-    required this.rank,
-    required this.genres,
+    required super.malId,
+    required super.url,
+    required super.imageUrl,
+    required super.title,
+    required super.type,
+    required super.status,
+    required super.popularity,
+    required super.rank,
+    required super.score,
+    required super.scoredBy,
+    required super.episodes,
+    required super.genres,
+    required this.sGenres,
   });
+
   @override
   bool? get stringify => true;
-
-  @override
-  List<Object?> get props => [
-        malId,
-        url,
-        imageUrl,
-        title,
-        type,
-        episodes,
-        score,
-        scoredBy,
-        airingStatus,
-        popularity,
-        rank,
-        genres,
-      ];
 }

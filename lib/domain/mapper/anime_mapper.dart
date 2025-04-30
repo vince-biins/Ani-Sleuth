@@ -1,5 +1,6 @@
-import 'package:ani_sleuth/domain/model/anime/entity/anime.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/aservice.dart';
+import 'package:ani_sleuth/domain/model/anime/entity/full_anime.dart';
+import 'package:ani_sleuth/domain/model/anime/entity/seasonal_anime.dart';
 import 'package:ani_sleuth/domain/model/anime/valueobject/airing.dart';
 import 'package:ani_sleuth/domain/model/anime/valueobject/external.dart';
 import 'package:ani_sleuth/domain/model/common/genre.dart';
@@ -21,24 +22,42 @@ extension AnimeMapper on AnimeDto {
       episodes: episodes.toString(),
       score: score,
       scoredBy: scoredBy,
-      airingStatus: status,
+      status: status,
       popularity: popularity,
       rank: rank != null ? '#$rank' : 'Unranked',
-      genres: genres.map((e) => e.name).toList(),
+      sGenres: genres.map((e) => e.name).toList(),
+      genres: genres.map((e) => e.transform()).toList(),
     );
   }
 
-  Anime transformFull() {
-    return Anime(
+  SeasonalAnime transformSeasonal() {
+    return SeasonalAnime(
       malId: malId,
       url: url,
-      image: images.jpg?.largeImageUrl ?? images.webp?.largeImageUrl,
+      imageUrl: images.jpg?.mediumImageUrl ?? images.webp?.mediumImageUrl,
       title: title,
       type: type,
       episodes: episodes.toString(),
       score: score,
       scoredBy: scoredBy,
-      airingStatus: status,
+      status: status,
+      popularity: popularity,
+      rank: rank != null ? '#$rank' : 'Unranked',
+      genres: genres.map((e) => e.transform()).toList(),
+    );
+  }
+
+  FullAnime transformFull() {
+    return FullAnime(
+      malId: malId,
+      url: url,
+      imageUrl: images.jpg?.largeImageUrl ?? images.webp?.largeImageUrl,
+      title: title,
+      type: type,
+      episodes: episodes.toString(),
+      score: score,
+      scoredBy: scoredBy,
+      status: status,
       popularity: popularity,
       rank: rank != null ? '#$rank' : 'Unranked',
       genres: genres.map((e) => e.transform()).toList(),
