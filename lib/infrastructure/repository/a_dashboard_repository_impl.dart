@@ -12,6 +12,9 @@ class ADashboardRepositoryImpl implements ADashboardRepository {
   final AnimeRepository _animeRepository;
   final CharacterRepository _characterRepository;
   final GenreRepository _genreRepository;
+  final _maxTopAnimeLimit = 25;
+  final _maxTopSeasonalAnimeLimit = 25;
+  final _maxTopCharacterLimit = 25;
 
   ADashboardRepositoryImpl({
     required GenreRepository genreRepository,
@@ -21,30 +24,9 @@ class ADashboardRepositoryImpl implements ADashboardRepository {
         _characterRepository = characterRepository,
         _genreRepository = genreRepository;
 
-  final _maxTopAnimeLimit = 25;
-  final _maxTopSeasonalAnimeLimit = 25;
-  final _maxTopCharacterLimit = 25;
-
   @override
-  Future<Either<AFailure, List<Genre>>> getAllGenre() async {
+  Future<Either<AFailure, List<Genre>>> getAnimeGenre() async {
     return await _genreRepository.getAnimeGenre();
-    // try {
-    //   return await _genreRepository.getAnimeGenre().then((value) {
-    //     return Right(value.data?.map((e) => e.transform()).toList() ?? []);
-    //   });
-    // } on DioException catch (e) {
-    //   return Left(
-    //     AFailure.fromDioException(e),
-    //   );
-    // } catch (e) {
-    //   return Left(
-    //     AFailure(
-    //       message: e.toString(),
-    //       error: e.toString(),
-    //       statusCode: 500,
-    //     ),
-    //   );
-    // }
   }
 
   @override
@@ -54,18 +36,6 @@ class ADashboardRepositoryImpl implements ADashboardRepository {
     return await _animeRepository.getSeasonNowAnime(
       limit: _checkMaxLimit(limit, _maxTopSeasonalAnimeLimit),
     );
-    // try {
-    //   return await _dashboardService
-    //       .getAllSeasonalAnime(
-    //           limit: _checkMaxLimit(limit, _maxTopSeasonalAnimeLimit))
-    //       .then((value) {
-    //     return Right(value.data?.map((e) => e.transform()).toList() ?? []);
-    //   });
-    // } catch (e) {
-    //   return Left(
-    //     AFailure.fromDioException(e),
-    //   );
-    // }
   }
 
   @override
@@ -75,17 +45,6 @@ class ADashboardRepositoryImpl implements ADashboardRepository {
     return await _animeRepository.getListOfTopAnimes(
       limit: _checkMaxLimit(limit, _maxTopAnimeLimit),
     );
-    // try {
-    //   final res = await _dashboardService.getTopAnime(
-    //     limit: _checkMaxLimit(limit, _maxTopAnimeLimit),
-    //   );
-
-    //   return Right(res.data?.map((e) => e.transform()).toList() ?? []);
-    // } catch (e) {
-    //   return Left(
-    //     AFailure.fromDioException(e),
-    //   );
-    // }
   }
 
   @override
@@ -95,17 +54,6 @@ class ADashboardRepositoryImpl implements ADashboardRepository {
     return await _characterRepository.getListOfTopCharacters(
       limit: _checkMaxLimit(limit, _maxTopCharacterLimit),
     );
-    // try {
-    //   return await _dashboardService
-    //       .getTopCharacters(limit: _checkMaxLimit(limit, _maxTopCharacterLimit))
-    //       .then((value) {
-    //     return Right(value.data?.map((e) => e.transform()).toList() ?? []);
-    //   });
-    // } catch (e) {
-    //   return Left(
-    //     AFailure.fromDioException(e),
-    //   );
-    // }
   }
 
   int _checkMaxLimit(int limit, int maxLimit) =>

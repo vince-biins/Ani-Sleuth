@@ -28,7 +28,7 @@ AnimeDto _$AnimeDtoFromJson(Map<String, dynamic> json) => AnimeDto(
       background: json['background'] as String?,
       popularity: (json['popularity'] as num).toInt(),
       genres: (json['genres'] as List<dynamic>)
-          .map((e) => ServiceDto.fromJson(e as Map<String, dynamic>))
+          .map((e) => GenreDto.fromJson(e as Map<String, dynamic>))
           .toList(),
       studios: (json['studios'] as List<dynamic>)
           .map((e) => ServiceDto.fromJson(e as Map<String, dynamic>))

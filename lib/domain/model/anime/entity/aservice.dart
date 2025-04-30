@@ -1,9 +1,10 @@
+import 'package:ani_sleuth/domain/model/enum/entry_type.dart';
 import 'package:equatable/equatable.dart';
 
 class AService extends Equatable {
   final int malId;
   final String name;
-  final String type;
+  final EntryType type;
 
   const AService({
     required this.malId,

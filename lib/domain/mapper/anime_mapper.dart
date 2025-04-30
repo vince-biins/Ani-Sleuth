@@ -1,9 +1,14 @@
+import 'package:ani_sleuth/domain/model/anime/entity/anime.dart';
+import 'package:ani_sleuth/domain/model/anime/entity/aservice.dart';
+import 'package:ani_sleuth/domain/model/anime/valueobject/airing.dart';
+import 'package:ani_sleuth/domain/model/anime/valueobject/external.dart';
 import 'package:ani_sleuth/domain/model/common/genre.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/top_anime.dart';
-import 'package:ani_sleuth/domain/model/character/entity/top_character.dart';
+import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/airing_dto.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/anime_dto.dart';
+import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/external_dto.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/genre_dto.dart';
-import 'package:ani_sleuth/infrastructure/data_source/remote/dto/character/character_dto.dart';
+import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/service_dto.dart';
 
 extension AnimeMapper on AnimeDto {
   TopAnime transform() {
@@ -22,19 +27,32 @@ extension AnimeMapper on AnimeDto {
       genres: genres.map((e) => e.name).toList(),
     );
   }
-}
 
-extension CharacterMapper on CharacterDto {
-  TopCharacter transform() {
-    return TopCharacter(
+  Anime transformFull() {
+    return Anime(
       malId: malId,
       url: url,
-      images: images?.jpg?.imageUrl ?? images?.webp?.imageUrl,
-      name: name,
-      nameKanji: nameKanji,
-      nicknames: nicknames ?? [],
-      favorites: favorites,
-      about: about,
+      image: images.jpg?.largeImageUrl ?? images.webp?.largeImageUrl,
+      title: title,
+      type: type,
+      episodes: episodes.toString(),
+      score: score,
+      scoredBy: scoredBy,
+      airingStatus: status,
+      popularity: popularity,
+      rank: rank != null ? '#$rank' : 'Unranked',
+      genres: genres.map((e) => e.transform()).toList(),
+      synopsis: synopsis,
+      background: background ?? 'No background available',
+      studios: studios.map((e) => e.transform()).toList(),
+      licensors: licensors.map((e) => e.transform()).toList(),
+      producers: producers.map((e) => e.transform()).toList(),
+      external: external?.map((e) => e.transform()).toList() ?? [],
+      streaming: streaming?.map((e) => e.transform()).toList() ?? [],
+      airing: aired.transform(),
+      duration: duration,
+      rating: rating,
+      isAiring: isAiring,
     );
   }
 }
@@ -46,6 +64,50 @@ extension GenreMapper on GenreDto {
       name: name,
       url: url,
       count: count,
+      type: type,
     );
   }
+}
+
+extension ServiceMapper on ServiceDto {
+  AService transform() {
+    return AService(
+      malId: malId,
+      name: name,
+      type: type,
+    );
+  }
+}
+
+extension ExternalMapper on ExternalDto {
+  External transform() {
+    return External(
+      name: name.orEmpty(),
+      url: url.orEmpty(),
+    );
+  }
+}
+
+extension AiringMapper on AiringDto {
+  Airing transform() {
+    return Airing(
+      defaultDateString: string,
+      formattedDateString: string, // To do format this
+      date: (from: prop?.from.transform(), to: prop?.to.transform()),
+    );
+  }
+}
+
+extension DateMapper on DateDto {
+  ADate transform() {
+    return ADate(
+      day: day,
+      month: month,
+      year: year,
+    );
+  }
+}
+
+extension on String? {
+  String orEmpty() => this == null ? '' : this!;
 }

@@ -1,5 +1,6 @@
 import 'package:ani_sleuth/application/api_util/a_failure.dart';
-import 'package:ani_sleuth/domain/model/common/genre.dart';
+import 'package:ani_sleuth/domain/model/character/entity/top_character.dart';
+
 import 'package:ani_sleuth/domain/repository/a_dashboard_repository.dart';
 import 'package:ani_sleuth/presentation/theme/ani_theme.dart';
 import 'package:ani_sleuth/utils/injectors/dependency_injection.dart';
@@ -17,8 +18,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Future<Either<AFailure, List<Genre>>> topAnimeFuture =
-        dashboardRepository.getAllGenre();
+    final Future<Either<AFailure, List<TopCharacter>>> topAnimeFuture =
+        dashboardRepository.getTopCharacters(limit: 30);
 
     return MaterialApp(
       theme: AniTheme.lightTheme,
@@ -29,7 +30,7 @@ class MainApp extends StatelessWidget {
           title: const Text('Top Anime'),
         ),
         body: Center(
-          child: FutureBuilder<Either<AFailure, List<Genre>>>(
+          child: FutureBuilder<Either<AFailure, List<TopCharacter>>>(
             future: topAnimeFuture,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {

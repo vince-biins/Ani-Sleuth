@@ -12,18 +12,18 @@ class CharacterDto {
   final String name;
   final String? nameKanji;
   final List<String>? nicknames;
-  final int favorites;
-  final String about;
+  final int? favorites;
+  final String? about;
 
   CharacterDto({
     required this.malId,
     required this.url,
-    required this.images,
+    this.images,
     required this.name,
-    required this.nameKanji,
-    required this.nicknames,
-    required this.favorites,
-    required this.about,
+    this.nameKanji,
+    this.nicknames,
+    this.favorites,
+    this.about,
   });
 
   factory CharacterDto.fromJson(Map<String, dynamic> json) =>

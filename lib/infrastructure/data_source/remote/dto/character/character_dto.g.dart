@@ -17,8 +17,8 @@ CharacterDto _$CharacterDtoFromJson(Map<String, dynamic> json) => CharacterDto(
       nicknames: (json['nicknames'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      favorites: (json['favorites'] as num).toInt(),
-      about: json['about'] as String,
+      favorites: (json['favorites'] as num?)?.toInt(),
+      about: json['about'] as String?,
     );
 
 Map<String, dynamic> _$CharacterDtoToJson(CharacterDto instance) =>

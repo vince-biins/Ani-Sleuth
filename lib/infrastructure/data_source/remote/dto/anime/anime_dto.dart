@@ -1,6 +1,7 @@
 import 'package:ani_sleuth/domain/model/anime/enum/anime_type.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/airing_dto.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/external_dto.dart';
+import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/genre_dto.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/service_dto.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/title_dto.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/trailer_dto.dart';
@@ -33,7 +34,7 @@ class AnimeDto {
   final String? background;
   final int popularity;
   final TrailerDto? trailer;
-  final List<ServiceDto> genres;
+  final List<GenreDto> genres;
   final List<ServiceDto> studios;
   final List<ServiceDto> licensors;
   final List<ServiceDto> producers;

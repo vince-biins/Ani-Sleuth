@@ -1,4 +1,5 @@
 import 'package:ani_sleuth/application/api_util/a_failure.dart';
+import 'package:ani_sleuth/domain/mapper/character_mapper.dart';
 import 'package:ani_sleuth/domain/model/character/entity/anime_character.dart';
 import 'package:ani_sleuth/domain/model/character/entity/character.dart';
 import 'package:ani_sleuth/domain/model/character/entity/manga_character.dart';
@@ -12,30 +13,62 @@ class CharacterRepositoryImpl implements CharacterRepository {
   CharacterRepositoryImpl({required CharacterService characterService})
       : _characterService = characterService;
   @override
-  Future<Either<AFailure, List<Character>>> getCharacterFullById(
-      {required int id}) {
-    // TODO: implement getCharacterFullById
-    throw UnimplementedError();
+  Future<Either<AFailure, List<Character>>> getCharacterFullById({
+    required int id,
+  }) {
+    return _characterService
+        .fetchCharacterFullById(id: id)
+        .then<Either<AFailure, List<Character>>>((value) {
+      return Right(value.data?.map((e) => e.transformFull()).toList() ?? []);
+    }).catchError((e) {
+      return Left<AFailure, List<Character>>(
+        AFailure.fromDioException(e),
+      );
+    });
   }
 
   @override
-  Future<Either<AFailure, List<AnimeCharacter>>> getCharacterInAnime(
-      {required int id}) {
-    // TODO: implement getCharacterInAnime
-    throw UnimplementedError();
+  Future<Either<AFailure, List<AnimeCharacter>>> getCharacterInAnime({
+    required int id,
+  }) {
+    return _characterService
+        .fetchCharacterInAnime(id: id)
+        .then<Either<AFailure, List<AnimeCharacter>>>((value) {
+      return Right(value.data?.map((e) => e.transform()).toList() ?? []);
+    }).catchError((e) {
+      return Left<AFailure, List<AnimeCharacter>>(
+        AFailure.fromDioException(e),
+      );
+    });
   }
 
   @override
-  Future<Either<AFailure, List<MangaCharacter>>> getCharacterInManga(
-      {required int id}) {
-    // TODO: implement getCharacterInManga
-    throw UnimplementedError();
+  Future<Either<AFailure, List<MangaCharacter>>> getCharacterInManga({
+    required int id,
+  }) {
+    return _characterService
+        .fetchCharacterInManga(id: id)
+        .then<Either<AFailure, List<MangaCharacter>>>((value) {
+      return Right(value.data?.map((e) => e.transform()).toList() ?? []);
+    }).catchError((e) {
+      return Left<AFailure, List<MangaCharacter>>(
+        AFailure.fromDioException(e),
+      );
+    });
   }
 
   @override
-  Future<Either<AFailure, List<TopCharacter>>> getListOfTopCharacters(
-      {required int limit}) {
-    // TODO: implement getListOfTopCharacters
-    throw UnimplementedError();
+  Future<Either<AFailure, List<TopCharacter>>> getListOfTopCharacters({
+    required int limit,
+  }) {
+    return _characterService
+        .fetchListOfTopCharacters(limit: limit)
+        .then<Either<AFailure, List<TopCharacter>>>((value) {
+      return Right(value.data?.map((e) => e.transform()).toList() ?? []);
+    }).catchError((e) {
+      return Left<AFailure, List<TopCharacter>>(
+        AFailure.fromDioException(e),
+      );
+    });
   }
 }

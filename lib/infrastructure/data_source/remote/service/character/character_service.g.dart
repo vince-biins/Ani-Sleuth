@@ -95,14 +95,14 @@ class _CharacterService implements CharacterService {
   }
 
   @override
-  Future<ApiSuccess<List<AnimeDto>>> fetchCharacterInAnime({
+  Future<ApiSuccess<List<AnimeCharacterDto>>> fetchCharacterInAnime({
     required int id,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ApiSuccess<List<AnimeDto>>>(
+    final _options = _setStreamType<ApiSuccess<List<AnimeCharacterDto>>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -113,14 +113,14 @@ class _CharacterService implements CharacterService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ApiSuccess<List<AnimeDto>> _value;
+    late ApiSuccess<List<AnimeCharacterDto>> _value;
     try {
-      _value = ApiSuccess<List<AnimeDto>>.fromJson(
+      _value = ApiSuccess<List<AnimeCharacterDto>>.fromJson(
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<AnimeDto>(
-                  (i) => AnimeDto.fromJson(i as Map<String, dynamic>),
+                .map<AnimeCharacterDto>(
+                  (i) => AnimeCharacterDto.fromJson(i as Map<String, dynamic>),
                 )
                 .toList()
             : List.empty(),
@@ -133,14 +133,14 @@ class _CharacterService implements CharacterService {
   }
 
   @override
-  Future<ApiSuccess<List<ReviewDto>>> fetchCharacterInManga({
+  Future<ApiSuccess<List<MangaCharacterDto>>> fetchCharacterInManga({
     required int id,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ApiSuccess<List<ReviewDto>>>(
+    final _options = _setStreamType<ApiSuccess<List<MangaCharacterDto>>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -151,14 +151,14 @@ class _CharacterService implements CharacterService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ApiSuccess<List<ReviewDto>> _value;
+    late ApiSuccess<List<MangaCharacterDto>> _value;
     try {
-      _value = ApiSuccess<List<ReviewDto>>.fromJson(
+      _value = ApiSuccess<List<MangaCharacterDto>>.fromJson(
         _result.data!,
         (json) => json is List<dynamic>
             ? json
-                .map<ReviewDto>(
-                  (i) => ReviewDto.fromJson(i as Map<String, dynamic>),
+                .map<MangaCharacterDto>(
+                  (i) => MangaCharacterDto.fromJson(i as Map<String, dynamic>),
                 )
                 .toList()
             : List.empty(),

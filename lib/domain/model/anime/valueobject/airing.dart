@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 class Airing extends Equatable {
   final String defaultDateString;
   final String formattedDateString;
-  final ({ADate from, ADate to})? date;
+  final ({ADate? from, ADate? to})? date;
 
   const Airing({
     required this.defaultDateString,
@@ -23,9 +23,9 @@ class Airing extends Equatable {
 }
 
 class ADate extends Equatable {
-  final int day;
-  final int month;
-  final int year;
+  final int? day;
+  final int? month;
+  final int? year;
 
   const ADate({
     required this.day,

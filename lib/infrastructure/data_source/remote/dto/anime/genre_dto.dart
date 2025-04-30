@@ -7,14 +7,16 @@ class GenreDto {
   @JsonKey(name: 'mal_id')
   final int malId;
   final String name;
+  final String? type;
   final String url;
-  final int count;
+  final int? count;
 
   GenreDto({
     required this.malId,
     required this.name,
     required this.url,
     required this.count,
+    this.type,
   });
 
   factory GenreDto.fromJson(Map<String, dynamic> json) =>

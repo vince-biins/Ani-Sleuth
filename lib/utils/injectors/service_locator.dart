@@ -6,7 +6,7 @@ import 'package:ani_sleuth/infrastructure/data_source/remote/service/manga/manga
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
-void initializeDashboardLocator(GetIt getIt) {
+void initializeServiceLocator(GetIt getIt) {
   getIt.registerLazySingleton<DashboardService>(
     () => DashboardService(getIt.get<Dio>(instanceName: 'apiDio')),
   );

@@ -18,17 +18,16 @@ class _GenreService implements GenreService {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<ApiSuccess<List<GenreDto>>> fetchAnimeGenre({int? limit}) async {
+  Future<ApiSuccess<List<GenreDto>>> fetchAnimeGenre() async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'limit': limit};
-    queryParameters.removeWhere((k, v) => v == null);
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<ApiSuccess<List<GenreDto>>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'v4/top/manga',
+            'v4/genres/anime',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -64,7 +63,7 @@ class _GenreService implements GenreService {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'v4/manga/{id}/full',
+            'v4/genres/manga',
             queryParameters: queryParameters,
             data: _data,
           )

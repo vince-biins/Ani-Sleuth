@@ -19,7 +19,7 @@ abstract class ADashboardRepository {
   Future<Either<AFailure, List<TopCharacter>>> getTopCharacters({
     required int limit,
   });
-  Future<Either<AFailure, List<Genre>>> getAllGenre();
+  Future<Either<AFailure, List<Genre>>> getAnimeGenre();
   Future<Either<AFailure, List<TopAnime>>> getSeasonalAnime({
     required int limit,
   });

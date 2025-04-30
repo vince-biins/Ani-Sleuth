@@ -10,11 +10,9 @@ part 'genre_service.g.dart';
 abstract class GenreService {
   factory GenreService(Dio dio, {String baseUrl}) = _GenreService;
 
-  @GET('v4/top/manga')
-  Future<ApiSuccess<List<GenreDto>>> fetchAnimeGenre({
-    @Query('limit') int? limit,
-  });
+  @GET('v4/genres/anime')
+  Future<ApiSuccess<List<GenreDto>>> fetchAnimeGenre();
 
-  @GET('v4/manga/{id}/full')
+  @GET('v4/genres/manga')
   Future<ApiSuccess<List<GenreDto>>> fetchMangaGenre();
 }

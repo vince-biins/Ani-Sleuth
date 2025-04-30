@@ -7,8 +7,8 @@ class TopCharacter extends Equatable {
   final String name;
   final String? nameKanji;
   final List<String> nicknames;
-  final int favorites;
-  final String about;
+  final int? favorites;
+  final String? about;
 
   const TopCharacter({
     required this.malId,

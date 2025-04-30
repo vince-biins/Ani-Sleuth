@@ -2,14 +2,15 @@ import 'package:ani_sleuth/domain/model/anime/entity/aservice.dart';
 import 'package:ani_sleuth/domain/model/anime/enum/anime_type.dart';
 import 'package:ani_sleuth/domain/model/anime/valueobject/airing.dart';
 import 'package:ani_sleuth/domain/model/anime/valueobject/external.dart';
+import 'package:ani_sleuth/domain/model/common/genre.dart';
 import 'package:equatable/equatable.dart';
 
 class Anime extends Equatable {
   final int malId;
   final String url;
-  final String image;
+  final String? image;
   final String title;
-  final String synopsis;
+  final String? synopsis;
   final String background;
   final String duration;
   final String rating;
@@ -18,10 +19,11 @@ class Anime extends Equatable {
   final double? score;
   final int? scoredBy;
   final String airingStatus;
+  final bool isAiring;
   final int popularity;
   final String? rank;
   final Airing airing;
-  final List<String> genres;
+  final List<Genre> genres;
   final List<AService> studios;
   final List<AService> licensors;
   final List<AService> producers;
@@ -51,6 +53,7 @@ class Anime extends Equatable {
     required this.background,
     required this.duration,
     required this.rating,
+    required this.isAiring,
   });
 
   @override

@@ -1,6 +1,8 @@
 import 'package:ani_sleuth/application/api_util/api_success.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/anime_dto.dart';
+import 'package:ani_sleuth/infrastructure/data_source/remote/dto/character/anime_character_dto.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/character/character_dto.dart';
+import 'package:ani_sleuth/infrastructure/data_source/remote/dto/character/manga_character_dto.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/common/review_dto.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/error_logger.dart';
@@ -23,12 +25,12 @@ abstract class CharacterService {
   });
 
   @GET('v4/anime/{id}/characters')
-  Future<ApiSuccess<List<AnimeDto>>> fetchCharacterInAnime({
+  Future<ApiSuccess<List<AnimeCharacterDto>>> fetchCharacterInAnime({
     @Path('id') required int id,
   });
 
   @GET('v4/manga/{id}/characters')
-  Future<ApiSuccess<List<ReviewDto>>> fetchCharacterInManga({
+  Future<ApiSuccess<List<MangaCharacterDto>>> fetchCharacterInManga({
     @Path('id') required int id,
   });
 }

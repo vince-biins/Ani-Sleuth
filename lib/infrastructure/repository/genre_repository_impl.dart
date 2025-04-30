@@ -1,4 +1,5 @@
 import 'package:ani_sleuth/application/api_util/a_failure.dart';
+import 'package:ani_sleuth/domain/mapper/anime_mapper.dart';
 import 'package:ani_sleuth/domain/model/common/genre.dart';
 import 'package:ani_sleuth/domain/repository/genre_repository.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/service/genre/genre_service.dart';
@@ -11,13 +12,28 @@ class GenreRepositoryImpl implements GenreRepository {
 
   @override
   Future<Either<AFailure, List<Genre>>> getAnimeGenre() {
-    // TODO: implement getAnimeGenre
-    throw UnimplementedError();
+    return _genreService
+        .fetchAnimeGenre()
+        .then<Either<AFailure, List<Genre>>>((value) {
+      print(value.data);
+      return Right(value.data?.map((e) => e.transform()).toList() ?? []);
+    }).catchError((e) {
+      return Left<AFailure, List<Genre>>(
+        AFailure.fromDioException(e),
+      );
+    });
   }
 
   @override
   Future<Either<AFailure, List<Genre>>> getMangaGenre() {
-    // TODO: implement getMangaGenre
-    throw UnimplementedError();
+    return _genreService
+        .fetchMangaGenre()
+        .then<Either<AFailure, List<Genre>>>((value) {
+      return Right(value.data?.map((e) => e.transform()).toList() ?? []);
+    }).catchError((e) {
+      return Left<AFailure, List<Genre>>(
+        AFailure.fromDioException(e),
+      );
+    });
   }
 }

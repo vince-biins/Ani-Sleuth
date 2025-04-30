@@ -17,7 +17,9 @@ abstract class MangaService {
   });
 
   @GET('v4/manga/{id}/full')
-  Future<ApiSuccess<List<AnimeDto>>> fetchMangaFullById();
+  Future<ApiSuccess<List<AnimeDto>>> fetchMangaFullById({
+    @Path('id') required int id,
+  });
 
   @GET('v4/manga/{id}/reviews')
   Future<ApiSuccess<List<ReviewDto>>> fetchMangaReviews({

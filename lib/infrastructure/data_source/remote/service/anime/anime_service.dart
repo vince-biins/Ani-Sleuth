@@ -17,7 +17,9 @@ abstract class AnimeService {
   });
 
   @GET('/v4/genres/anime')
-  Future<ApiSuccess<List<AnimeDto>>> fetchAnimeFullById();
+  Future<ApiSuccess<List<AnimeDto>>> fetchAnimeFullById({
+    @Query('id') required int id,
+  });
 
   @GET('/v4/seasons/now')
   Future<ApiSuccess<List<AnimeDto>>> fetchSeasonNowAnime({

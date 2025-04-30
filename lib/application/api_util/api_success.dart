@@ -9,6 +9,8 @@ class ApiSuccess<T> {
   ApiSuccess({required this.data});
 
   factory ApiSuccess.fromJson(
-          Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>
+    Map<String, dynamic> json,
+    T Function(Object? json) fromJsonT,
+  ) =>
       _$ApiSuccessFromJson(json, fromJsonT);
 }

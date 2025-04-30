@@ -1,4 +1,5 @@
 import 'package:ani_sleuth/application/api_util/a_failure.dart';
+import 'package:ani_sleuth/domain/mapper/anime_mapper.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/anime.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/top_anime.dart';
 import 'package:ani_sleuth/domain/repository/anime_repository.dart';
@@ -11,28 +12,62 @@ class AnimeRepositoryImpl implements AnimeRepository {
       : _animeService = animeService;
 
   @override
-  Future<Either<AFailure, List<Anime>>> getAnimeFullById({required int id}) {
-    // TODO: implement getAnimeFullById
-    throw UnimplementedError();
+  Future<Either<AFailure, List<Anime>>> getAnimeFullById({
+    required int id,
+  }) {
+    return _animeService
+        .fetchAnimeFullById(id: id)
+        .then<Either<AFailure, List<Anime>>>((value) {
+      return Right(value.data?.map((e) => e.transformFull()).toList() ?? []);
+    }).catchError((e) {
+      return Left<AFailure, List<Anime>>(
+        AFailure.fromDioException(e),
+      );
+    });
   }
 
   @override
   Future<Either<AFailure, List<String>>> getAnimeReviews({required int id}) {
-    // TODO: implement getAnimeReviews
-    throw UnimplementedError();
+    return _animeService
+        .fetchAnimeReviews(id: id)
+        .then<Either<AFailure, List<String>>>((value) {
+      return Right(value.data?.map((e) => e.review).toList() ?? []);
+    }).catchError((e) {
+      return Left<AFailure, List<String>>(
+        AFailure.fromDioException(e),
+      );
+    });
   }
 
   @override
-  Future<Either<AFailure, List<TopAnime>>> getListOfTopAnimes(
-      {required int limit}) {
-    // TODO: implement getListOfTopAnimes
-    throw UnimplementedError();
+  Future<Either<AFailure, List<TopAnime>>> getListOfTopAnimes({
+    required int limit,
+  }) {
+    return _animeService
+        .fetchListOfTopAnime(limit: limit)
+        .then<Either<AFailure, List<TopAnime>>>((value) {
+      return Right(
+        value.data?.map((e) => e.transform()).toList() ?? [],
+      );
+    }).catchError((e) {
+      return Left<AFailure, List<TopAnime>>(
+        AFailure.fromDioException(e),
+      );
+    });
   }
 
   @override
-  Future<Either<AFailure, List<TopAnime>>> getSeasonNowAnime(
-      {required int limit}) {
-    // TODO: implement getSeasonNowAnime
-    throw UnimplementedError();
+  Future<Either<AFailure, List<TopAnime>>> getSeasonNowAnime({
+    required int limit,
+  }) {
+    return _animeService
+        .fetchSeasonNowAnime(limit: limit)
+        .then<Either<AFailure, List<TopAnime>>>((value) {
+      return Right(value.data?.map((e) => e.transform()).toList() ?? []);
+    }).catchError((e) {
+      return Left<AFailure, List<TopAnime>>(
+        AFailure.fromDioException(e),
+      );
+    });
   }
 }

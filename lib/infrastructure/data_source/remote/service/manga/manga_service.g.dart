@@ -55,7 +55,9 @@ class _MangaService implements MangaService {
   }
 
   @override
-  Future<ApiSuccess<List<AnimeDto>>> fetchMangaFullById() async {
+  Future<ApiSuccess<List<AnimeDto>>> fetchMangaFullById({
+    required int id,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -64,7 +66,7 @@ class _MangaService implements MangaService {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'v4/manga/{id}/full',
+            'v4/manga/${id}/full',
             queryParameters: queryParameters,
             data: _data,
           )

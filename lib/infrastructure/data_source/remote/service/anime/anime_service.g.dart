@@ -55,9 +55,11 @@ class _AnimeService implements AnimeService {
   }
 
   @override
-  Future<ApiSuccess<List<AnimeDto>>> fetchAnimeFullById() async {
+  Future<ApiSuccess<List<AnimeDto>>> fetchAnimeFullById({
+    required int id,
+  }) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'id': id};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<ApiSuccess<List<AnimeDto>>>(
