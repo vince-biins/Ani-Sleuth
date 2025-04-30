@@ -15,4 +15,23 @@ class SeasonalAnime extends Anime {
     required super.episodes,
     required super.genres,
   });
+
+  @override
+  bool? get stringify => true;
+  @override
+  List<Object?> get props => [
+        ...super.props,
+        malId,
+        url,
+        imageUrl,
+        title,
+        type,
+        status,
+        popularity,
+        rank,
+        score,
+        scoredBy,
+        episodes,
+        genres
+      ];
 }

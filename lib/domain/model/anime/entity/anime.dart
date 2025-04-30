@@ -21,4 +21,6 @@ class Anime extends Media {
 
   @override
   bool? get stringify => true;
+  @override
+  List<Object?> get props => [...super.props, episodes, genres];
 }

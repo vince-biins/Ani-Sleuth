@@ -1,3 +1,4 @@
+import 'package:ani_sleuth/application/dashboard/bloc/dashboard_bloc.dart';
 import 'package:ani_sleuth/domain/repository/a_dashboard_repository.dart';
 import 'package:ani_sleuth/domain/repository/anime_repository.dart';
 import 'package:ani_sleuth/domain/repository/character_repository.dart';
@@ -44,6 +45,12 @@ void initializeDashboardLocator(GetIt getIt) {
       animeRepository: getIt<AnimeRepository>(),
       characterRepository: getIt<CharacterRepository>(),
       genreRepository: getIt<GenreRepository>(),
+    ),
+  );
+
+  getIt.registerFactory(
+    () => DashboardBloc(
+      dashboardRepository: getIt<ADashboardRepository>(),
     ),
   );
 }
