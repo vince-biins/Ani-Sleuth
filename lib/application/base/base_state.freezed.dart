@@ -77,8 +77,8 @@ class Loading<T> implements BaseState<T> {
 
 /// @nodoc
 
-class Loaded<T> implements BaseState<T> {
-  const Loaded(this.data);
+class Success<T> implements BaseState<T> {
+  const Success(this.data);
 
   final T data;
 
@@ -86,14 +86,14 @@ class Loaded<T> implements BaseState<T> {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $LoadedCopyWith<T, Loaded<T>> get copyWith =>
-      _$LoadedCopyWithImpl<T, Loaded<T>>(this, _$identity);
+  $SuccessCopyWith<T, Success<T>> get copyWith =>
+      _$SuccessCopyWithImpl<T, Success<T>>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is Loaded<T> &&
+            other is Success<T> &&
             const DeepCollectionEquality().equals(other.data, data));
   }
 
@@ -103,25 +103,25 @@ class Loaded<T> implements BaseState<T> {
 
   @override
   String toString() {
-    return 'BaseState<$T>.loaded(data: $data)';
+    return 'BaseState<$T>.success(data: $data)';
   }
 }
 
 /// @nodoc
-abstract mixin class $LoadedCopyWith<T, $Res>
+abstract mixin class $SuccessCopyWith<T, $Res>
     implements $BaseStateCopyWith<T, $Res> {
-  factory $LoadedCopyWith(Loaded<T> value, $Res Function(Loaded<T>) _then) =
-      _$LoadedCopyWithImpl;
+  factory $SuccessCopyWith(Success<T> value, $Res Function(Success<T>) _then) =
+      _$SuccessCopyWithImpl;
   @useResult
   $Res call({T data});
 }
 
 /// @nodoc
-class _$LoadedCopyWithImpl<T, $Res> implements $LoadedCopyWith<T, $Res> {
-  _$LoadedCopyWithImpl(this._self, this._then);
+class _$SuccessCopyWithImpl<T, $Res> implements $SuccessCopyWith<T, $Res> {
+  _$SuccessCopyWithImpl(this._self, this._then);
 
-  final Loaded<T> _self;
-  final $Res Function(Loaded<T>) _then;
+  final Success<T> _self;
+  final $Res Function(Success<T>) _then;
 
   /// Create a copy of BaseState
   /// with the given fields replaced by the non-null parameter values.
@@ -129,7 +129,7 @@ class _$LoadedCopyWithImpl<T, $Res> implements $LoadedCopyWith<T, $Res> {
   $Res call({
     Object? data = freezed,
   }) {
-    return _then(Loaded<T>(
+    return _then(Success<T>(
       freezed == data
           ? _self.data
           : data // ignore: cast_nullable_to_non_nullable

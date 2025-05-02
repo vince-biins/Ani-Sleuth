@@ -15,7 +15,6 @@ class GenreRepositoryImpl implements GenreRepository {
     return _genreService
         .fetchAnimeGenre()
         .then<Either<AFailure, List<Genre>>>((value) {
-      print(value.data);
       return Right(value.data?.map((e) => e.transform()).toList() ?? []);
     }).catchError((e) {
       return Left<AFailure, List<Genre>>(

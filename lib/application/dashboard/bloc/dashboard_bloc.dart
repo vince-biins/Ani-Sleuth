@@ -19,29 +19,21 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   final ADashboardRepository _dashboardRepository;
   // ignore: non_constant_identifier_names
   final int _LIMIT = 25;
+
+  List<SeasonalAnime> seasonalAnime = [];
+  List<TopAnime> topAnime = [];
+  List<TopCharacter> topCharacters = [];
+
+  List<String> errors = [];
+
   DashboardBloc({
     required ADashboardRepository dashboardRepository,
   })  : _dashboardRepository = dashboardRepository,
         super(DashboardState.initial()) {
     on<BaseDashboardEvent>(_handleBaseEvent);
-    on<ClickedAnimeItem>(_handleClickedAnimeItem);
-    on<ClickedCharacterItem>(_handleClickedCharacterItem);
   }
 
-  FutureOr<void> _handleBaseEvent(
-    BaseDashboardEvent event,
-    Emitter<DashboardState> emit,
-  ) async {
-    emit(DashboardState.loading());
-    if (event.baseEvent is LoadPage) {
-      await _handleLoadPage(event.baseEvent as LoadPage, emit);
-    }
-  }
-
-  Future<void> _handleLoadPage(
-    LoadPage event,
-    Emitter<DashboardState> emit,
-  ) async {
+  Future<void> _fetchData() async {
     final seasonalAnimeResult =
         await _dashboardRepository.getSeasonalAnime(limit: _LIMIT);
     final topAnimeResult =
@@ -50,44 +42,75 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         await _dashboardRepository.getTopCharacters(limit: _LIMIT);
 
     seasonalAnimeResult.fold(
-      (failure) => emit(DashboardState.error(failure.message)),
-      (seasonalAnime) {
-        topAnimeResult.fold(
-          (failure) => emit(DashboardState.error(failure.message)),
-          (topAnime) {
-            topCharactersResult.fold(
-              (failure) => emit(DashboardState.error(failure.message)),
-              (topCharacters) {
-                if (seasonalAnime.isEmpty &&
-                    topAnime.isEmpty &&
-                    topCharacters.isEmpty) {
-                  emit(const DashboardState.error('No data found'));
-                } else {
-                  emit(
-                    DashboardState.loaded(
-                      DashboardData(
-                        seasonalAnime: seasonalAnime,
-                        topAnime: topAnime,
-                        topCharacter: topCharacters,
-                      ),
-                    ),
-                  );
-                }
-              },
-            );
-          },
-        );
-      },
+      (error) => errors.add(error.message),
+      (result) => seasonalAnime = result,
+    );
+    topAnimeResult.fold(
+      (error) => errors.add(error.message),
+      (result) => topAnime = result,
+    );
+    topCharactersResult.fold(
+      (error) => errors.add(error.message),
+      (result) => topCharacters = result,
     );
   }
 
-  FutureOr<void> _handleClickedAnimeItem(
-    ClickedAnimeItem event,
+  FutureOr<void> _handleBaseEvent(
+    BaseDashboardEvent event,
     Emitter<DashboardState> emit,
-  ) {}
+  ) async {
+    if (event.baseEvent is LoadPage) {
+      emit(DashboardState.loading());
+      await _handleLoadPage(event.baseEvent as LoadPage, emit);
+    }
 
-  FutureOr<void> _handleClickedCharacterItem(
-    ClickedCharacterItem event,
+    if (event.baseEvent is RefreshPage) {
+      await _handleRefreshPage(event.baseEvent as RefreshPage, emit);
+    }
+  }
+
+  Future<void> _handleLoadPage(
+    LoadPage event,
     Emitter<DashboardState> emit,
-  ) {}
+  ) async {
+    await _fetchData();
+    if (errors.isNotEmpty) {
+      emit(DashboardState.error(errors.join('\n')));
+    }
+
+    emit(
+      DashboardState.success(
+        DashboardData(
+          seasonalAnime: seasonalAnime,
+          topAnime: topAnime,
+          topCharacter: topCharacters,
+        ),
+      ),
+    );
+  }
+
+  FutureOr<void> _handleRefreshPage(
+    RefreshPage baseEvent,
+    Emitter<DashboardState> emit,
+  ) async {
+    await _fetchData();
+    if (errors.isNotEmpty) {
+      emit(DashboardState.error(errors.join('\n')));
+    }
+
+    final refreshedData = DashboardData(
+      seasonalAnime: seasonalAnime,
+      topAnime: topAnime,
+      topCharacter: topCharacters,
+    );
+
+    if (state is LoadPage) {
+      final currentState = state as Success<DashboardData>;
+      emit(
+        currentState.copyWith(
+          data: refreshedData,
+        ),
+      );
+    }
+  }
 }
