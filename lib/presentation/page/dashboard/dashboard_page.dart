@@ -1,8 +1,9 @@
 import 'package:ani_sleuth/application/base/base_event.dart';
 import 'package:ani_sleuth/application/base/base_state.dart';
+import 'package:ani_sleuth/application/base/cubit/navigation_cubit.dart';
 import 'package:ani_sleuth/application/dashboard/bloc/dashboard_bloc.dart';
-import 'package:ani_sleuth/application/dashboard/cubit/dashboard_navigation_cubit.dart';
 import 'package:ani_sleuth/core/injectors/dependency_injection.dart';
+import 'package:ani_sleuth/presentation/page/detail/detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,24 +19,29 @@ class DashboardPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Top Anime'),
         ),
-        body: BlocListener<DashboardNavigationCubit, DashboardNavigationState>(
-          listener: (context, state) {
-            if (state is NavigateToAnimeDetails) {
-              Navigator.pushNamed(
-                context,
-                '/animeDetails',
-                arguments: state.animeId,
-              );
-            } else if (state is NavigateToMangaDetails) {
-              Navigator.pushNamed(
-                context,
-                '/mangaDetails',
-                arguments: state.characterId,
-              );
-            } else if (state is PopDashboardNavigation) {
-              Navigator.pop(context);
-            }
-          },
+        body: MultiBlocListener(
+          listeners: [
+            BlocListener<NavigationCubit, NavigationState>(
+              listener: (context, state) {
+                if (state is NavigateToNavigation) {
+                  final arguments = state.arguments as String;
+                  Navigator.of(context).push(
+                    DetailPage.route(arguments),
+                  );
+                }
+              },
+            ),
+            BlocListener<DashboardBloc, DashboardState>(
+              listener: (context, state) {
+                if (state is Error) {
+                  final message = state as Error;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Error: ${message.message}')),
+                  );
+                }
+              },
+            ),
+          ],
           child: Center(
             child: BlocBuilder<DashboardBloc, DashboardState>(
               builder: (context, state) {
@@ -44,7 +50,7 @@ class DashboardPage extends StatelessWidget {
                     return const Text('Initial State');
                   case Loading():
                     return const CircularProgressIndicator();
-                  case Success(:DashboardData data):
+                  case Success(:final DashboardData data):
                     return ListView.builder(
                       itemCount: data.seasonalAnime.length,
                       itemBuilder: (context, index) {
@@ -55,7 +61,7 @@ class DashboardPage extends StatelessWidget {
                         );
                       },
                     );
-                  case Error(:String message):
+                  case Error(:final String message):
                     return Text('Error: $message');
                 }
               },
@@ -66,9 +72,9 @@ class DashboardPage extends StatelessWidget {
           builder: (context, state) {
             return FloatingActionButton(
               onPressed: () {
-                context.read<DashboardBloc>().add(
-                      const DashboardEvent.base(BaseEvent.refreshPage()),
-                    );
+                context
+                    .read<NavigationCubit>()
+                    .navigateTo('/details', arguments: 'Sample');
               },
               child: const Icon(Icons.refresh),
             );
