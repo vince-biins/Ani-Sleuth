@@ -31,12 +31,6 @@ mixin _$NavigationState {
 }
 
 /// @nodoc
-class $NavigationStateCopyWith<$Res> {
-  $NavigationStateCopyWith(
-      NavigationState _, $Res Function(NavigationState) __);
-}
-
-/// @nodoc
 
 class IdleNavigation implements NavigationState {
   const IdleNavigation();
@@ -64,14 +58,6 @@ class NavigateToNavigation implements NavigationState {
   final String routeName;
   final Object? arguments;
 
-  /// Create a copy of NavigationState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $NavigateToNavigationCopyWith<NavigateToNavigation> get copyWith =>
-      _$NavigateToNavigationCopyWithImpl<NavigateToNavigation>(
-          this, _$identity);
-
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
@@ -89,41 +75,6 @@ class NavigateToNavigation implements NavigationState {
   @override
   String toString() {
     return 'NavigationState.navigateTo(routeName: $routeName, arguments: $arguments)';
-  }
-}
-
-/// @nodoc
-abstract mixin class $NavigateToNavigationCopyWith<$Res>
-    implements $NavigationStateCopyWith<$Res> {
-  factory $NavigateToNavigationCopyWith(NavigateToNavigation value,
-          $Res Function(NavigateToNavigation) _then) =
-      _$NavigateToNavigationCopyWithImpl;
-  @useResult
-  $Res call({String routeName, Object? arguments});
-}
-
-/// @nodoc
-class _$NavigateToNavigationCopyWithImpl<$Res>
-    implements $NavigateToNavigationCopyWith<$Res> {
-  _$NavigateToNavigationCopyWithImpl(this._self, this._then);
-
-  final NavigateToNavigation _self;
-  final $Res Function(NavigateToNavigation) _then;
-
-  /// Create a copy of NavigationState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? routeName = null,
-    Object? arguments = freezed,
-  }) {
-    return _then(NavigateToNavigation(
-      null == routeName
-          ? _self.routeName
-          : routeName // ignore: cast_nullable_to_non_nullable
-              as String,
-      arguments: freezed == arguments ? _self.arguments : arguments,
-    ));
   }
 }
 
@@ -157,14 +108,6 @@ class PushNamedAndRemoveUntilNavigation implements NavigationState {
   final String untilRouteName;
   final Object? arguments;
 
-  /// Create a copy of NavigationState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $PushNamedAndRemoveUntilNavigationCopyWith<PushNamedAndRemoveUntilNavigation>
-      get copyWith => _$PushNamedAndRemoveUntilNavigationCopyWithImpl<
-          PushNamedAndRemoveUntilNavigation>(this, _$identity);
-
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
@@ -188,47 +131,6 @@ class PushNamedAndRemoveUntilNavigation implements NavigationState {
 }
 
 /// @nodoc
-abstract mixin class $PushNamedAndRemoveUntilNavigationCopyWith<$Res>
-    implements $NavigationStateCopyWith<$Res> {
-  factory $PushNamedAndRemoveUntilNavigationCopyWith(
-          PushNamedAndRemoveUntilNavigation value,
-          $Res Function(PushNamedAndRemoveUntilNavigation) _then) =
-      _$PushNamedAndRemoveUntilNavigationCopyWithImpl;
-  @useResult
-  $Res call({String routeName, String untilRouteName, Object? arguments});
-}
-
-/// @nodoc
-class _$PushNamedAndRemoveUntilNavigationCopyWithImpl<$Res>
-    implements $PushNamedAndRemoveUntilNavigationCopyWith<$Res> {
-  _$PushNamedAndRemoveUntilNavigationCopyWithImpl(this._self, this._then);
-
-  final PushNamedAndRemoveUntilNavigation _self;
-  final $Res Function(PushNamedAndRemoveUntilNavigation) _then;
-
-  /// Create a copy of NavigationState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? routeName = null,
-    Object? untilRouteName = null,
-    Object? arguments = freezed,
-  }) {
-    return _then(PushNamedAndRemoveUntilNavigation(
-      null == routeName
-          ? _self.routeName
-          : routeName // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == untilRouteName
-          ? _self.untilRouteName
-          : untilRouteName // ignore: cast_nullable_to_non_nullable
-              as String,
-      arguments: freezed == arguments ? _self.arguments : arguments,
-    ));
-  }
-}
-
-/// @nodoc
 
 class PushNamedAndRemoveUntilWithArgsNavigation implements NavigationState {
   const PushNamedAndRemoveUntilWithArgsNavigation(
@@ -238,15 +140,6 @@ class PushNamedAndRemoveUntilWithArgsNavigation implements NavigationState {
   final String routeName;
   final String untilRouteName;
   final Object? arguments;
-
-  /// Create a copy of NavigationState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $PushNamedAndRemoveUntilWithArgsNavigationCopyWith<
-          PushNamedAndRemoveUntilWithArgsNavigation>
-      get copyWith => _$PushNamedAndRemoveUntilWithArgsNavigationCopyWithImpl<
-          PushNamedAndRemoveUntilWithArgsNavigation>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
@@ -267,48 +160,6 @@ class PushNamedAndRemoveUntilWithArgsNavigation implements NavigationState {
   @override
   String toString() {
     return 'NavigationState.pushNamedAndRemoveUntilWithArgs(routeName: $routeName, untilRouteName: $untilRouteName, arguments: $arguments)';
-  }
-}
-
-/// @nodoc
-abstract mixin class $PushNamedAndRemoveUntilWithArgsNavigationCopyWith<$Res>
-    implements $NavigationStateCopyWith<$Res> {
-  factory $PushNamedAndRemoveUntilWithArgsNavigationCopyWith(
-          PushNamedAndRemoveUntilWithArgsNavigation value,
-          $Res Function(PushNamedAndRemoveUntilWithArgsNavigation) _then) =
-      _$PushNamedAndRemoveUntilWithArgsNavigationCopyWithImpl;
-  @useResult
-  $Res call({String routeName, String untilRouteName, Object? arguments});
-}
-
-/// @nodoc
-class _$PushNamedAndRemoveUntilWithArgsNavigationCopyWithImpl<$Res>
-    implements $PushNamedAndRemoveUntilWithArgsNavigationCopyWith<$Res> {
-  _$PushNamedAndRemoveUntilWithArgsNavigationCopyWithImpl(
-      this._self, this._then);
-
-  final PushNamedAndRemoveUntilWithArgsNavigation _self;
-  final $Res Function(PushNamedAndRemoveUntilWithArgsNavigation) _then;
-
-  /// Create a copy of NavigationState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? routeName = null,
-    Object? untilRouteName = null,
-    Object? arguments = freezed,
-  }) {
-    return _then(PushNamedAndRemoveUntilWithArgsNavigation(
-      null == routeName
-          ? _self.routeName
-          : routeName // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == untilRouteName
-          ? _self.untilRouteName
-          : untilRouteName // ignore: cast_nullable_to_non_nullable
-              as String,
-      arguments: freezed == arguments ? _self.arguments : arguments,
-    ));
   }
 }
 

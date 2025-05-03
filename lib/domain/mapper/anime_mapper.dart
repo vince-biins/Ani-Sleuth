@@ -34,10 +34,10 @@ extension AnimeMapper on AnimeDto {
     return SeasonalAnime(
       malId: malId,
       url: url,
-      imageUrl: images.jpg?.mediumImageUrl ?? images.webp?.mediumImageUrl,
+      imageUrl: images.jpg?.imageUrl ?? images.webp?.imageUrl,
       title: title,
       type: type,
-      episodes: episodes.toString(),
+      episodes: 'Ep ${episodes ?? "??"}',
       score: score,
       scoredBy: scoredBy,
       status: status,

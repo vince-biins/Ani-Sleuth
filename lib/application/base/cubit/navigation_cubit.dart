@@ -7,7 +7,6 @@ part 'navigation_cubit.freezed.dart';
 class NavigationCubit extends Cubit<NavigationState> {
   NavigationCubit() : super(NavigationState.idle());
   void navigateTo(String routeName, {Object? arguments}) {
-    print('Navigating to $routeName with arguments: $arguments');
     emit(NavigationState.navigateTo(routeName, arguments: arguments));
 
     emit(NavigationState.idle());

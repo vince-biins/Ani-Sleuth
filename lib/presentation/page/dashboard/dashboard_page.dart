@@ -3,6 +3,7 @@ import 'package:ani_sleuth/application/base/base_state.dart';
 import 'package:ani_sleuth/application/base/cubit/navigation_cubit.dart';
 import 'package:ani_sleuth/application/dashboard/bloc/dashboard_bloc.dart';
 import 'package:ani_sleuth/core/injectors/dependency_injection.dart';
+import 'package:ani_sleuth/presentation/page/dashboard/dashboard_content.dart';
 import 'package:ani_sleuth/presentation/page/detail/detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +25,7 @@ class DashboardPage extends StatelessWidget {
             BlocListener<NavigationCubit, NavigationState>(
               listener: (context, state) {
                 if (state is NavigateToNavigation) {
-                  final arguments = state.arguments as String;
+                  final arguments = state.arguments as int;
                   Navigator.of(context).push(
                     DetailPage.route(arguments),
                   );
@@ -42,43 +43,20 @@ class DashboardPage extends StatelessWidget {
               },
             ),
           ],
-          child: Center(
-            child: BlocBuilder<DashboardBloc, DashboardState>(
-              builder: (context, state) {
-                switch (state) {
-                  case Initial():
-                    return const Text('Initial State');
-                  case Loading():
-                    return const CircularProgressIndicator();
-                  case Success(:final DashboardData data):
-                    return ListView.builder(
-                      itemCount: data.seasonalAnime.length,
-                      itemBuilder: (context, index) {
-                        final seasonalAnime = data.seasonalAnime[index];
-                        return ListTile(
-                          title: Text(seasonalAnime.title),
-                          subtitle: Text(seasonalAnime.toString()),
-                        );
-                      },
-                    );
-                  case Error(:final String message):
-                    return Text('Error: $message');
-                }
-              },
-            ),
+          child: BlocBuilder<DashboardBloc, DashboardState>(
+            builder: (context, state) {
+              switch (state) {
+                case Initial():
+                  return const Text('Initial State');
+                case Loading():
+                  return const CircularProgressIndicator();
+                case Success(:final DashboardData data):
+                  return DashboardContent(data: data);
+                case Error(:final String message):
+                  return Text('Error: $message');
+              }
+            },
           ),
-        ),
-        floatingActionButton: BlocBuilder<DashboardBloc, DashboardState>(
-          builder: (context, state) {
-            return FloatingActionButton(
-              onPressed: () {
-                context
-                    .read<NavigationCubit>()
-                    .navigateTo('/details', arguments: 'Sample');
-              },
-              child: const Icon(Icons.refresh),
-            );
-          },
         ),
       ),
     );

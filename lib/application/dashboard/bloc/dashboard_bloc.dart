@@ -43,7 +43,10 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
     seasonalAnimeResult.fold(
       (error) => errors.add(error.message),
-      (result) => seasonalAnime = result,
+      (result) {
+        print(result);
+        seasonalAnime = result;
+      },
     );
     topAnimeResult.fold(
       (error) => errors.add(error.message),

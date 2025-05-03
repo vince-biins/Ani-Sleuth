@@ -1,6 +1,6 @@
 part of 'navigation_cubit.dart';
 
-@freezed
+@Freezed(copyWith: false, toJson: false)
 sealed class NavigationState with _$NavigationState {
   const factory NavigationState.idle() = IdleNavigation;
   const factory NavigationState.navigateTo(

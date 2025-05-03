@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class DetailPage extends StatelessWidget {
-  final String? animeId;
+  final int? animeId;
 
   const DetailPage({super.key, this.animeId});
 
-  static route(String? animeId) {
+  static route(int? animeId) {
     return MaterialPageRoute(
       builder: (context) => DetailPage(
         animeId: animeId,
