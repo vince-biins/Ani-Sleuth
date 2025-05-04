@@ -47,6 +47,9 @@ class AnimeRepositoryImpl implements AnimeRepository {
     return _animeService
         .fetchListOfTopAnime(limit: limit)
         .then<Either<AFailure, List<TopAnime>>>((value) {
+      value.data?.sort(
+        (a, b) => (a.rank ?? 0).compareTo(b.rank ?? 0),
+      );
       return Right(
         value.data?.map((e) => e.transform()).toList() ?? [],
       );

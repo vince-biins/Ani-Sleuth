@@ -1,6 +1,7 @@
 import 'package:ani_sleuth/application/base/cubit/navigation_cubit.dart';
 import 'package:ani_sleuth/application/dashboard/bloc/dashboard_bloc.dart';
 import 'package:ani_sleuth/core/components/ui_constants.dart';
+import 'package:ani_sleuth/presentation/page/dashboard/component/grid_section.dart';
 import 'package:ani_sleuth/presentation/page/dashboard/component/seasonal_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,21 +13,34 @@ class DashboardContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(containerPadding),
+      padding: EdgeInsets.all(UiConstantsProvider.containerPadding),
       child: SizedBox(
         width: double.infinity,
-        child: Column(
-          children: [
-            SeasonalSection(
-              seasonalAnime: data.seasonalAnime,
-              onTap: (id) {
-                context
-                    .read<NavigationCubit>()
-                    .navigateTo('/details', arguments: id);
-              },
-              onHover: (isHovered) {},
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SeasonalSection(
+                seasonalAnime: data.seasonalAnime,
+                onTap: (id) {
+                  context
+                      .read<NavigationCubit>()
+                      .navigateTo('/details', arguments: id);
+                },
+                onHover: (isHovered) {},
+                onClickMore: () {},
+              ),
+              GridSection(
+                topAnime: data.topAnime,
+                onTap: (id) {
+                  context
+                      .read<NavigationCubit>()
+                      .navigateTo('/details', arguments: id);
+                },
+                onHover: (isHovered) {},
+                onClickMore: () {},
+              ),
+            ],
+          ),
         ),
       ),
     );

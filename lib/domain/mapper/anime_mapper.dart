@@ -16,7 +16,7 @@ extension AnimeMapper on AnimeDto {
     return TopAnime(
       malId: malId,
       url: url,
-      imageUrl: images.jpg?.mediumImageUrl ?? images.webp?.mediumImageUrl,
+      imageUrl: images.jpg?.imageUrl ?? images.webp?.imageUrl,
       title: title,
       type: type,
       episodes: episodes.toString(),

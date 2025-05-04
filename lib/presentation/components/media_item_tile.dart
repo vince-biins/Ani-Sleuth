@@ -52,8 +52,9 @@ class _MediaItemTileState extends State<MediaItemTile>
         ? Theme.of(context).colorScheme.primary
         : Theme.of(context).colorScheme.tertiary;
 
-    return Padding(
-      padding: const EdgeInsets.all(8),
+    return AspectRatio(
+      aspectRatio: UiConstantsProvider.getImageItemWidth(context) /
+          UiConstantsProvider.getImageItemHeight(context),
       child: MouseRegion(
         onEnter: (_) => _setHovered(true),
         onExit: (_) => _setHovered(false),
@@ -74,7 +75,8 @@ class _MediaItemTileState extends State<MediaItemTile>
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Container(
-              width: imageItemWidth,
+              height: UiConstantsProvider.getImageItemHeight(context),
+              width: UiConstantsProvider.getImageItemWidth(context),
               decoration: BoxDecoration(
                 color: Colors.black,
                 borderRadius: BorderRadius.circular(12),
@@ -89,7 +91,9 @@ class _MediaItemTileState extends State<MediaItemTile>
               child: Stack(
                 children: [
                   // Image background
-                  AniImageNetwork(src: widget.imageUrl ?? ''),
+                  AniImageNetwork(
+                    src: widget.imageUrl ?? '',
+                  ),
 
                   Positioned(
                     bottom: 0,
@@ -129,7 +133,8 @@ class _MediaItemTileState extends State<MediaItemTile>
                       top: 8,
                       left: 8,
                       child: Container(
-                        padding: const EdgeInsets.all(containerPadding / 2),
+                        padding: EdgeInsets.all(
+                            UiConstantsProvider.containerPadding),
                         decoration: BoxDecoration(
                           color: leftBadgeColor.withValues(
                             alpha: widget.badgeAlpha,
@@ -153,7 +158,9 @@ class _MediaItemTileState extends State<MediaItemTile>
                       top: 8,
                       right: 8,
                       child: Container(
-                        padding: const EdgeInsets.all(containerPadding / 2),
+                        padding: EdgeInsets.all(
+                          UiConstantsProvider.containerPadding,
+                        ),
                         decoration: BoxDecoration(
                           color: Theme.of(context)
                               .colorScheme

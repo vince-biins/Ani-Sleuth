@@ -1,16 +1,17 @@
-import 'package:ani_sleuth/core/components/ui_constants.dart';
 import 'package:flutter/material.dart';
 
 class AniImageNetwork extends StatelessWidget {
   final String src;
   final BoxFit? fit;
   final double width;
+  final double height;
 
   const AniImageNetwork({
     super.key,
     required this.src,
     this.fit = BoxFit.cover,
-    this.width = imageItemWidth,
+    this.width = 200,
+    this.height = 300,
   });
 
   @override
@@ -18,6 +19,7 @@ class AniImageNetwork extends StatelessWidget {
     return Image.network(
       src,
       width: width,
+      height: height,
       fit: fit,
       errorBuilder: (context, error, stackTrace) {
         return const Center(
