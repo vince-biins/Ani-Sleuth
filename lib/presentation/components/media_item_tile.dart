@@ -91,8 +91,13 @@ class _MediaItemTileState extends State<MediaItemTile>
               child: Stack(
                 children: [
                   // Image background
-                  AniImageNetwork(
-                    src: widget.imageUrl ?? '',
+                  AspectRatio(
+                    aspectRatio:
+                        UiConstantsProvider.getImageItemWidth(context) /
+                            UiConstantsProvider.getImageItemHeight(context),
+                    child: AniImageNetwork(
+                      src: widget.imageUrl ?? '',
+                    ),
                   ),
 
                   Positioned(
@@ -107,7 +112,7 @@ class _MediaItemTileState extends State<MediaItemTile>
                           end: Alignment.bottomCenter,
                           colors: [
                             Colors.transparent,
-                            Colors.black54,
+                            Colors.black87,
                             Colors.black87,
                           ],
                         ),
@@ -118,11 +123,9 @@ class _MediaItemTileState extends State<MediaItemTile>
                         widget.title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.w500,
+                            ),
                       ),
                     ),
                   ),
@@ -134,7 +137,8 @@ class _MediaItemTileState extends State<MediaItemTile>
                       left: 8,
                       child: Container(
                         padding: EdgeInsets.all(
-                            UiConstantsProvider.containerPadding),
+                          UiConstantsProvider.containerPadding,
+                        ),
                         decoration: BoxDecoration(
                           color: leftBadgeColor.withValues(
                             alpha: widget.badgeAlpha,
@@ -143,11 +147,10 @@ class _MediaItemTileState extends State<MediaItemTile>
                         ),
                         child: Text(
                           widget.leftBadgeValue,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.labelMedium?.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                  ),
                         ),
                       ),
                     ),
@@ -179,11 +182,12 @@ class _MediaItemTileState extends State<MediaItemTile>
                             const SizedBox(width: 2),
                             Text(
                               widget.rating?.toString() ?? '',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                  ),
                             ),
                           ],
                         ),

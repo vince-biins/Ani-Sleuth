@@ -1,4 +1,5 @@
 import 'package:ani_sleuth/presentation/theme/ani_color.dart';
+import 'package:ani_sleuth/presentation/theme/ani_typography.dart';
 import 'package:flutter/material.dart';
 
 class AniTheme {
@@ -50,25 +51,41 @@ class AniTheme {
     outline: AniColor.outline,
   );
 
-  static ThemeData get darkTheme => ThemeData(
-        colorScheme: darkColorScheme,
-        useMaterial3: true,
-        scaffoldBackgroundColor: AniColor.backgroundDark,
-        appBarTheme: AppBarTheme(
-          backgroundColor: AniColor.backgroundDark,
-          foregroundColor: AniColor.onBackgroundDark,
-          elevation: 0,
-        ),
-      );
+  static ThemeData lightTheme(BuildContext context) {
+    final baseLight = ThemeData.light(useMaterial3: true);
+    final responsiveTextTheme =
+        AniTypography.fromMediaQuery(context, baseLight.textTheme);
+    return baseLight.copyWith(
+      colorScheme: lightColorScheme,
 
-  static ThemeData get lightTheme => ThemeData(
-        colorScheme: lightColorScheme,
-        useMaterial3: true,
-        scaffoldBackgroundColor: AniColor.backgroundLight,
-        appBarTheme: AppBarTheme(
-          backgroundColor: AniColor.backgroundLight,
-          foregroundColor: AniColor.onBackgroundLight,
-          elevation: 0,
-        ),
-      );
+      scaffoldBackgroundColor: AniColor.backgroundLight,
+      appBarTheme: baseLight.appBarTheme.copyWith(
+        // Use copyWith to modify existing theme
+        backgroundColor: AniColor.backgroundLight,
+        foregroundColor: AniColor.onBackgroundLight,
+        elevation: 0,
+      ),
+      textTheme:
+          responsiveTextTheme.toTextTheme(), // Apply the responsive text theme
+    );
+  }
+
+  static ThemeData darkTheme(BuildContext context) {
+    final baseDark = ThemeData.dark(useMaterial3: true);
+    final responsiveTextTheme =
+        AniTypography.fromMediaQuery(context, baseDark.textTheme);
+    return baseDark.copyWith(
+      colorScheme: darkColorScheme,
+
+      scaffoldBackgroundColor: AniColor.backgroundDark,
+      appBarTheme: baseDark.appBarTheme.copyWith(
+        // Use copyWith to modify existing theme
+        backgroundColor: AniColor.backgroundDark,
+        foregroundColor: AniColor.onBackgroundDark,
+        elevation: 0,
+      ),
+      textTheme:
+          responsiveTextTheme.toTextTheme(), // Apply the responsive text theme
+    );
+  }
 }
