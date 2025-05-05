@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class UiConstantsProvider {
   static const double containerPadding = 8.0;
+  static const double spacing = 8.0;
   static const double containerMargin = 8.0;
   static const double containerBorderRadius = 8.0;
   static const double _compactScreenWidth = 120.0;

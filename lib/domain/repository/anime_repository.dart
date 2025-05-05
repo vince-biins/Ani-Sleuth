@@ -19,4 +19,8 @@ abstract class AnimeRepository {
   Future<Either<AFailure, List<SeasonalAnime>>> getSeasonNowAnime({
     required int limit,
   });
+
+  Future<Either<AFailure, List<FullAnime>>> getListOfMostFavoriteAnime({
+    required int limit,
+  });
 }

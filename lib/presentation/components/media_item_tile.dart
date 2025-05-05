@@ -26,7 +26,7 @@ class MediaItemTile extends StatefulWidget {
     this.isRightBadgeVisible = true,
     required this.isRankedTile,
     required this.rating,
-    this.badgeAlpha = 0.8,
+    this.badgeAlpha = 0.9,
     required this.onTap,
     required this.onHover,
   });
@@ -51,6 +51,9 @@ class _MediaItemTileState extends State<MediaItemTile>
     final leftBadgeColor = widget.isRankedTile
         ? Theme.of(context).colorScheme.primary
         : Theme.of(context).colorScheme.tertiary;
+    final leftBadgeTextColor = widget.isRankedTile
+        ? Theme.of(context).colorScheme.onPrimary
+        : Theme.of(context).colorScheme.onTertiary;
 
     return AspectRatio(
       aspectRatio: UiConstantsProvider.getImageItemWidth(context) /
@@ -133,23 +136,27 @@ class _MediaItemTileState extends State<MediaItemTile>
                   // Left badge
                   if (widget.isLeftBadgeVisible)
                     Positioned(
-                      top: 8,
-                      left: 8,
+                      top: 0,
+                      left: 0,
                       child: Container(
                         padding: EdgeInsets.all(
-                          UiConstantsProvider.containerPadding,
+                          UiConstantsProvider.containerPadding - 2,
                         ),
                         decoration: BoxDecoration(
                           color: leftBadgeColor.withValues(
                             alpha: widget.badgeAlpha,
                           ),
-                          borderRadius: BorderRadius.circular(4),
+                          borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(12),
+                          ),
                         ),
                         child: Text(
                           widget.leftBadgeValue,
                           style:
                               Theme.of(context).textTheme.labelMedium?.copyWith(
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.w800,
+                                    color: leftBadgeTextColor,
+                                    fontStyle: FontStyle.italic,
                                   ),
                         ),
                       ),
@@ -158,25 +165,27 @@ class _MediaItemTileState extends State<MediaItemTile>
                   // Right badge (rating)
                   if (widget.isRightBadgeVisible)
                     Positioned(
-                      top: 8,
-                      right: 8,
+                      top: 0,
+                      right: 0,
                       child: Container(
                         padding: EdgeInsets.all(
-                          UiConstantsProvider.containerPadding,
+                          UiConstantsProvider.containerPadding - 4,
                         ),
                         decoration: BoxDecoration(
                           color: Theme.of(context)
                               .colorScheme
                               .secondary
                               .withValues(alpha: widget.badgeAlpha),
-                          borderRadius: BorderRadius.circular(4),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(12),
+                          ),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.star,
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.onSecondary,
                               size: 12,
                             ),
                             const SizedBox(width: 2),
@@ -186,7 +195,10 @@ class _MediaItemTileState extends State<MediaItemTile>
                                   .textTheme
                                   .labelMedium
                                   ?.copyWith(
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondary,
                                   ),
                             ),
                           ],

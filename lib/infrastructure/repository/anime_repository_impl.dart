@@ -76,4 +76,29 @@ class AnimeRepositoryImpl implements AnimeRepository {
       );
     });
   }
+
+  @override
+  Future<Either<AFailure, List<FullAnime>>> getListOfMostFavoriteAnime({
+    required int limit,
+  }) {
+    return _animeService
+        .fetchListOfMostFavoriteAnime(limit: limit)
+        .then<Either<AFailure, List<FullAnime>>>((value) {
+      return Right(
+        value.data?.asMap().entries.map(
+              (entry) {
+                int index = entry.key;
+                final mapValue = entry.value;
+
+                return mapValue.transformFull(index: index + 1);
+              },
+            ).toList() ??
+            [],
+      );
+    }).catchError((e) {
+      return Left<AFailure, List<FullAnime>>(
+        AFailure.fromDioException(e),
+      );
+    });
+  }
 }

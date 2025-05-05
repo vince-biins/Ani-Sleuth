@@ -175,6 +175,7 @@ mixin _$DashboardData {
   List<SeasonalAnime> get seasonalAnime;
   List<TopAnime> get topAnime;
   List<TopCharacter> get topCharacter;
+  List<FullAnime> get mostFavoriteAnime;
 
   /// Create a copy of DashboardData
   /// with the given fields replaced by the non-null parameter values.
@@ -193,7 +194,9 @@ mixin _$DashboardData {
                 .equals(other.seasonalAnime, seasonalAnime) &&
             const DeepCollectionEquality().equals(other.topAnime, topAnime) &&
             const DeepCollectionEquality()
-                .equals(other.topCharacter, topCharacter));
+                .equals(other.topCharacter, topCharacter) &&
+            const DeepCollectionEquality()
+                .equals(other.mostFavoriteAnime, mostFavoriteAnime));
   }
 
   @override
@@ -201,11 +204,12 @@ mixin _$DashboardData {
       runtimeType,
       const DeepCollectionEquality().hash(seasonalAnime),
       const DeepCollectionEquality().hash(topAnime),
-      const DeepCollectionEquality().hash(topCharacter));
+      const DeepCollectionEquality().hash(topCharacter),
+      const DeepCollectionEquality().hash(mostFavoriteAnime));
 
   @override
   String toString() {
-    return 'DashboardData(seasonalAnime: $seasonalAnime, topAnime: $topAnime, topCharacter: $topCharacter)';
+    return 'DashboardData(seasonalAnime: $seasonalAnime, topAnime: $topAnime, topCharacter: $topCharacter, mostFavoriteAnime: $mostFavoriteAnime)';
   }
 }
 
@@ -218,7 +222,8 @@ abstract mixin class $DashboardDataCopyWith<$Res> {
   $Res call(
       {List<SeasonalAnime> seasonalAnime,
       List<TopAnime> topAnime,
-      List<TopCharacter> topCharacter});
+      List<TopCharacter> topCharacter,
+      List<FullAnime> mostFavoriteAnime});
 }
 
 /// @nodoc
@@ -237,6 +242,7 @@ class _$DashboardDataCopyWithImpl<$Res>
     Object? seasonalAnime = null,
     Object? topAnime = null,
     Object? topCharacter = null,
+    Object? mostFavoriteAnime = null,
   }) {
     return _then(_self.copyWith(
       seasonalAnime: null == seasonalAnime
@@ -251,6 +257,10 @@ class _$DashboardDataCopyWithImpl<$Res>
           ? _self.topCharacter
           : topCharacter // ignore: cast_nullable_to_non_nullable
               as List<TopCharacter>,
+      mostFavoriteAnime: null == mostFavoriteAnime
+          ? _self.mostFavoriteAnime
+          : mostFavoriteAnime // ignore: cast_nullable_to_non_nullable
+              as List<FullAnime>,
     ));
   }
 }
@@ -261,10 +271,12 @@ class _DashboardData implements DashboardData {
   _DashboardData(
       {required final List<SeasonalAnime> seasonalAnime,
       required final List<TopAnime> topAnime,
-      required final List<TopCharacter> topCharacter})
+      required final List<TopCharacter> topCharacter,
+      required final List<FullAnime> mostFavoriteAnime})
       : _seasonalAnime = seasonalAnime,
         _topAnime = topAnime,
-        _topCharacter = topCharacter;
+        _topCharacter = topCharacter,
+        _mostFavoriteAnime = mostFavoriteAnime;
 
   final List<SeasonalAnime> _seasonalAnime;
   @override
@@ -290,6 +302,15 @@ class _DashboardData implements DashboardData {
     return EqualUnmodifiableListView(_topCharacter);
   }
 
+  final List<FullAnime> _mostFavoriteAnime;
+  @override
+  List<FullAnime> get mostFavoriteAnime {
+    if (_mostFavoriteAnime is EqualUnmodifiableListView)
+      return _mostFavoriteAnime;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_mostFavoriteAnime);
+  }
+
   /// Create a copy of DashboardData
   /// with the given fields replaced by the non-null parameter values.
   @override
@@ -307,7 +328,9 @@ class _DashboardData implements DashboardData {
                 .equals(other._seasonalAnime, _seasonalAnime) &&
             const DeepCollectionEquality().equals(other._topAnime, _topAnime) &&
             const DeepCollectionEquality()
-                .equals(other._topCharacter, _topCharacter));
+                .equals(other._topCharacter, _topCharacter) &&
+            const DeepCollectionEquality()
+                .equals(other._mostFavoriteAnime, _mostFavoriteAnime));
   }
 
   @override
@@ -315,11 +338,12 @@ class _DashboardData implements DashboardData {
       runtimeType,
       const DeepCollectionEquality().hash(_seasonalAnime),
       const DeepCollectionEquality().hash(_topAnime),
-      const DeepCollectionEquality().hash(_topCharacter));
+      const DeepCollectionEquality().hash(_topCharacter),
+      const DeepCollectionEquality().hash(_mostFavoriteAnime));
 
   @override
   String toString() {
-    return 'DashboardData(seasonalAnime: $seasonalAnime, topAnime: $topAnime, topCharacter: $topCharacter)';
+    return 'DashboardData(seasonalAnime: $seasonalAnime, topAnime: $topAnime, topCharacter: $topCharacter, mostFavoriteAnime: $mostFavoriteAnime)';
   }
 }
 
@@ -334,7 +358,8 @@ abstract mixin class _$DashboardDataCopyWith<$Res>
   $Res call(
       {List<SeasonalAnime> seasonalAnime,
       List<TopAnime> topAnime,
-      List<TopCharacter> topCharacter});
+      List<TopCharacter> topCharacter,
+      List<FullAnime> mostFavoriteAnime});
 }
 
 /// @nodoc
@@ -353,6 +378,7 @@ class __$DashboardDataCopyWithImpl<$Res>
     Object? seasonalAnime = null,
     Object? topAnime = null,
     Object? topCharacter = null,
+    Object? mostFavoriteAnime = null,
   }) {
     return _then(_DashboardData(
       seasonalAnime: null == seasonalAnime
@@ -367,6 +393,10 @@ class __$DashboardDataCopyWithImpl<$Res>
           ? _self._topCharacter
           : topCharacter // ignore: cast_nullable_to_non_nullable
               as List<TopCharacter>,
+      mostFavoriteAnime: null == mostFavoriteAnime
+          ? _self._mostFavoriteAnime
+          : mostFavoriteAnime // ignore: cast_nullable_to_non_nullable
+              as List<FullAnime>,
     ));
   }
 }

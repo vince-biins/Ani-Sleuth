@@ -1,4 +1,5 @@
 import 'package:ani_sleuth/application/api_util/a_failure.dart';
+import 'package:ani_sleuth/domain/model/anime/entity/full_anime.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/seasonal_anime.dart';
 import 'package:ani_sleuth/domain/model/common/genre.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/top_anime.dart';
@@ -59,4 +60,11 @@ class ADashboardRepositoryImpl implements ADashboardRepository {
 
   int _checkMaxLimit(int limit, int maxLimit) =>
       limit > maxLimit ? maxLimit : limit;
+
+  @override
+  Future<Either<AFailure, List<FullAnime>>> getMostFavoriteAnime({
+    required int limit,
+  }) async {
+    return await _animeRepository.getListOfMostFavoriteAnime(limit: limit);
+  }
 }

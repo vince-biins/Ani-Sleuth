@@ -6,5 +6,6 @@ abstract class DashboardData with _$DashboardData {
     required List<SeasonalAnime> seasonalAnime,
     required List<TopAnime> topAnime,
     required List<TopCharacter> topCharacter,
+    required List<FullAnime> mostFavoriteAnime,
   }) = _DashboardData;
 }

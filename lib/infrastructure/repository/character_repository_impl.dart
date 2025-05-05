@@ -64,7 +64,15 @@ class CharacterRepositoryImpl implements CharacterRepository {
     return _characterService
         .fetchListOfTopCharacters(limit: limit)
         .then<Either<AFailure, List<TopCharacter>>>((value) {
-      return Right(value.data?.map((e) => e.transform()).toList() ?? []);
+      return Right(
+        value.data?.toList().asMap().entries.map((entry) {
+              int index = entry.key;
+              var mapValue = entry.value;
+
+              return mapValue.transform(index + 1);
+            }).toList() ??
+            [],
+      );
     }).catchError((e) {
       return Left<AFailure, List<TopCharacter>>(
         AFailure.fromDioException(e),

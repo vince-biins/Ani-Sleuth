@@ -30,4 +30,11 @@ abstract class AnimeService {
   Future<ApiSuccess<List<ReviewDto>>> fetchAnimeReviews({
     @Path('id') required int id,
   });
+
+  @GET('v4/anime')
+  Future<ApiSuccess<List<AnimeDto>>> fetchListOfMostFavoriteAnime({
+    @Query('order_by') String orderBy = 'favorites',
+    @Query('sort') String sortBy = 'desc',
+    @Query('limit') int? limit,
+  });
 }

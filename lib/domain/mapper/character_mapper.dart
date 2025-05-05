@@ -7,17 +7,17 @@ import 'package:ani_sleuth/infrastructure/data_source/remote/dto/character/chara
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/character/manga_character_dto.dart';
 
 extension CharacterMapper on CharacterDto {
-  TopCharacter transform() {
+  TopCharacter transform(int index) {
     return TopCharacter(
-      malId: malId,
-      url: url,
-      images: images?.jpg?.imageUrl ?? images?.webp?.imageUrl,
-      name: name,
-      nameKanji: nameKanji,
-      nicknames: nicknames ?? [],
-      favorites: favorites,
-      about: about,
-    );
+        malId: malId,
+        url: url,
+        images: images?.jpg?.imageUrl ?? images?.webp?.imageUrl,
+        name: name,
+        nameKanji: nameKanji,
+        nicknames: nicknames ?? [],
+        favorites: favorites,
+        about: about,
+        rank: '#$index');
   }
 
   Character transformFull() {

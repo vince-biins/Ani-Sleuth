@@ -2,6 +2,8 @@ import 'package:ani_sleuth/domain/model/anime/entity/anime.dart';
 
 class TopAnime extends Anime {
   final List<String> sGenres;
+  final String? synopsis;
+  final String? background;
   const TopAnime({
     required super.malId,
     required super.url,
@@ -16,6 +18,8 @@ class TopAnime extends Anime {
     required super.episodes,
     required super.genres,
     required this.sGenres,
+    required this.background,
+    required this.synopsis,
   });
 
   @override

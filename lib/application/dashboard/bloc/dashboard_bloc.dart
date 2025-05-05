@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:ani_sleuth/application/base/base_event.dart';
 import 'package:ani_sleuth/application/base/base_state.dart';
+import 'package:ani_sleuth/domain/model/anime/entity/full_anime.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/seasonal_anime.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/top_anime.dart';
 import 'package:ani_sleuth/domain/model/character/entity/top_character.dart';
@@ -17,12 +18,16 @@ typedef DashboardState = BaseState<DashboardData>;
 
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   final ADashboardRepository _dashboardRepository;
+
   // ignore: non_constant_identifier_names
   final int _LIMIT = 25;
+  // ignore: non_constant_identifier_names
+  final int _MOST_FAVORITE_LIMIT = 5;
 
   List<SeasonalAnime> seasonalAnime = [];
   List<TopAnime> topAnime = [];
   List<TopCharacter> topCharacters = [];
+  List<FullAnime> mostFavoriteAnime = [];
 
   List<String> errors = [];
 
@@ -41,10 +46,13 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     final topCharactersResult =
         await _dashboardRepository.getTopCharacters(limit: _LIMIT);
 
+    final mostFavoriteResult = await _dashboardRepository.getMostFavoriteAnime(
+      limit: _MOST_FAVORITE_LIMIT,
+    );
+
     seasonalAnimeResult.fold(
       (error) => errors.add(error.message),
       (result) {
-        print(result);
         seasonalAnime = result;
       },
     );
@@ -55,6 +63,10 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     topCharactersResult.fold(
       (error) => errors.add(error.message),
       (result) => topCharacters = result,
+    );
+    mostFavoriteResult.fold(
+      (error) => errors.add(error.message),
+      (result) => mostFavoriteAnime = result,
     );
   }
 
@@ -87,6 +99,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           seasonalAnime: seasonalAnime,
           topAnime: topAnime,
           topCharacter: topCharacters,
+          mostFavoriteAnime: mostFavoriteAnime,
         ),
       ),
     );
@@ -105,6 +118,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       seasonalAnime: seasonalAnime,
       topAnime: topAnime,
       topCharacter: topCharacters,
+      mostFavoriteAnime: mostFavoriteAnime,
     );
 
     if (state is LoadPage) {

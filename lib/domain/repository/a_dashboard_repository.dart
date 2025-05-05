@@ -1,4 +1,5 @@
 import 'package:ani_sleuth/application/api_util/a_failure.dart';
+import 'package:ani_sleuth/domain/model/anime/entity/full_anime.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/seasonal_anime.dart';
 import 'package:ani_sleuth/domain/model/common/genre.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/top_anime.dart';
@@ -17,11 +18,16 @@ abstract class ADashboardRepository {
   Future<Either<AFailure, List<TopAnime>>> getTopAnime({
     required int limit,
   });
+
   Future<Either<AFailure, List<TopCharacter>>> getTopCharacters({
     required int limit,
   });
   Future<Either<AFailure, List<Genre>>> getAnimeGenre();
   Future<Either<AFailure, List<SeasonalAnime>>> getSeasonalAnime({
+    required int limit,
+  });
+
+  Future<Either<AFailure, List<FullAnime>>> getMostFavoriteAnime({
     required int limit,
   });
 }

@@ -1,15 +1,21 @@
 import 'package:ani_sleuth/domain/model/anime/entity/anime.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/aservice.dart';
+import 'package:ani_sleuth/domain/model/anime/entity/trailer.dart';
 import 'package:ani_sleuth/domain/model/anime/valueobject/airing.dart';
 import 'package:ani_sleuth/domain/model/anime/valueobject/external.dart';
+import 'package:ani_sleuth/domain/model/common/aimage.dart';
 
 class FullAnime extends Anime {
   final String? synopsis;
   final String? background;
+  final String? jTitle;
+  final Aimage fullImage;
   final Airing airing;
   final bool isAiring;
   final String duration;
   final String? rating;
+  final String? favoriteRank;
+  final Trailer? trailer;
   final List<AService> studios;
   final List<AService> licensors;
   final List<AService> producers;
@@ -40,5 +46,9 @@ class FullAnime extends Anime {
     required super.genres,
     required this.duration,
     required this.rating,
+    required this.fullImage,
+    required this.jTitle,
+    required this.favoriteRank,
+    required this.trailer,
   });
 }
