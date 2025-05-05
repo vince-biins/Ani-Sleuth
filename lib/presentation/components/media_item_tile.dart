@@ -15,6 +15,7 @@ class MediaItemTile extends StatefulWidget {
   final double badgeAlpha;
   final Function(int) onTap;
   final Function(bool) onHover;
+  final IconData icon;
 
   const MediaItemTile({
     super.key,
@@ -29,6 +30,7 @@ class MediaItemTile extends StatefulWidget {
     this.badgeAlpha = 0.9,
     required this.onTap,
     required this.onHover,
+    this.icon = Icons.play_circle_fill,
   });
 
   @override
@@ -104,11 +106,11 @@ class _MediaItemTileState extends State<MediaItemTile>
                   ),
 
                   Positioned(
-                    bottom: 0,
+                    bottom: -5,
                     left: 0,
                     right: 0,
                     child: Container(
-                      height: 90,
+                      height: 200,
                       decoration: const BoxDecoration(
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
@@ -116,17 +118,17 @@ class _MediaItemTileState extends State<MediaItemTile>
                           colors: [
                             Colors.transparent,
                             Colors.black87,
-                            Colors.black87,
                           ],
                         ),
                       ),
                       alignment: Alignment.bottomLeft,
-                      padding: const EdgeInsets.all(8),
+                      padding:
+                          EdgeInsets.only(left: 8.0, bottom: 8.0, right: 8.0),
                       child: Text(
                         widget.title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               fontWeight: FontWeight.w500,
                             ),
                       ),
@@ -205,7 +207,7 @@ class _MediaItemTileState extends State<MediaItemTile>
                         ),
                       ),
                     ),
-
+                  // Blur layer
                   if (_hoveredOrTapped)
                     Positioned.fill(
                       child: AnimatedOpacity(
@@ -214,26 +216,34 @@ class _MediaItemTileState extends State<MediaItemTile>
                         curve: Curves.easeOut,
                         child: Stack(
                           children: [
-                            // Blur layer
                             BackdropFilter(
                               filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
                               child: Container(
                                 color: Colors.transparent,
                               ),
                             ),
-
                             Center(
                               child: AnimatedScale(
                                 scale: _hoveredOrTapped ? 1.0 : 0.8,
                                 duration: const Duration(milliseconds: 300),
                                 curve: Curves.easeOutBack,
-                                child: const SizedBox(
+                                child: SizedBox(
                                   width: 50,
                                   height: 50,
-                                  child: Icon(
-                                    Icons.play_circle_fill,
-                                    size: 50,
-                                    color: Colors.white,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(
+                                        50.0,
+                                      ), // Adjust the radius
+                                    ),
+                                    child: Icon(
+                                      widget.icon,
+                                      size: 50,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .secondary,
+                                    ),
                                   ),
                                 ),
                               ),

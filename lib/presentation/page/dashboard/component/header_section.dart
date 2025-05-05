@@ -10,6 +10,7 @@ class HeaderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final vignetteColor = Theme.of(context).scaffoldBackgroundColor;
     return SizedBox(
       height: context.screenHeight,
       width: context.screenWidth,
@@ -21,30 +22,80 @@ class HeaderSection extends StatelessWidget {
             width: context.screenWidth,
             child: AniImageNetwork(
               src: favoriteAnime.trailer?.images?.maximumImageUrl ?? '',
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
             ),
           ),
-
-          // Vignette Effect
-          Positioned.fill(
-            child: ShaderMask(
-              blendMode: BlendMode.multiply,
-              shaderCallback: (Rect bounds) {
-                return RadialGradient(
+          // Left Shadow
+          Positioned(
+            left: 0,
+            top: 0,
+            bottom: 0,
+            width: context.screenWidth * 0.6,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
                   colors: [
+                    vignetteColor,
                     Colors.transparent,
-                    Colors.black,
                   ],
-                  stops: const [0.4, 1.0],
-                  center: Alignment.center,
-                  radius: 1,
-                  tileMode: TileMode.clamp,
-                ).createShader(bounds);
-              },
-              child: const SizedBox(),
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ),
+              ),
             ),
           ),
-
+          // Top Shadow
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            height: context.screenHeight * 0.3,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    vignetteColor,
+                    Colors.transparent,
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+            ),
+          ),
+          // Right Shadow
+          Positioned(
+            right: 0,
+            top: 0,
+            bottom: 0,
+            width: context.screenWidth * 0.3,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.transparent, vignetteColor],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                ),
+              ),
+            ),
+          ),
+          // Bottom Shadow
+          Positioned(
+            bottom:
+                -5, // to prevent the slight appearance of the image mot covered by the shadow
+            left: 0,
+            right: 0,
+            height: context.screenHeight,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.transparent, vignetteColor],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.only(
               left: UiConstantsProvider.containerPadding * 6,
@@ -78,20 +129,28 @@ class HeaderSection extends StatelessWidget {
                   ),
 
                   /// TITLE
-                  SizedBox.shrink(
+                  SizedBox(
                     child: Column(
                       spacing: 4.0,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           favoriteAnime.title,
-                          style:
-                              Theme.of(context).textTheme.titleLarge?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
                         ),
                         Text(
                           '( ${favoriteAnime.jTitle} )',
-                          style: Theme.of(context).textTheme.titleMedium,
+                          style:
+                              Theme.of(context).textTheme.titleSmall?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .tertiaryContainer,
+                                  ),
                         ),
                       ],
                     ),
@@ -103,7 +162,7 @@ class HeaderSection extends StatelessWidget {
                       favoriteAnime.synopsis ??
                           favoriteAnime.background ??
                           'No Data',
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: Theme.of(context).textTheme.bodySmall,
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -134,6 +193,9 @@ class HeaderSection extends StatelessWidget {
                               ),
                             ],
                           ),
+                        ),
+                        SizedBox(
+                          width: UiConstantsProvider.spacing,
                         ),
 
                         /// Scored by

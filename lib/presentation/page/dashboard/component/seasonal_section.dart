@@ -20,47 +20,50 @@ class SeasonalSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sectionHeadingHeight = 56.0;
-    return SizedBox(
-      height: UiConstantsProvider.getImageItemHeight(context) +
-          sectionHeadingHeight,
-      child: Column(
-        children: [
-          SizedBox(
-            height: sectionHeadingHeight,
-            child: SectionHeading(
-              title: 'Seasonal Anime',
-              onClickMore: onClickMore,
+    return Padding(
+      padding: const EdgeInsets.all(UiConstantsProvider.containerPadding),
+      child: SizedBox(
+        height: UiConstantsProvider.getImageItemHeight(context) +
+            sectionHeadingHeight,
+        child: Column(
+          children: [
+            SizedBox(
+              height: sectionHeadingHeight,
+              child: SectionHeading(
+                title: 'Seasonal Anime',
+                onClickMore: onClickMore,
+              ),
             ),
-          ),
-          SizedBox(
-            height: UiConstantsProvider.getImageItemHeight(context),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: seasonalAnime.length,
-              itemBuilder: (context, index) {
-                final item = seasonalAnime[index];
-                return Padding(
-                  padding: const EdgeInsets.all(
-                    UiConstantsProvider.containerPadding,
-                  ),
-                  child: SizedBox(
-                    width: UiConstantsProvider.getImageItemWidth(context),
-                    child: MediaItemTile(
-                      id: item.malId,
-                      title: item.title,
-                      imageUrl: item.imageUrl,
-                      leftBadgeValue: item.episodes,
-                      isRankedTile: false,
-                      rating: item.score,
-                      onTap: onTap,
-                      onHover: onHover,
+            SizedBox(
+              height: UiConstantsProvider.getImageItemHeight(context),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: seasonalAnime.length,
+                itemBuilder: (context, index) {
+                  final item = seasonalAnime[index];
+                  return Padding(
+                    padding: const EdgeInsets.all(
+                      UiConstantsProvider.containerPadding,
                     ),
-                  ),
-                );
-              },
+                    child: SizedBox(
+                      width: UiConstantsProvider.getImageItemWidth(context),
+                      child: MediaItemTile(
+                        id: item.malId,
+                        title: item.title,
+                        imageUrl: item.imageUrl,
+                        leftBadgeValue: item.episodes,
+                        isRankedTile: false,
+                        rating: item.score,
+                        onTap: onTap,
+                        onHover: onHover,
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

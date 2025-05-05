@@ -31,35 +31,38 @@ class GridSection<T> extends StatelessWidget {
     final EdgeInsets padding = const EdgeInsets.all(8.0);
 
     final double itemWidth = UiConstantsProvider.getImageItemWidth(context);
-    return SizedBox(
-      child: Column(
-        children: [
-          SizedBox(
-            height: sectionHeadingHeight,
-            child: SectionHeading(title: title),
-          ),
-          LayoutBuilder(
-            builder: (context, constraints) {
-              return GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap:
-                    true, // 👈 this avoids needing to manually compute height
-                padding: padding,
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: itemWidth + crossAxisSpacing,
-                  mainAxisSpacing: mainAxisSpacing,
-                  crossAxisSpacing: crossAxisSpacing,
-                  childAspectRatio: aspectRation,
-                ),
-                itemCount: items.length,
-                itemBuilder: (context, index) {
-                  final item = items[index];
-                  return itemBuilder(context, item);
-                },
-              );
-            },
-          ),
-        ],
+    return Padding(
+      padding: const EdgeInsets.all(UiConstantsProvider.containerPadding),
+      child: SizedBox(
+        child: Column(
+          children: [
+            SizedBox(
+              height: sectionHeadingHeight,
+              child: SectionHeading(title: title),
+            ),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                return GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap:
+                      true, // 👈 this avoids needing to manually compute height
+                  padding: padding,
+                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: itemWidth + crossAxisSpacing,
+                    mainAxisSpacing: mainAxisSpacing,
+                    crossAxisSpacing: crossAxisSpacing,
+                    childAspectRatio: aspectRation,
+                  ),
+                  itemCount: items.length,
+                  itemBuilder: (context, index) {
+                    final item = items[index];
+                    return itemBuilder(context, item);
+                  },
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
