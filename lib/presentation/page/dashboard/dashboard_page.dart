@@ -3,6 +3,9 @@ import 'package:ani_sleuth/application/base/base_state.dart';
 import 'package:ani_sleuth/application/base/cubit/navigation_cubit.dart';
 import 'package:ani_sleuth/application/dashboard/bloc/dashboard_bloc.dart';
 import 'package:ani_sleuth/core/injectors/dependency_injection.dart';
+import 'package:ani_sleuth/core/platform_provider.dart';
+import 'package:ani_sleuth/core/util.dart';
+import 'package:ani_sleuth/presentation/components/ani_sidebar.dart';
 import 'package:ani_sleuth/presentation/page/dashboard/dashboard_content.dart';
 import 'package:ani_sleuth/presentation/page/detail/detail_page.dart';
 import 'package:flutter/material.dart';
@@ -13,21 +16,44 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final shouldHaveDrawer = (PlatformProvider.isMobile() || context.isCompact);
     return BlocProvider(
       create: (context) => getIt<DashboardBloc>()
         ..add(const DashboardEvent.base(BaseEvent.loadPage())),
       child: Scaffold(
+        drawer: shouldHaveDrawer
+            ? AniSidebar(
+                onClick: (destination) {
+                  context.read<NavigationCubit>().navigateTo(
+                        destination,
+                      );
+                },
+              )
+            : null,
         appBar: AppBar(
-          title: const Text('Top Anime'),
+          surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
+          title: const Text('Ani Sleuth'),
+          leading: (shouldHaveDrawer)
+              ? Builder(
+                  builder: (context) {
+                    return IconButton(
+                      icon: const Icon(Icons.menu),
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      },
+                    );
+                  },
+                )
+              : null,
         ),
         body: MultiBlocListener(
           listeners: [
             BlocListener<NavigationCubit, NavigationState>(
               listener: (context, state) {
                 if (state is NavigateToNavigation) {
-                  final arguments = state.arguments as int;
+                  final arguments = state.arguments as int?;
                   Navigator.of(context).push(
-                    DetailPage.route(arguments),
+                    DetailPage.route(arguments ?? 0),
                   );
                 }
               },
