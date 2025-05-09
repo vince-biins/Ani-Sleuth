@@ -4,13 +4,16 @@ import 'package:ani_sleuth/domain/model/anime/entity/full_anime.dart';
 import 'package:ani_sleuth/presentation/components/ani_image_network.dart';
 import 'package:flutter/material.dart';
 
-class HeaderSection extends StatelessWidget {
+class FavoriteItem extends StatelessWidget {
   final FullAnime favoriteAnime;
-  const HeaderSection({super.key, required this.favoriteAnime});
+  const FavoriteItem({super.key, required this.favoriteAnime});
 
   @override
   Widget build(BuildContext context) {
     final vignetteColor = Theme.of(context).scaffoldBackgroundColor;
+    final src = favoriteAnime.malId == 11061
+        ? favoriteAnime.trailer?.images?.largeImageUrl
+        : favoriteAnime.trailer?.images?.maximumImageUrl;
     return SizedBox(
       height: context.screenHeight,
       width: context.screenWidth,
@@ -21,7 +24,7 @@ class HeaderSection extends StatelessWidget {
             height: context.screenHeight,
             width: context.screenWidth,
             child: AniImageNetwork(
-              src: favoriteAnime.trailer?.images?.maximumImageUrl ?? '',
+              src: src ?? '',
               fit: BoxFit.cover,
             ),
           ),

@@ -7,7 +7,6 @@ part of 'anime_dto.dart';
 // **************************************************************************
 
 AnimeDto _$AnimeDtoFromJson(Map<String, dynamic> json) => AnimeDto(
-      episodes: (json['episodes'] as num?)?.toInt(),
       isAiring: json['airing'] as bool,
       aired: AiringDto.fromJson(json['aired'] as Map<String, dynamic>),
       duration: json['duration'] as String,
@@ -86,7 +85,6 @@ Map<String, dynamic> _$AnimeDtoToJson(AnimeDto instance) => <String, dynamic>{
       'genres': instance.genres,
       'themes': instance.themes,
       'external': instance.external,
-      'episodes': instance.episodes,
       'airing': instance.isAiring,
       'aired': instance.aired,
       'duration': instance.duration,

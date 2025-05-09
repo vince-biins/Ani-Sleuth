@@ -87,6 +87,7 @@ class AnimeRepositoryImpl implements AnimeRepository {
       return Right(
         value.data?.asMap().entries.map(
               (entry) {
+                print(entry);
                 int index = entry.key;
                 final mapValue = entry.value;
 
@@ -95,7 +96,8 @@ class AnimeRepositoryImpl implements AnimeRepository {
             ).toList() ??
             [],
       );
-    }).catchError((e) {
+    }).catchError((e, stacktrace) {
+      print(stacktrace);
       return Left<AFailure, List<FullAnime>>(
         AFailure.fromDioException(e),
       );

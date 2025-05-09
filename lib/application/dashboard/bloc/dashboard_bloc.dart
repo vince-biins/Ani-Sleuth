@@ -36,37 +36,27 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   })  : _dashboardRepository = dashboardRepository,
         super(DashboardState.initial()) {
     on<BaseDashboardEvent>(_handleBaseEvent);
+    on<FetchedApiCall>(_handle2ndApiCall);
   }
 
   Future<void> _fetchData() async {
-    final seasonalAnimeResult =
-        await _dashboardRepository.getSeasonalAnime(limit: _LIMIT);
-    final topAnimeResult =
-        await _dashboardRepository.getTopAnime(limit: _LIMIT);
-    final topCharactersResult =
-        await _dashboardRepository.getTopCharacters(limit: _LIMIT);
-
-    final mostFavoriteResult = await _dashboardRepository.getMostFavoriteAnime(
-      limit: _MOST_FAVORITE_LIMIT,
+    final results = await Future.wait([
+      _dashboardRepository.getSeasonalAnime(limit: _LIMIT),
+      _dashboardRepository.getTopAnime(limit: _LIMIT),
+      _dashboardRepository.getMostFavoriteAnime(limit: _MOST_FAVORITE_LIMIT),
+    ]);
+    results[0].fold(
+      (error) => errors.add(error.message),
+      (result) => seasonalAnime = result as List<SeasonalAnime>,
+    );
+    results[1].fold(
+      (error) => errors.add(error.message),
+      (result) => topAnime = result as List<TopAnime>,
     );
 
-    seasonalAnimeResult.fold(
+    results[2].fold(
       (error) => errors.add(error.message),
-      (result) {
-        seasonalAnime = result;
-      },
-    );
-    topAnimeResult.fold(
-      (error) => errors.add(error.message),
-      (result) => topAnime = result,
-    );
-    topCharactersResult.fold(
-      (error) => errors.add(error.message),
-      (result) => topCharacters = result,
-    );
-    mostFavoriteResult.fold(
-      (error) => errors.add(error.message),
-      (result) => mostFavoriteAnime = result,
+      (result) => mostFavoriteAnime = result as List<FullAnime>,
     );
   }
 
@@ -82,6 +72,27 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     if (event.baseEvent is RefreshPage) {
       await _handleRefreshPage(event.baseEvent as RefreshPage, emit);
     }
+  }
+
+  ///
+  /// [_handle2ndApiCall] it handles 2nd batch of api calls
+  /// since Jikan Api has Rate limit of 3 request per seconds
+  ///
+  FutureOr<void> _handle2ndApiCall(
+    FetchedApiCall event,
+    Emitter<DashboardState> emit,
+  ) async {
+    final result = await _dashboardRepository.getTopCharacters(limit: _LIMIT);
+
+    result.fold(
+      (error) => errors.add(error.message),
+      (result) {
+        final currState = state as Success<DashboardData>;
+
+        final res = currState.data.copyWith(topCharacter: result);
+        emit(currState.copyWith(data: res));
+      },
+    );
   }
 
   Future<void> _handleLoadPage(

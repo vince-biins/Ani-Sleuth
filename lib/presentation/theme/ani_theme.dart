@@ -1,6 +1,12 @@
+import 'package:ani_sleuth/core/components/ui_constants.dart';
 import 'package:ani_sleuth/presentation/theme/ani_color.dart';
 import 'package:ani_sleuth/presentation/theme/ani_typography.dart';
 import 'package:flutter/material.dart';
+
+enum ElevatedButtonType {
+  normal,
+  appbar,
+}
 
 class AniTheme {
   static const ColorScheme darkColorScheme = ColorScheme(
@@ -65,6 +71,18 @@ class AniTheme {
         foregroundColor: AniColor.onBackgroundLight,
         elevation: 0,
       ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: elevatedButtonStyle(
+          backgroundColor: AniColor.primary,
+          textColor: AniColor.onPrimary,
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: outlinedButtonStyle(AniColor.primary, AniColor.primary),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: textButtonStyle(AniColor.primary),
+      ),
       textTheme:
           responsiveTextTheme.toTextTheme(), // Apply the responsive text theme
     );
@@ -84,8 +102,67 @@ class AniTheme {
         foregroundColor: AniColor.onBackgroundDark,
         elevation: 0,
       ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: elevatedButtonStyle(
+          backgroundColor: AniColor.primary,
+          textColor: AniColor.onPrimary,
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: outlinedButtonStyle(AniColor.secondary, AniColor.secondary),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: textButtonStyle(AniColor.primary),
+      ),
       textTheme:
           responsiveTextTheme.toTextTheme(), // Apply the responsive text theme
+    );
+  }
+
+  static ButtonStyle elevatedButtonStyle({
+    required Color backgroundColor,
+    required Color textColor,
+    double borderRadius = UiConstantsProvider.containerBorderRadius,
+    ElevatedButtonType type = ElevatedButtonType.normal,
+  }) {
+    return switch (type) {
+      ElevatedButtonType.normal => ElevatedButton.styleFrom(
+          backgroundColor: backgroundColor,
+          foregroundColor: textColor,
+          textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
+        ),
+      ElevatedButtonType.appbar => ElevatedButton.styleFrom(
+          backgroundColor: backgroundColor,
+          foregroundColor: textColor,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+          ),
+          padding: const EdgeInsets.all(12.0),
+        ),
+    };
+  }
+
+  static ButtonStyle outlinedButtonStyle(Color borderColor, Color textColor) {
+    return OutlinedButton.styleFrom(
+      foregroundColor: textColor,
+      side: BorderSide(color: borderColor),
+      textStyle: const TextStyle(fontSize: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+    );
+  }
+
+  static ButtonStyle textButtonStyle(Color textColor) {
+    return TextButton.styleFrom(
+      foregroundColor: textColor,
+      textStyle: const TextStyle(fontSize: 16),
     );
   }
 }

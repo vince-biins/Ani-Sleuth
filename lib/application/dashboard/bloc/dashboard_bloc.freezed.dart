@@ -15,77 +15,24 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$DashboardEvent {
-  BaseEvent get baseEvent;
-
-  /// Create a copy of DashboardEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $DashboardEventCopyWith<DashboardEvent> get copyWith =>
-      _$DashboardEventCopyWithImpl<DashboardEvent>(
-          this as DashboardEvent, _$identity);
-
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is DashboardEvent &&
-            (identical(other.baseEvent, baseEvent) ||
-                other.baseEvent == baseEvent));
+        (other.runtimeType == runtimeType && other is DashboardEvent);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, baseEvent);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   String toString() {
-    return 'DashboardEvent(baseEvent: $baseEvent)';
+    return 'DashboardEvent()';
   }
 }
 
 /// @nodoc
-abstract mixin class $DashboardEventCopyWith<$Res> {
-  factory $DashboardEventCopyWith(
-          DashboardEvent value, $Res Function(DashboardEvent) _then) =
-      _$DashboardEventCopyWithImpl;
-  @useResult
-  $Res call({BaseEvent baseEvent});
-
-  $BaseEventCopyWith<$Res> get baseEvent;
-}
-
-/// @nodoc
-class _$DashboardEventCopyWithImpl<$Res>
-    implements $DashboardEventCopyWith<$Res> {
-  _$DashboardEventCopyWithImpl(this._self, this._then);
-
-  final DashboardEvent _self;
-  final $Res Function(DashboardEvent) _then;
-
-  /// Create a copy of DashboardEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? baseEvent = null,
-  }) {
-    return _then(_self.copyWith(
-      baseEvent: null == baseEvent
-          ? _self.baseEvent
-          : baseEvent // ignore: cast_nullable_to_non_nullable
-              as BaseEvent,
-    ));
-  }
-
-  /// Create a copy of DashboardEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $BaseEventCopyWith<$Res> get baseEvent {
-    return $BaseEventCopyWith<$Res>(_self.baseEvent, (value) {
-      return _then(_self.copyWith(baseEvent: value));
-    });
-  }
+class $DashboardEventCopyWith<$Res> {
+  $DashboardEventCopyWith(DashboardEvent _, $Res Function(DashboardEvent) __);
 }
 
 /// @nodoc
@@ -93,12 +40,10 @@ class _$DashboardEventCopyWithImpl<$Res>
 class BaseDashboardEvent implements DashboardEvent {
   const BaseDashboardEvent(this.baseEvent);
 
-  @override
   final BaseEvent baseEvent;
 
   /// Create a copy of DashboardEvent
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
   $BaseDashboardEventCopyWith<BaseDashboardEvent> get copyWith =>
@@ -128,11 +73,9 @@ abstract mixin class $BaseDashboardEventCopyWith<$Res>
   factory $BaseDashboardEventCopyWith(
           BaseDashboardEvent value, $Res Function(BaseDashboardEvent) _then) =
       _$BaseDashboardEventCopyWithImpl;
-  @override
   @useResult
   $Res call({BaseEvent baseEvent});
 
-  @override
   $BaseEventCopyWith<$Res> get baseEvent;
 }
 
@@ -146,7 +89,6 @@ class _$BaseDashboardEventCopyWithImpl<$Res>
 
   /// Create a copy of DashboardEvent
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @pragma('vm:prefer-inline')
   $Res call({
     Object? baseEvent = null,
@@ -167,6 +109,26 @@ class _$BaseDashboardEventCopyWithImpl<$Res>
     return $BaseEventCopyWith<$Res>(_self.baseEvent, (value) {
       return _then(_self.copyWith(baseEvent: value));
     });
+  }
+}
+
+/// @nodoc
+
+class FetchedApiCall implements DashboardEvent {
+  const FetchedApiCall();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is FetchedApiCall);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'DashboardEvent.fetchedApiCall()';
   }
 }
 

@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   cached_network_image: ^3.4.1
+  carousel_slider: ^5.0.0
   dartz: ^0.10.1
   dio: ^5.8.0+1
   either_dart: ^1.0.0
@@ -25,6 +26,7 @@ dependencies:
   json_annotation: ^4.9.0
   logger: ^2.5.0
   retrofit: ^4.4.2
+  visibility_detector: ^0.4.0+2
   
 
 dev_dependencies:

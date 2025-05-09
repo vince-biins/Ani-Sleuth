@@ -9,13 +9,11 @@ class GenreDto {
   final String name;
   final String? type;
   final String url;
-  final int? count;
 
   GenreDto({
     required this.malId,
     required this.name,
     required this.url,
-    required this.count,
     this.type,
   });
 
