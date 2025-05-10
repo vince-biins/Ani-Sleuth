@@ -6,10 +6,12 @@ import 'package:ani_sleuth/core/injectors/dependency_injection.dart';
 import 'package:ani_sleuth/core/platform_provider.dart';
 import 'package:ani_sleuth/core/util.dart';
 import 'package:ani_sleuth/presentation/components/ani_sidebar.dart';
+import 'package:ani_sleuth/presentation/navigation/destinations/anime_routes.dart';
 import 'package:ani_sleuth/presentation/page/dashboard/dashboard_content.dart';
 import 'package:ani_sleuth/presentation/page/detail/detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -52,8 +54,9 @@ class DashboardPage extends StatelessWidget {
               listener: (context, state) {
                 if (state is NavigateToNavigation) {
                   final arguments = state.arguments as int?;
-                  Navigator.of(context).push(
-                    DetailPage.route(arguments ?? 0),
+                  GoRouter.of(context).pushNamed(
+                    AnimeDetailRoute().name,
+                    pathParameters: {'id': arguments.toString()},
                   );
                 }
               },

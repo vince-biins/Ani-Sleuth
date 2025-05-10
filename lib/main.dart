@@ -1,5 +1,5 @@
 import 'package:ani_sleuth/application/base/cubit/navigation_cubit.dart';
-import 'package:ani_sleuth/presentation/page/dashboard/dashboard_page.dart';
+import 'package:ani_sleuth/presentation/navigation/router/ani_router.dart';
 import 'package:ani_sleuth/presentation/theme/ani_theme.dart';
 import 'package:ani_sleuth/core/injectors/dependency_injection.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +21,11 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       theme: AniTheme.lightTheme(context),
       darkTheme: AniTheme.darkTheme(context),
       themeMode: ThemeMode.system,
-      home: DashboardPage(),
+      routerConfig: router,
     );
   }
 }
