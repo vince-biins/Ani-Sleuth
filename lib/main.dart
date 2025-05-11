@@ -4,9 +4,13 @@ import 'package:ani_sleuth/presentation/theme/ani_theme.dart';
 import 'package:ani_sleuth/core/injectors/dependency_injection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  GoRouter.optionURLReflectsImperativeAPIs = true;
+  usePathUrlStrategy();
   await initializeDependencies();
   runApp(
     BlocProvider<NavigationCubit>(

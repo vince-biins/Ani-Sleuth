@@ -13,12 +13,13 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const DashboardPage(),
     ),
     GoRoute(
-      path: AnimeDetailRoute().path, // /anime/:id
+      path: AnimeDetailRoute().templatePath,
       name: AnimeDetailRoute().name,
       builder: (context, state) {
-        final id =
-            int.tryParse(state.pathParameters[AnimeDetailRoute.param]!) ?? 0;
-        return DetailPage(animeId: id);
+        print(AnimeDetailRoute().path);
+        final args = int.tryParse(state.pathParameters['id']!);
+
+        return DetailPage(animeId: args);
       },
     ),
   ],
