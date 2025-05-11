@@ -53,28 +53,24 @@ class IdleNavigation implements NavigationState {
 /// @nodoc
 
 class NavigateToNavigation implements NavigationState {
-  const NavigateToNavigation(this.routeName, {this.arguments});
+  const NavigateToNavigation(this.route);
 
-  final String routeName;
-  final Object? arguments;
+  final GoRouteData route;
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is NavigateToNavigation &&
-            (identical(other.routeName, routeName) ||
-                other.routeName == routeName) &&
-            const DeepCollectionEquality().equals(other.arguments, arguments));
+            (identical(other.route, route) || other.route == route));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, routeName, const DeepCollectionEquality().hash(arguments));
+  int get hashCode => Object.hash(runtimeType, route);
 
   @override
   String toString() {
-    return 'NavigationState.navigateTo(routeName: $routeName, arguments: $arguments)';
+    return 'NavigationState.navigateTo(route: $route)';
   }
 }
 
@@ -95,71 +91,6 @@ class PopNavigation implements NavigationState {
   @override
   String toString() {
     return 'NavigationState.pop()';
-  }
-}
-
-/// @nodoc
-
-class PushNamedAndRemoveUntilNavigation implements NavigationState {
-  const PushNamedAndRemoveUntilNavigation(this.routeName, this.untilRouteName,
-      {this.arguments});
-
-  final String routeName;
-  final String untilRouteName;
-  final Object? arguments;
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is PushNamedAndRemoveUntilNavigation &&
-            (identical(other.routeName, routeName) ||
-                other.routeName == routeName) &&
-            (identical(other.untilRouteName, untilRouteName) ||
-                other.untilRouteName == untilRouteName) &&
-            const DeepCollectionEquality().equals(other.arguments, arguments));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, routeName, untilRouteName,
-      const DeepCollectionEquality().hash(arguments));
-
-  @override
-  String toString() {
-    return 'NavigationState.pushNamedAndRemoveUntil(routeName: $routeName, untilRouteName: $untilRouteName, arguments: $arguments)';
-  }
-}
-
-/// @nodoc
-
-class PushNamedAndRemoveUntilWithArgsNavigation implements NavigationState {
-  const PushNamedAndRemoveUntilWithArgsNavigation(
-      this.routeName, this.untilRouteName,
-      {this.arguments});
-
-  final String routeName;
-  final String untilRouteName;
-  final Object? arguments;
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is PushNamedAndRemoveUntilWithArgsNavigation &&
-            (identical(other.routeName, routeName) ||
-                other.routeName == routeName) &&
-            (identical(other.untilRouteName, untilRouteName) ||
-                other.untilRouteName == untilRouteName) &&
-            const DeepCollectionEquality().equals(other.arguments, arguments));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, routeName, untilRouteName,
-      const DeepCollectionEquality().hash(arguments));
-
-  @override
-  String toString() {
-    return 'NavigationState.pushNamedAndRemoveUntilWithArgs(routeName: $routeName, untilRouteName: $untilRouteName, arguments: $arguments)';
   }
 }
 

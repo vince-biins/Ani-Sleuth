@@ -1,40 +1,60 @@
 import 'package:ani_sleuth/core/components/ui_constants.dart';
+import 'package:ani_sleuth/domain/model/enum/entry_type.dart';
+import 'package:ani_sleuth/presentation/navigation/destinations/ani_route_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AniSidebar extends StatelessWidget {
-  final Function(String) onClick;
+  final Function(GoRouteData) onClick;
   AniSidebar({super.key, required this.onClick});
 
-  final List<({String title, String destination})> expandedTileTitles = [
-    (title: 'Top Anime', destination: '/anime/top'),
-    (title: 'Seasonal Anime', destination: '/anime/seasonal'),
-    (title: 'Most Favorites', destination: '/anime/most-favorites'),
+  final List<
+      ({
+        String title,
+        AnimeRoute destination,
+      })> expandedTileTitles = [
+    (
+      title: 'Top Anime',
+      destination: TopAnimeRoute(),
+    ),
+    (
+      title: 'Seasonal Anime',
+      destination: SeasonalAnimeRoute(),
+    ),
+    (
+      title: 'Most Favorites',
+      destination: MostFavoriteRoute(),
+    ),
   ];
   late final List<
       ({
         String title,
         bool isExpanded,
-        List<({String title, String destination})> expandedTitles,
-        String destination
+        List<
+            ({
+              String title,
+              AnimeRoute destination,
+            })> expandedTitles,
+        GoRouteData destination,
       })> tiles = [
     (
       title: 'Anime',
       isExpanded: true,
       expandedTitles: expandedTileTitles,
-      destination: '/anime'
+      destination: AnimeSubRoute(),
     ),
     (
       title: 'Manga',
       isExpanded: false,
       expandedTitles: [],
-      destination: '/manga'
+      destination: MangaSubRoute(),
     ),
     (
       title: 'Character',
       isExpanded: false,
       expandedTitles: [],
-      destination: '/character'
-    ),
+      destination: CharacterSubRoute(),
+    )
   ];
 
   @override

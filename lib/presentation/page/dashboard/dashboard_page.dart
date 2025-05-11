@@ -6,11 +6,10 @@ import 'package:ani_sleuth/core/injectors/dependency_injection.dart';
 import 'package:ani_sleuth/core/platform_provider.dart';
 import 'package:ani_sleuth/core/util.dart';
 import 'package:ani_sleuth/presentation/components/ani_sidebar.dart';
-import 'package:ani_sleuth/presentation/navigation/destinations/anime_routes.dart';
+import 'package:ani_sleuth/presentation/navigation/destinations/ani_route_builder.dart';
 import 'package:ani_sleuth/presentation/page/dashboard/dashboard_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -25,9 +24,7 @@ class DashboardPage extends StatelessWidget {
         drawer: shouldHaveDrawer
             ? AniSidebar(
                 onClick: (destination) {
-                  context.read<NavigationCubit>().navigateTo(
-                        destination,
-                      );
+                  context.read<NavigationCubit>().navigateTo(destination);
                 },
               )
             : null,
@@ -51,12 +48,7 @@ class DashboardPage extends StatelessWidget {
           listeners: [
             BlocListener<NavigationCubit, NavigationState>(
               listener: (context, state) {
-                if (state is NavigateToNavigation) {
-                  GoRouter.of(context).push(
-                    AnimeDetailRoute()
-                        .pathWithParam(state.arguments.toString()),
-                  );
-                }
+                _handleNavigation(context, state);
               },
             ),
             BlocListener<DashboardBloc, DashboardState>(
@@ -87,5 +79,36 @@ class DashboardPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _handleNavigation(BuildContext context, NavigationState state) {
+    if (state is NavigateToNavigation) {
+      final route = state.route;
+
+      switch (route) {
+        case AnimeDetailRoute():
+          final r = state.route as AnimeDetailRoute;
+          r.push(context);
+          break;
+        case FavoriteDetailRoute():
+          route.push(context);
+        case MostFavoriteRoute():
+          route.push(context);
+        case CharacterDetailRoute():
+          route.push(context);
+        case TopAnimeRoute():
+          route.push(context);
+        case SeasonalAnimeRoute():
+          route.push(context);
+        case TopCharacterRoute():
+          route.push(context);
+        case TopMangaRoute():
+          route.push(context);
+        default:
+          ErrorRoute().push(context);
+      }
+    } else if (state is PopNavigation) {
+      Navigator.of(context).pop();
+    }
   }
 }

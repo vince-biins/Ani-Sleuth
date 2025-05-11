@@ -35,6 +35,7 @@ const _$EntryTypeEnumMap = {
   EntryType.anime: 'anime',
   EntryType.manga: 'manga',
   EntryType.people: 'people',
+  EntryType.character: 'character',
 };
 
 ReactionDto _$ReactionDtoFromJson(Map<String, dynamic> json) => ReactionDto(

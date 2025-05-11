@@ -1,8 +1,9 @@
 import 'package:ani_sleuth/application/base/cubit/navigation_cubit.dart';
 import 'package:ani_sleuth/application/dashboard/bloc/dashboard_bloc.dart';
+import 'package:ani_sleuth/domain/model/enum/entry_type.dart';
 import 'package:ani_sleuth/presentation/components/media_item_tile.dart';
+import 'package:ani_sleuth/presentation/navigation/destinations/ani_route_builder.dart';
 import 'package:ani_sleuth/presentation/page/dashboard/component/grid_section.dart';
-import 'package:ani_sleuth/presentation/page/dashboard/component/favorite_item.dart';
 import 'package:ani_sleuth/presentation/page/dashboard/component/header_carousel_section.dart';
 import 'package:ani_sleuth/presentation/page/dashboard/component/seasonal_section.dart';
 import 'package:flutter/material.dart';
@@ -25,9 +26,9 @@ class DashboardContent extends StatelessWidget {
             SeasonalSection(
               seasonalAnime: data.seasonalAnime,
               onTap: (id) {
-                context
-                    .read<NavigationCubit>()
-                    .navigateTo('/details', arguments: id);
+                context.read<NavigationCubit>().navigateTo(
+                      AnimeDetailRoute(id: id),
+                    );
               },
               onHover: (isHovered) {},
               onClickMore: () {},
@@ -35,11 +36,6 @@ class DashboardContent extends StatelessWidget {
             GridSection(
               title: 'Top Anime',
               items: data.topAnime,
-              onTap: (id) {
-                context
-                    .read<NavigationCubit>()
-                    .navigateTo('/details', arguments: id);
-              },
               onHover: (isHovered) {},
               onClickMore: () {},
               itemBuilder: (context, anime) => MediaItemTile(
@@ -49,7 +45,11 @@ class DashboardContent extends StatelessWidget {
                 leftBadgeValue: anime.rank,
                 isRankedTile: true,
                 rating: anime.score,
-                onTap: (id) {},
+                onTap: (id) {
+                  context.read<NavigationCubit>().navigateTo(
+                        AnimeDetailRoute(id: id),
+                      );
+                },
                 onHover: (isHovering) {},
               ),
             ),
@@ -66,11 +66,6 @@ class DashboardContent extends StatelessWidget {
               child: GridSection(
                 title: 'Top Characters',
                 items: data.topCharacter,
-                onTap: (id) {
-                  context
-                      .read<NavigationCubit>()
-                      .navigateTo('/details', arguments: id);
-                },
                 onHover: (isHovered) {},
                 onClickMore: () {},
                 itemBuilder: (context, character) => MediaItemTile(
@@ -80,7 +75,11 @@ class DashboardContent extends StatelessWidget {
                   leftBadgeValue: character.rank,
                   isRankedTile: true,
                   rating: character.favorites?.toDouble(),
-                  onTap: (id) {},
+                  onTap: (id) {
+                    context.read<NavigationCubit>().navigateTo(
+                          CharacterDetailRoute(id: id),
+                        );
+                  },
                   onHover: (isHovering) {},
                   icon: Icons.info_rounded,
                 ),

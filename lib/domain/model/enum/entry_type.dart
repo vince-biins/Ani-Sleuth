@@ -7,4 +7,6 @@ enum EntryType {
   manga,
   @JsonValue('people')
   people,
+  @JsonValue('character')
+  character,
 }

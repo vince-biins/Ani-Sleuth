@@ -8,14 +8,13 @@ class GridSection<T> extends StatelessWidget {
   final List<T> items;
   final Widget Function(BuildContext context, T item) itemBuilder;
   final VoidCallback onClickMore;
-  final Function(int) onTap;
+
   final Function(bool) onHover;
   const GridSection({
     super.key,
     required this.items,
     required this.title,
     required this.onClickMore,
-    required this.onTap,
     required this.onHover,
     required this.itemBuilder,
   });
