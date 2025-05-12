@@ -9,6 +9,7 @@ class TopMangaRoute extends MangaRoute {
   Widget build(BuildContext context, GoRouterState state) {
     return DetailPage(
       animeId: 000,
+      pageTitle: 'Top Manga',
     );
   }
 }

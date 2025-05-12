@@ -12,21 +12,28 @@ class HeaderCarouselSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height =
+        context.isCompact ? context.screenHeight * 0.4 : context.screenHeight;
     return SizedBox(
-      height: context.screenHeight,
+      height: height,
       width: context.screenWidth,
       child: CarouselSlider(
-          items: favoriteAnime.map((item) {
-            return FavoriteItem(favoriteAnime: item);
-          }).toList(),
-          carouselController: buttonCarouselController,
-          options: CarouselOptions(
-            autoPlay: true,
-            initialPage: 0,
-            viewportFraction: 1,
-            autoPlayAnimationDuration: const Duration(seconds: 3),
-            autoPlayInterval: const Duration(seconds: 4),
-          )),
+        items: favoriteAnime.map((item) {
+          return FavoriteItem(
+            favoriteAnime: item,
+            height: height,
+          );
+        }).toList(),
+        carouselController: buttonCarouselController,
+        options: CarouselOptions(
+          height: height,
+          autoPlay: true,
+          initialPage: 0,
+          viewportFraction: 1,
+          autoPlayAnimationDuration: const Duration(seconds: 3),
+          autoPlayInterval: const Duration(seconds: 4),
+        ),
+      ),
     );
   }
 }

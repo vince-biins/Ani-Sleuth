@@ -1,6 +1,5 @@
 import 'package:ani_sleuth/application/base/cubit/navigation_cubit.dart';
 import 'package:ani_sleuth/application/dashboard/bloc/dashboard_bloc.dart';
-import 'package:ani_sleuth/domain/model/enum/entry_type.dart';
 import 'package:ani_sleuth/presentation/components/media_item_tile.dart';
 import 'package:ani_sleuth/presentation/navigation/destinations/ani_route_builder.dart';
 import 'package:ani_sleuth/presentation/page/dashboard/component/grid_section.dart';
@@ -21,6 +20,7 @@ class DashboardContent extends StatelessWidget {
       width: double.infinity,
       child: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             HeaderCarouselSection(favoriteAnime: data.mostFavoriteAnime),
             SeasonalSection(
