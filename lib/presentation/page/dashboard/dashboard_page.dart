@@ -1,4 +1,3 @@
-import 'package:ani_sleuth/application/base/base_event.dart';
 import 'package:ani_sleuth/application/base/base_state.dart';
 import 'package:ani_sleuth/application/base/cubit/navigation_cubit.dart';
 import 'package:ani_sleuth/application/dashboard/bloc/dashboard_bloc.dart';
@@ -19,7 +18,7 @@ class DashboardPage extends StatelessWidget {
     final shouldHaveDrawer = (PlatformProvider.isMobile() || context.isCompact);
     return BlocProvider(
       create: (context) => getIt<DashboardBloc>()
-        ..add(const DashboardEvent.base(BaseEvent.loadPage())),
+        ..add(const DashboardEvent.loadPage(ApiBatch.first)),
       child: Scaffold(
         drawer: shouldHaveDrawer
             ? AniSidebar(
@@ -65,9 +64,7 @@ class DashboardPage extends StatelessWidget {
           child: BlocBuilder<DashboardBloc, DashboardState>(
             builder: (context, state) {
               switch (state) {
-                case Initial():
-                  return const Text('Initial State');
-                case Loading():
+                case Initial() || Loading():
                   return const CircularProgressIndicator();
                 case Success(:final DashboardData data):
                   return DashboardContent(data: data);

@@ -1,7 +1,9 @@
 part of 'dashboard_bloc.dart';
 
-@freezed
+enum ApiBatch { first, second }
+
+@Freezed(copyWith: false, toJson: false, fromJson: false)
 sealed class DashboardEvent with _$DashboardEvent {
-  const factory DashboardEvent.base(BaseEvent baseEvent) = BaseDashboardEvent;
-  const factory DashboardEvent.fetchedApiCall() = FetchedApiCall;
+  const factory DashboardEvent.loadPage(ApiBatch batch) = LoadDashboardPage;
+  const factory DashboardEvent.refreshPage() = RefreshDashboardPage;
 }

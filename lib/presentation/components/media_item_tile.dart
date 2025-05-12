@@ -83,7 +83,7 @@ class _MediaItemTileState extends State<MediaItemTile>
               height: UiConstantsProvider.getImageItemHeight(context),
               width: UiConstantsProvider.getImageItemWidth(context),
               decoration: BoxDecoration(
-                color: Colors.black,
+                color: Theme.of(context).scaffoldBackgroundColor,
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
@@ -96,13 +96,11 @@ class _MediaItemTileState extends State<MediaItemTile>
               child: Stack(
                 children: [
                   // Image background
-                  AspectRatio(
-                    aspectRatio:
-                        UiConstantsProvider.getImageItemWidth(context) /
-                            UiConstantsProvider.getImageItemHeight(context),
-                    child: AniImageNetwork(
-                      src: widget.imageUrl ?? '',
-                    ),
+                  AniImageNetwork(
+                    src: widget.imageUrl ?? '',
+                    height: UiConstantsProvider.getImageItemHeight(context),
+                    width: UiConstantsProvider.getImageItemWidth(context),
+                    fit: BoxFit.cover,
                   ),
 
                   Positioned(

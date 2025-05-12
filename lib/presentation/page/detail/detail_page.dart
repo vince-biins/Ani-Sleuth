@@ -1,4 +1,11 @@
+import 'package:ani_sleuth/application/detail/bloc/detail_bloc.dart';
+import 'package:ani_sleuth/core/injectors/dependency_injection.dart';
+import 'package:ani_sleuth/presentation/page/detail/detail_content.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../application/base/base_state.dart';
+import '../../../application/base/cubit/navigation_cubit.dart';
 
 class DetailPage extends StatelessWidget {
   final int? animeId;
@@ -8,12 +15,42 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(pageTitle),
-      ),
-      body: Center(
-        child: Text('Anime ID: $animeId'),
+    return BlocProvider(
+      create: (context) => getIt<DetailBloc>(param1: animeId)
+        ..add(const DetailEvent.loadedDetailPage()),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(pageTitle),
+        ),
+        body: MultiBlocListener(
+          listeners: [
+            BlocListener<NavigationCubit, NavigationState>(
+              listener: (context, state) {},
+            ),
+            BlocListener<DetailBloc, DetailState>(
+              listener: (context, state) {
+                if (state is Error) {
+                  final message = state as Error;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Error: $message')),
+                  );
+                }
+              },
+            ),
+          ],
+          child: BlocBuilder<DetailBloc, DetailState>(
+            builder: (context, state) {
+              switch (state) {
+                case Initial() || Loading():
+                  return const CircularProgressIndicator();
+                case Success(:final DetailData data):
+                  return DetailContent(data: data.anime!);
+                case Error(:final String message):
+                  return Text('Error: $message');
+              }
+            },
+          ),
+        ),
       ),
     );
   }

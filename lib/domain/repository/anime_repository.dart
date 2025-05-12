@@ -8,7 +8,7 @@ abstract class AnimeRepository {
   Future<Either<AFailure, List<TopAnime>>> getListOfTopAnimes({
     required int limit,
   });
-  Future<Either<AFailure, List<FullAnime>>> getAnimeFullById({
+  Future<Either<AFailure, FullAnime?>> getAnimeFullById({
     required int id,
   });
 

@@ -55,35 +55,27 @@ class _AnimeService implements AnimeService {
   }
 
   @override
-  Future<ApiSuccess<List<AnimeDto>>> fetchAnimeFullById({
-    required int id,
-  }) async {
+  Future<ApiSuccess<AnimeDto>> fetchAnimeFullById({required int id}) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'id': id};
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ApiSuccess<List<AnimeDto>>>(
+    final _options = _setStreamType<ApiSuccess<AnimeDto>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/v4/genres/anime',
+            '/v4/anime/${id}/full',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ApiSuccess<List<AnimeDto>> _value;
+    late ApiSuccess<AnimeDto> _value;
     try {
-      _value = ApiSuccess<List<AnimeDto>>.fromJson(
+      _value = ApiSuccess<AnimeDto>.fromJson(
         _result.data!,
-        (json) => json is List<dynamic>
-            ? json
-                .map<AnimeDto>(
-                  (i) => AnimeDto.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
-            : List.empty(),
+        (json) => AnimeDto.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
@@ -141,7 +133,7 @@ class _AnimeService implements AnimeService {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'v4/anime/${id}/reviews',
+            '/v4/anime/${id}/reviews',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -186,7 +178,7 @@ class _AnimeService implements AnimeService {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'v4/anime',
+            '/v4/anime',
             queryParameters: queryParameters,
             data: _data,
           )

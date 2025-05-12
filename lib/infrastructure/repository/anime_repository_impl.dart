@@ -13,15 +13,15 @@ class AnimeRepositoryImpl implements AnimeRepository {
       : _animeService = animeService;
 
   @override
-  Future<Either<AFailure, List<FullAnime>>> getAnimeFullById({
+  Future<Either<AFailure, FullAnime?>> getAnimeFullById({
     required int id,
   }) {
     return _animeService
         .fetchAnimeFullById(id: id)
-        .then<Either<AFailure, List<FullAnime>>>((value) {
-      return Right(value.data?.map((e) => e.transformFull()).toList() ?? []);
+        .then<Either<AFailure, FullAnime?>>((value) {
+      return Right(value.data?.transformFull());
     }).catchError((e) {
-      return Left<AFailure, List<FullAnime>>(
+      return Left<AFailure, FullAnime?>(
         AFailure.fromDioException(e),
       );
     });

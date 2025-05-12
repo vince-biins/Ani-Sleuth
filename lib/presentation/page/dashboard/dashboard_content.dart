@@ -60,7 +60,7 @@ class DashboardContent extends StatelessWidget {
                     data.topCharacter.isEmpty) {
                   context
                       .read<DashboardBloc>()
-                      .add(DashboardEvent.fetchedApiCall());
+                      .add(DashboardEvent.loadPage(ApiBatch.second));
                 }
               },
               child: GridSection(

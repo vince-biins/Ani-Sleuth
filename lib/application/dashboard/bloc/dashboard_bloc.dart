@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:ani_sleuth/application/base/base_event.dart';
 import 'package:ani_sleuth/application/base/base_state.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/full_anime.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/seasonal_anime.dart';
@@ -35,11 +33,13 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     required ADashboardRepository dashboardRepository,
   })  : _dashboardRepository = dashboardRepository,
         super(DashboardState.initial()) {
-    on<BaseDashboardEvent>(_handleBaseEvent);
-    on<FetchedApiCall>(_handle2ndApiCall);
+    on<LoadDashboardPage>(_handleLoadPage);
   }
 
-  Future<void> _fetchData() async {
+  Future<void> _fetchInitialData(
+    LoadDashboardPage event,
+    Emitter<DashboardState> emit,
+  ) async {
     final results = await Future.wait([
       _dashboardRepository.getSeasonalAnime(limit: _LIMIT),
       _dashboardRepository.getTopAnime(limit: _LIMIT),
@@ -58,48 +58,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       (error) => errors.add(error.message),
       (result) => mostFavoriteAnime = result as List<FullAnime>,
     );
-  }
 
-  FutureOr<void> _handleBaseEvent(
-    BaseDashboardEvent event,
-    Emitter<DashboardState> emit,
-  ) async {
-    if (event.baseEvent is LoadPage) {
-      emit(DashboardState.loading());
-      await _handleLoadPage(event.baseEvent as LoadPage, emit);
-    }
-
-    if (event.baseEvent is RefreshPage) {
-      await _handleRefreshPage(event.baseEvent as RefreshPage, emit);
-    }
-  }
-
-  ///
-  /// [_handle2ndApiCall] it handles 2nd batch of api calls
-  /// since Jikan Api has Rate limit of 3 request per seconds
-  ///
-  FutureOr<void> _handle2ndApiCall(
-    FetchedApiCall event,
-    Emitter<DashboardState> emit,
-  ) async {
-    final result = await _dashboardRepository.getTopCharacters(limit: _LIMIT);
-
-    result.fold(
-      (error) => errors.add(error.message),
-      (result) {
-        final currState = state as Success<DashboardData>;
-
-        final res = currState.data.copyWith(topCharacter: result);
-        emit(currState.copyWith(data: res));
-      },
-    );
-  }
-
-  Future<void> _handleLoadPage(
-    LoadPage event,
-    Emitter<DashboardState> emit,
-  ) async {
-    await _fetchData();
     if (errors.isNotEmpty) {
       emit(DashboardState.error(errors.join('\n')));
     }
@@ -116,29 +75,36 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     );
   }
 
-  FutureOr<void> _handleRefreshPage(
-    RefreshPage baseEvent,
+  FutureOr<void> _handleLoadPage(
+    LoadDashboardPage event,
     Emitter<DashboardState> emit,
   ) async {
-    await _fetchData();
-    if (errors.isNotEmpty) {
-      emit(DashboardState.error(errors.join('\n')));
+    switch (event.batch) {
+      case ApiBatch.first:
+        await _fetchInitialData(event, emit);
+      case ApiBatch.second:
+        await _handle2ndBatchRequest(event, emit);
     }
+  }
 
-    final refreshedData = DashboardData(
-      seasonalAnime: seasonalAnime,
-      topAnime: topAnime,
-      topCharacter: topCharacters,
-      mostFavoriteAnime: mostFavoriteAnime,
+  ///
+  /// [_handle2ndBatchRequest] it handles 2nd batch of api calls
+  /// since Jikan Api has Rate limit of 3 request per seconds
+  ///
+  FutureOr<void> _handle2ndBatchRequest(
+    LoadDashboardPage event,
+    Emitter<DashboardState> emit,
+  ) async {
+    final result = await _dashboardRepository.getTopCharacters(limit: _LIMIT);
+
+    result.fold(
+      (error) => errors.add(error.message),
+      (result) {
+        final currState = state as Success<DashboardData>;
+
+        final res = currState.data.copyWith(topCharacter: result);
+        emit(currState.copyWith(data: res));
+      },
     );
-
-    if (state is LoadPage) {
-      final currentState = state as Success<DashboardData>;
-      emit(
-        currentState.copyWith(
-          data: refreshedData,
-        ),
-      );
-    }
   }
 }

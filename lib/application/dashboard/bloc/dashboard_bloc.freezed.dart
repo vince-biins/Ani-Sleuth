@@ -31,96 +31,38 @@ mixin _$DashboardEvent {
 }
 
 /// @nodoc
-class $DashboardEventCopyWith<$Res> {
-  $DashboardEventCopyWith(DashboardEvent _, $Res Function(DashboardEvent) __);
-}
 
-/// @nodoc
+class LoadDashboardPage implements DashboardEvent {
+  const LoadDashboardPage(this.batch);
 
-class BaseDashboardEvent implements DashboardEvent {
-  const BaseDashboardEvent(this.baseEvent);
-
-  final BaseEvent baseEvent;
-
-  /// Create a copy of DashboardEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $BaseDashboardEventCopyWith<BaseDashboardEvent> get copyWith =>
-      _$BaseDashboardEventCopyWithImpl<BaseDashboardEvent>(this, _$identity);
+  final ApiBatch batch;
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is BaseDashboardEvent &&
-            (identical(other.baseEvent, baseEvent) ||
-                other.baseEvent == baseEvent));
+            other is LoadDashboardPage &&
+            (identical(other.batch, batch) || other.batch == batch));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, baseEvent);
+  int get hashCode => Object.hash(runtimeType, batch);
 
   @override
   String toString() {
-    return 'DashboardEvent.base(baseEvent: $baseEvent)';
-  }
-}
-
-/// @nodoc
-abstract mixin class $BaseDashboardEventCopyWith<$Res>
-    implements $DashboardEventCopyWith<$Res> {
-  factory $BaseDashboardEventCopyWith(
-          BaseDashboardEvent value, $Res Function(BaseDashboardEvent) _then) =
-      _$BaseDashboardEventCopyWithImpl;
-  @useResult
-  $Res call({BaseEvent baseEvent});
-
-  $BaseEventCopyWith<$Res> get baseEvent;
-}
-
-/// @nodoc
-class _$BaseDashboardEventCopyWithImpl<$Res>
-    implements $BaseDashboardEventCopyWith<$Res> {
-  _$BaseDashboardEventCopyWithImpl(this._self, this._then);
-
-  final BaseDashboardEvent _self;
-  final $Res Function(BaseDashboardEvent) _then;
-
-  /// Create a copy of DashboardEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? baseEvent = null,
-  }) {
-    return _then(BaseDashboardEvent(
-      null == baseEvent
-          ? _self.baseEvent
-          : baseEvent // ignore: cast_nullable_to_non_nullable
-              as BaseEvent,
-    ));
-  }
-
-  /// Create a copy of DashboardEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $BaseEventCopyWith<$Res> get baseEvent {
-    return $BaseEventCopyWith<$Res>(_self.baseEvent, (value) {
-      return _then(_self.copyWith(baseEvent: value));
-    });
+    return 'DashboardEvent.loadPage(batch: $batch)';
   }
 }
 
 /// @nodoc
 
-class FetchedApiCall implements DashboardEvent {
-  const FetchedApiCall();
+class RefreshDashboardPage implements DashboardEvent {
+  const RefreshDashboardPage();
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is FetchedApiCall);
+        (other.runtimeType == runtimeType && other is RefreshDashboardPage);
   }
 
   @override
@@ -128,7 +70,7 @@ class FetchedApiCall implements DashboardEvent {
 
   @override
   String toString() {
-    return 'DashboardEvent.fetchedApiCall()';
+    return 'DashboardEvent.refreshPage()';
   }
 }
 

@@ -16,9 +16,9 @@ abstract class AnimeService {
     @Query('limit') int? limit,
   });
 
-  @GET('/v4/genres/anime')
-  Future<ApiSuccess<List<AnimeDto>>> fetchAnimeFullById({
-    @Query('id') required int id,
+  @GET('/v4/anime/{id}/full')
+  Future<ApiSuccess<AnimeDto>> fetchAnimeFullById({
+    @Path('id') required int id,
   });
 
   @GET('/v4/seasons/now')
@@ -26,12 +26,12 @@ abstract class AnimeService {
     @Query('limit') int? limit,
   });
 
-  @GET('v4/anime/{id}/reviews')
+  @GET('/v4/anime/{id}/reviews')
   Future<ApiSuccess<List<ReviewDto>>> fetchAnimeReviews({
     @Path('id') required int id,
   });
 
-  @GET('v4/anime')
+  @GET('/v4/anime')
   Future<ApiSuccess<List<AnimeDto>>> fetchListOfMostFavoriteAnime({
     @Query('order_by') String orderBy = 'favorites',
     @Query('sort') String sortBy = 'desc',
