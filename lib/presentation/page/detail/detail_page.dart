@@ -1,5 +1,6 @@
 import 'package:ani_sleuth/application/detail/bloc/detail_bloc.dart';
 import 'package:ani_sleuth/core/injectors/dependency_injection.dart';
+import 'package:ani_sleuth/presentation/components/ani_image_network.dart';
 import 'package:ani_sleuth/presentation/page/detail/detail_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,17 +39,25 @@ class DetailPage extends StatelessWidget {
               },
             ),
           ],
-          child: BlocBuilder<DetailBloc, DetailState>(
-            builder: (context, state) {
-              switch (state) {
-                case Initial() || Loading():
-                  return const CircularProgressIndicator();
-                case Success(:final DetailData data):
-                  return DetailContent(data: data.anime!);
-                case Error(:final String message):
-                  return Text('Error: $message');
-              }
-            },
+          child: CustomScrollView(
+            slivers: [
+              BlocBuilder<DetailBloc, DetailState>(
+                builder: (context, state) {
+                  switch (state) {
+                    case Initial() || Loading():
+                      return SliverToBoxAdapter(
+                        child: const CircularProgressIndicator(),
+                      );
+                    case Success(:final DetailData data):
+                      return SliverToBoxAdapter(
+                          child: DetailContent(data: data.anime!));
+
+                    case Error(:final String message):
+                      return SliverToBoxAdapter(child: Text('Error: $message'));
+                  }
+                },
+              ),
+            ],
           ),
         ),
       ),

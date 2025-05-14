@@ -43,8 +43,7 @@ class GridSection<T> extends StatelessWidget {
               builder: (context, constraints) {
                 return GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap:
-                      true, // 👈 this avoids needing to manually compute height
+                  shrinkWrap: true,
                   padding: padding,
                   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: itemWidth + crossAxisSpacing,
