@@ -1,5 +1,6 @@
 import 'package:ani_sleuth/application/api_util/a_failure.dart';
 import 'package:ani_sleuth/domain/mapper/anime_mapper.dart';
+import 'package:ani_sleuth/domain/model/anime/entity/episode.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/full_anime.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/seasonal_anime.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/top_anime.dart';
@@ -100,5 +101,22 @@ class AnimeRepositoryImpl implements AnimeRepository {
         AFailure.fromDioException(e),
       );
     });
+  }
+
+  @override
+  Future<Either<AFailure, List<Episode>>> getListOfEpisodesById({
+    required int id,
+  }) {
+    return _animeService
+        .fetchAnimeEpisodeById(id: id)
+        .then<Either<AFailure, List<Episode>>>(
+          (value) =>
+              Right(value.data?.map((ep) => ep.transform()).toList() ?? []),
+        )
+        .catchError(
+          (e) => Left<AFailure, List<Episode>>(
+            AFailure.fromDioException(e),
+          ),
+        );
   }
 }

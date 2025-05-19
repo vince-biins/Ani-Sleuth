@@ -1,4 +1,5 @@
 import 'package:ani_sleuth/domain/model/anime/entity/aservice.dart';
+import 'package:ani_sleuth/domain/model/anime/entity/episode.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/full_anime.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/seasonal_anime.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/trailer.dart';
@@ -9,6 +10,7 @@ import 'package:ani_sleuth/domain/model/common/genre.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/top_anime.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/airing_dto.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/anime_dto.dart';
+import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/episode_dto.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/external_dto.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/genre_dto.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/service_dto.dart';
@@ -56,33 +58,48 @@ extension AnimeMapper on AnimeDto {
 
   FullAnime transformFull({int? index}) {
     return FullAnime(
-        malId: malId,
-        url: url,
-        imageUrl: images.jpg?.largeImageUrl ?? images.webp?.largeImageUrl,
-        title: title,
-        type: type,
-        episodes: 'episodes.toString()',
-        score: score,
-        scoredBy: scoredBy,
-        status: status,
-        popularity: popularity,
-        rank: rank != null ? '#$rank' : 'Unranked',
-        genres: genres.map((e) => e.transform()).toList(),
-        synopsis: synopsis,
-        background: background ?? 'No background available',
-        studios: studios.map((e) => e.transform()).toList(),
-        licensors: licensors.map((e) => e.transform()).toList(),
-        producers: producers.map((e) => e.transform()).toList(),
-        external: external?.map((e) => e.transform()).toList() ?? [],
-        streaming: streaming?.map((e) => e.transform()).toList() ?? [],
-        airing: aired.transform(),
-        duration: duration,
-        rating: rating,
-        isAiring: isAiring,
-        jTitle: titles.firstWhere((t) => t.type == 'Japanese').title,
-        fullImage: images.transform(),
-        favoriteRank: index != null ? '#$index' : 'Unranked',
-        trailer: trailer?.transform());
+      malId: malId,
+      url: url,
+      imageUrl: images.jpg?.largeImageUrl ?? images.webp?.largeImageUrl,
+      title: title,
+      type: type,
+      episodes: 'episodes.toString()',
+      score: score,
+      scoredBy: scoredBy,
+      status: status,
+      popularity: popularity,
+      rank: rank != null ? '#$rank' : 'Unranked',
+      genres: genres.map((e) => e.transform()).toList(),
+      synopsis: synopsis,
+      background: background ?? 'No background available',
+      studios: studios.map((e) => e.transform()).toList(),
+      licensors: licensors.map((e) => e.transform()).toList(),
+      producers: producers.map((e) => e.transform()).toList(),
+      external: external?.map((e) => e.transform()).toList() ?? [],
+      streaming: streaming?.map((e) => e.transform()).toList() ?? [],
+      airing: aired.transform(),
+      duration: duration,
+      rating: rating,
+      isAiring: isAiring,
+      jTitle: titles.firstWhere((t) => t.type == 'Japanese').title,
+      fullImage: images.transform(),
+      favoriteRank: index != null ? '#$index' : 'Unranked',
+      trailer: trailer?.transform(),
+    );
+  }
+}
+
+extension EpisodeMapper on EpisodeDto {
+  Episode transform() {
+    return Episode(
+      malId: malId,
+      title: title,
+      aired: aired,
+      score: score,
+      filler: filler,
+      recap: recap,
+      url: url,
+    );
   }
 }
 
