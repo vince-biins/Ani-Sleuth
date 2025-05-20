@@ -11,7 +11,7 @@ class EpisodeDto {
   final double score;
   final bool filler;
   final bool recap;
-  final String url;
+  final String? url;
 
   EpisodeDto({
     required this.malId,

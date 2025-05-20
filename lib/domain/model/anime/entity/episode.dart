@@ -7,7 +7,7 @@ class Episode extends Equatable {
   final double score;
   final bool filler;
   final bool recap;
-  final String url;
+  final String? url;
 
   const Episode({
     required this.malId,

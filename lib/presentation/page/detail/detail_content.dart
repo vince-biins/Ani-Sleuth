@@ -1,11 +1,11 @@
-import 'package:ani_sleuth/domain/model/anime/entity/full_anime.dart';
+import 'package:ani_sleuth/application/detail/bloc/detail_bloc.dart';
 import 'package:ani_sleuth/presentation/page/detail/component/header_detail_section.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/components/ui_constants.dart';
 
 class DetailContent extends StatelessWidget {
-  final FullAnime data;
+  final DetailData data;
   const DetailContent({super.key, required this.data});
 
   @override
@@ -18,7 +18,8 @@ class DetailContent extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            HeaderDetailSection(data: data),
+            HeaderDetailSection(data: data.anime!),
+            ...data.episides.map((val) => Text(val.title))
           ],
         ),
       ),

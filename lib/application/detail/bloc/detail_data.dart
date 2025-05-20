@@ -4,7 +4,9 @@ part of 'detail_bloc.dart';
 abstract class DetailData with _$DetailData {
   const factory DetailData({
     required FullAnime? anime,
+    required List<Episode> episides,
   }) = _DetailData;
 
-  factory DetailData.initialized() => const DetailData(anime: null);
+  factory DetailData.initialized() =>
+      const DetailData(anime: null, episides: []);
 }

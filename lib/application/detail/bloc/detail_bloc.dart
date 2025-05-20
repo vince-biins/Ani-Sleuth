@@ -1,3 +1,4 @@
+import 'package:ani_sleuth/domain/model/anime/entity/episode.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -27,11 +28,22 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
     Emitter<DetailState> emit,
   ) async {
     emit(DetailState.loading());
-    final animeResult = await _repository.getFullAnimeDetail(_paramId);
+    final result = await Future.wait([
+      _repository.getFullAnimeDetail(_paramId),
+      _repository.getAnimeEpisodes(_paramId)
+    ]);
 
-    animeResult.fold(
+    FullAnime? anime;
+    List<Episode> episodes = [];
+    result[0].fold(
       (error) => emit(DetailState.error(error.message)),
-      (success) => emit(DetailState.success(DetailData(anime: success))),
+      (success) => anime = success as FullAnime,
     );
+    result[1].fold(
+      (error) => emit(DetailState.error(error.message)),
+      (success) => episodes = success as List<Episode>,
+    );
+
+    emit(DetailState.success(DetailData(anime: anime, episides: episodes)));
   }
 }

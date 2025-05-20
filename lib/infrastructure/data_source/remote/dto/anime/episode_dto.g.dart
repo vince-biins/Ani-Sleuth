@@ -13,7 +13,7 @@ EpisodeDto _$EpisodeDtoFromJson(Map<String, dynamic> json) => EpisodeDto(
       score: (json['score'] as num).toDouble(),
       filler: json['filler'] as bool,
       recap: json['recap'] as bool,
-      url: json['url'] as String,
+      url: json['url'] as String?,
     );
 
 Map<String, dynamic> _$EpisodeDtoToJson(EpisodeDto instance) =>

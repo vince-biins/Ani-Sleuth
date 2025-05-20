@@ -50,7 +50,7 @@ class DetailPage extends StatelessWidget {
                       );
                     case Success(:final DetailData data):
                       return SliverToBoxAdapter(
-                          child: DetailContent(data: data.anime!));
+                          child: DetailContent(data: data));
 
                     case Error(:final String message):
                       return SliverToBoxAdapter(child: Text('Error: $message'));

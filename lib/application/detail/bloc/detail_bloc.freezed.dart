@@ -93,6 +93,7 @@ class WatchedTrailerDetailPage implements DetailEvent {
 /// @nodoc
 mixin _$DetailData {
   FullAnime? get anime;
+  List<Episode> get episides;
 
   /// Create a copy of DetailData
   /// with the given fields replaced by the non-null parameter values.
@@ -106,15 +107,17 @@ mixin _$DetailData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is DetailData &&
-            (identical(other.anime, anime) || other.anime == anime));
+            (identical(other.anime, anime) || other.anime == anime) &&
+            const DeepCollectionEquality().equals(other.episides, episides));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, anime);
+  int get hashCode => Object.hash(
+      runtimeType, anime, const DeepCollectionEquality().hash(episides));
 
   @override
   String toString() {
-    return 'DetailData(anime: $anime)';
+    return 'DetailData(anime: $anime, episides: $episides)';
   }
 }
 
@@ -124,7 +127,7 @@ abstract mixin class $DetailDataCopyWith<$Res> {
           DetailData value, $Res Function(DetailData) _then) =
       _$DetailDataCopyWithImpl;
   @useResult
-  $Res call({FullAnime? anime});
+  $Res call({FullAnime? anime, List<Episode> episides});
 }
 
 /// @nodoc
@@ -140,12 +143,17 @@ class _$DetailDataCopyWithImpl<$Res> implements $DetailDataCopyWith<$Res> {
   @override
   $Res call({
     Object? anime = freezed,
+    Object? episides = null,
   }) {
     return _then(_self.copyWith(
       anime: freezed == anime
           ? _self.anime
           : anime // ignore: cast_nullable_to_non_nullable
               as FullAnime?,
+      episides: null == episides
+          ? _self.episides
+          : episides // ignore: cast_nullable_to_non_nullable
+              as List<Episode>,
     ));
   }
 }
@@ -153,10 +161,19 @@ class _$DetailDataCopyWithImpl<$Res> implements $DetailDataCopyWith<$Res> {
 /// @nodoc
 
 class _DetailData implements DetailData {
-  const _DetailData({required this.anime});
+  const _DetailData(
+      {required this.anime, required final List<Episode> episides})
+      : _episides = episides;
 
   @override
   final FullAnime? anime;
+  final List<Episode> _episides;
+  @override
+  List<Episode> get episides {
+    if (_episides is EqualUnmodifiableListView) return _episides;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_episides);
+  }
 
   /// Create a copy of DetailData
   /// with the given fields replaced by the non-null parameter values.
@@ -171,15 +188,17 @@ class _DetailData implements DetailData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _DetailData &&
-            (identical(other.anime, anime) || other.anime == anime));
+            (identical(other.anime, anime) || other.anime == anime) &&
+            const DeepCollectionEquality().equals(other._episides, _episides));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, anime);
+  int get hashCode => Object.hash(
+      runtimeType, anime, const DeepCollectionEquality().hash(_episides));
 
   @override
   String toString() {
-    return 'DetailData(anime: $anime)';
+    return 'DetailData(anime: $anime, episides: $episides)';
   }
 }
 
@@ -191,7 +210,7 @@ abstract mixin class _$DetailDataCopyWith<$Res>
       __$DetailDataCopyWithImpl;
   @override
   @useResult
-  $Res call({FullAnime? anime});
+  $Res call({FullAnime? anime, List<Episode> episides});
 }
 
 /// @nodoc
@@ -207,12 +226,17 @@ class __$DetailDataCopyWithImpl<$Res> implements _$DetailDataCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   $Res call({
     Object? anime = freezed,
+    Object? episides = null,
   }) {
     return _then(_DetailData(
       anime: freezed == anime
           ? _self.anime
           : anime // ignore: cast_nullable_to_non_nullable
               as FullAnime?,
+      episides: null == episides
+          ? _self._episides
+          : episides // ignore: cast_nullable_to_non_nullable
+              as List<Episode>,
     ));
   }
 }
