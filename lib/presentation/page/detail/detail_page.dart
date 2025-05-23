@@ -39,25 +39,18 @@ class DetailPage extends StatelessWidget {
               },
             ),
           ],
-          child: CustomScrollView(
-            slivers: [
-              BlocBuilder<DetailBloc, DetailState>(
-                builder: (context, state) {
-                  switch (state) {
-                    case Initial() || Loading():
-                      return SliverToBoxAdapter(
-                        child: const CircularProgressIndicator(),
-                      );
-                    case Success(:final DetailData data):
-                      return SliverToBoxAdapter(
-                          child: DetailContent(data: data));
+          child: BlocBuilder<DetailBloc, DetailState>(
+            builder: (context, state) {
+              switch (state) {
+                case Initial() || Loading():
+                  return const CircularProgressIndicator();
+                case Success(:final DetailData data):
+                  return DetailContent(data: data);
 
-                    case Error(:final String message):
-                      return SliverToBoxAdapter(child: Text('Error: $message'));
-                  }
-                },
-              ),
-            ],
+                case Error(:final String message):
+                  return Text('Error: $message');
+              }
+            },
           ),
         ),
       ),

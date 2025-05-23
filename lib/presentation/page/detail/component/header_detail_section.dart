@@ -1,4 +1,5 @@
 import 'package:ani_sleuth/core/components/ui_constants.dart';
+import 'package:ani_sleuth/core/util.dart';
 import 'package:ani_sleuth/presentation/components/ani_image_network.dart';
 import 'package:flutter/material.dart';
 
@@ -7,51 +8,58 @@ import '../../../../domain/model/anime/entity/full_anime.dart';
 class HeaderDetailSection extends StatelessWidget {
   final FullAnime data;
   const HeaderDetailSection({super.key, required this.data});
-
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(
-        UiConstantsProvider.containerBorderRadius,
+    final isCompact = context.isCompact;
+
+    final detailContent = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _titleSection(context: context),
+        SizedBox(height: UiConstantsProvider.spacing * 4),
+        _synopsisSection(context: context),
+      ],
+    );
+
+    final imageWidget = Container(
+      decoration: BoxDecoration(
+        borderRadius:
+            BorderRadius.circular(UiConstantsProvider.containerBorderRadius),
       ),
+      child: ClipRRect(
+        borderRadius:
+            BorderRadius.circular(UiConstantsProvider.containerBorderRadius),
+        child: AniImageNetwork(
+          src: data.imageUrl ?? data.fullImage.jpg!.imageUrl!,
+          width: UiConstantsProvider.getImageItemWidth(context),
+          height: UiConstantsProvider.getImageItemHeight(context),
+        ),
+      ),
+    );
+
+    return ClipRRect(
+      borderRadius:
+          BorderRadius.circular(UiConstantsProvider.containerBorderRadius),
       child: Container(
         padding: const EdgeInsets.all(UiConstantsProvider.containerPadding * 4),
         color: Theme.of(context).colorScheme.surface,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(
-                  UiConstantsProvider.containerBorderRadius,
-                ),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(
-                  UiConstantsProvider.containerBorderRadius,
-                ),
-                child: AniImageNetwork(
-                  src: data.imageUrl ?? data.fullImage.jpg!.imageUrl!,
-                  width: UiConstantsProvider.getImageItemWidth(context),
-                  height: UiConstantsProvider.getImageItemHeight(context),
-                ),
-              ),
-            ),
-            SizedBox(
-              width: UiConstantsProvider.spacing * 8,
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: UiConstantsProvider.spacing * 4,
+        child: isCompact
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  _titleSection(context: context),
-                  _synopsisSection(context: context),
+                  imageWidget,
+                  SizedBox(height: UiConstantsProvider.spacing * 4),
+                  detailContent,
+                ],
+              )
+            : Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  imageWidget,
+                  SizedBox(width: UiConstantsProvider.spacing * 8),
+                  Expanded(child: detailContent),
                 ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }

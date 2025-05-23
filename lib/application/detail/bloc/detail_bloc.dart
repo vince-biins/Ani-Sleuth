@@ -44,6 +44,10 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
       (success) => episodes = success as List<Episode>,
     );
 
-    emit(DetailState.success(DetailData(anime: anime, episides: episodes)));
+    emit(
+      DetailState.success(
+        DetailData(anime: anime, episides: episodes.reversed.toList()),
+      ),
+    );
   }
 }
