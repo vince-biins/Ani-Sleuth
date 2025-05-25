@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:ani_sleuth/application/api_util/a_failure.dart';
 import 'package:ani_sleuth/application/base/base_state.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/full_anime.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/seasonal_anime.dart';
@@ -24,7 +25,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
   List<SeasonalAnime> seasonalAnime = [];
   List<TopAnime> topAnime = [];
-  List<TopCharacter> topCharacters = [];
+
   List<FullAnime> mostFavoriteAnime = [];
 
   List<String> errors = [];
@@ -59,6 +60,16 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
       (result) => mostFavoriteAnime = result as List<FullAnime>,
     );
 
+    await Future.delayed(Duration(milliseconds: 100));
+    final characterResult =
+        await _dashboardRepository.getTopCharacters(limit: _LIMIT);
+    if (characterResult.isLeft()) {
+      errors.add(characterResult
+          .swap()
+          .getOrElse(() => AFailure(message: 'Uknown'))
+          .message);
+    }
+    final topCharacters = characterResult.getOrElse(() => []);
     if (errors.isNotEmpty) {
       emit(DashboardState.error(errors.join('\n')));
     }
@@ -79,12 +90,13 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     LoadDashboardPage event,
     Emitter<DashboardState> emit,
   ) async {
-    switch (event.batch) {
-      case ApiBatch.first:
-        await _fetchInitialData(event, emit);
-      case ApiBatch.second:
-        await _handle2ndBatchRequest(event, emit);
-    }
+    await _fetchInitialData(event, emit);
+    // switch (event.batch) {
+    //   case ApiBatch.first:
+    //     await _fetchInitialData(event, emit);
+    //   case ApiBatch.second:
+    //     await _handle2ndBatchRequest(event, emit);
+    // }
   }
 
   ///

@@ -21,7 +21,8 @@ class DetailPage extends StatelessWidget {
         ..add(const DetailEvent.loadedDetailPage()),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(pageTitle),
+          surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
+          title: Text(''),
         ),
         body: MultiBlocListener(
           listeners: [

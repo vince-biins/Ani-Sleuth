@@ -8,6 +8,7 @@ import 'package:ani_sleuth/domain/model/anime/valueobject/external.dart';
 import 'package:ani_sleuth/domain/model/common/aimage.dart';
 import 'package:ani_sleuth/domain/model/common/genre.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/top_anime.dart';
+import 'package:ani_sleuth/domain/model/common/recommendation.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/airing_dto.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/anime_dto.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/episode_dto.dart';
@@ -17,6 +18,7 @@ import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/service_d
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/anime/trailer_dto.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/common/image_dto.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/dto/common/image_format_dto.dart';
+import 'package:ani_sleuth/infrastructure/data_source/remote/dto/recommendation/recommendation_dto.dart';
 
 extension AnimeMapper on AnimeDto {
   TopAnime transform() {
@@ -178,6 +180,17 @@ extension ImageFormatMapper on ImageFormatDto {
       largeImageUrl: largeImageUrl,
       mediumImageUrl: mediumImageUrl,
       maximumImageUrl: maximumImageUrl,
+    );
+  }
+}
+
+extension RecommendationMapper on RecommendationDto {
+  Recommendation transform() {
+    return Recommendation(
+      malId: entry.malId,
+      url: entry.url,
+      images: entry.images.transform(),
+      title: entry.title,
     );
   }
 }

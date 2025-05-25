@@ -7,7 +7,6 @@ import 'package:ani_sleuth/presentation/page/dashboard/component/header_carousel
 import 'package:ani_sleuth/presentation/page/dashboard/component/seasonal_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 
 class DashboardContent extends StatelessWidget {
   final DashboardData data;
@@ -22,7 +21,14 @@ class DashboardContent extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            HeaderCarouselSection(favoriteAnime: data.mostFavoriteAnime),
+            HeaderCarouselSection(
+              favoriteAnime: data.mostFavoriteAnime,
+              onClicked: (id) {
+                context.read<NavigationCubit>().navigateTo(
+                      AnimeDetailRoute(id: id),
+                    );
+              },
+            ),
             SeasonalSection(
               seasonalAnime: data.seasonalAnime,
               onTap: (id) {
@@ -53,38 +59,59 @@ class DashboardContent extends StatelessWidget {
                 onHover: (isHovering) {},
               ),
             ),
-            VisibilityDetector(
-              key: const Key('top_characters_section'),
-              onVisibilityChanged: (visibilityInfo) {
-                if (visibilityInfo.visibleFraction > 0 &&
-                    data.topCharacter.isEmpty) {
-                  context
-                      .read<DashboardBloc>()
-                      .add(DashboardEvent.loadPage(ApiBatch.second));
-                }
-              },
-              child: GridSection(
-                title: 'Top Characters',
-                items: data.topCharacter,
-                onHover: (isHovered) {},
-                onClickMore: () {},
-                itemBuilder: (context, character) => MediaItemTile(
-                  id: character.malId,
-                  title: character.name,
-                  imageUrl: character.images,
-                  leftBadgeValue: character.rank,
-                  isRankedTile: true,
-                  rating: character.favorites?.toDouble(),
-                  onTap: (id) {
-                    context.read<NavigationCubit>().navigateTo(
-                          CharacterDetailRoute(id: id),
-                        );
-                  },
-                  onHover: (isHovering) {},
-                  icon: Icons.info_rounded,
-                ),
+            GridSection(
+              title: 'Top Characters',
+              items: data.topCharacter,
+              onHover: (isHovered) {},
+              onClickMore: () {},
+              itemBuilder: (context, character) => MediaItemTile(
+                id: character.malId,
+                title: character.name,
+                imageUrl: character.images,
+                leftBadgeValue: character.rank,
+                isRankedTile: true,
+                rating: character.favorites?.toDouble(),
+                onTap: (id) {
+                  context.read<NavigationCubit>().navigateTo(
+                        CharacterDetailRoute(id: id),
+                      );
+                },
+                onHover: (isHovering) {},
+                icon: Icons.info_rounded,
               ),
             ),
+            // VisibilityDetector(
+            //   key: const Key('top_characters_section'),
+            //   onVisibilityChanged: (visibilityInfo) {
+            //     if (visibilityInfo.visibleFraction > 0 &&
+            //         data.topCharacter.isEmpty) {
+            //       context
+            //           .read<DashboardBloc>()
+            //           .add(DashboardEvent.loadPage(ApiBatch.second));
+            //     }
+            //   },
+            //   child: GridSection(
+            //     title: 'Top Characters',
+            //     items: data.topCharacter,
+            //     onHover: (isHovered) {},
+            //     onClickMore: () {},
+            //     itemBuilder: (context, character) => MediaItemTile(
+            //       id: character.malId,
+            //       title: character.name,
+            //       imageUrl: character.images,
+            //       leftBadgeValue: character.rank,
+            //       isRankedTile: true,
+            //       rating: character.favorites?.toDouble(),
+            //       onTap: (id) {
+            //         context.read<NavigationCubit>().navigateTo(
+            //               CharacterDetailRoute(id: id),
+            //             );
+            //       },
+            //       onHover: (isHovering) {},
+            //       icon: Icons.info_rounded,
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),

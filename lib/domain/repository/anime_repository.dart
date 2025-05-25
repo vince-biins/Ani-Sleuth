@@ -3,6 +3,7 @@ import 'package:ani_sleuth/domain/model/anime/entity/episode.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/full_anime.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/seasonal_anime.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/top_anime.dart';
+import 'package:ani_sleuth/domain/model/common/recommendation.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class AnimeRepository {
@@ -26,6 +27,10 @@ abstract class AnimeRepository {
   });
 
   Future<Either<AFailure, List<Episode>>> getListOfEpisodesById({
+    required int id,
+  });
+
+  Future<Either<AFailure, List<Recommendation>>> getAnimeRecommendationById({
     required int id,
   });
 }

@@ -1,7 +1,8 @@
 import 'package:ani_sleuth/domain/model/character/entity/character.dart';
+import 'package:ani_sleuth/domain/model/enum/character_role.dart';
 
 class AnimeCharacter extends Character {
-  final String role;
+  final CharacterRole role;
   final int aFavorites;
 
   const AnimeCharacter({

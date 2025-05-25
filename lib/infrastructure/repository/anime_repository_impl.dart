@@ -4,6 +4,7 @@ import 'package:ani_sleuth/domain/model/anime/entity/episode.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/full_anime.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/seasonal_anime.dart';
 import 'package:ani_sleuth/domain/model/anime/entity/top_anime.dart';
+import 'package:ani_sleuth/domain/model/common/recommendation.dart';
 import 'package:ani_sleuth/domain/repository/anime_repository.dart';
 import 'package:ani_sleuth/infrastructure/data_source/remote/service/anime/anime_service.dart';
 import 'package:dartz/dartz.dart';
@@ -115,6 +116,24 @@ class AnimeRepositoryImpl implements AnimeRepository {
         )
         .catchError(
           (e) => Left<AFailure, List<Episode>>(
+            AFailure.fromDioException(e),
+          ),
+        );
+  }
+
+  @override
+  Future<Either<AFailure, List<Recommendation>>> getAnimeRecommendationById({
+    required int id,
+  }) {
+    return _animeService
+        .fetchAnimeRecommendationById(id: id)
+        .then<Either<AFailure, List<Recommendation>>>(
+          (value) => Right(
+              value.data?.take(10).map((reco) => reco.transform()).toList() ??
+                  []),
+        )
+        .catchError(
+          (e) => Left<AFailure, List<Recommendation>>(
             AFailure.fromDioException(e),
           ),
         );

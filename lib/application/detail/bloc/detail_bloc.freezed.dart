@@ -93,7 +93,9 @@ class WatchedTrailerDetailPage implements DetailEvent {
 /// @nodoc
 mixin _$DetailData {
   FullAnime? get anime;
-  List<Episode> get episides;
+  List<Episode> get episodes;
+  List<Recommendation> get recommendation;
+  CharacterParam get character;
 
   /// Create a copy of DetailData
   /// with the given fields replaced by the non-null parameter values.
@@ -108,16 +110,24 @@ mixin _$DetailData {
         (other.runtimeType == runtimeType &&
             other is DetailData &&
             (identical(other.anime, anime) || other.anime == anime) &&
-            const DeepCollectionEquality().equals(other.episides, episides));
+            const DeepCollectionEquality().equals(other.episodes, episodes) &&
+            const DeepCollectionEquality()
+                .equals(other.recommendation, recommendation) &&
+            (identical(other.character, character) ||
+                other.character == character));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, anime, const DeepCollectionEquality().hash(episides));
+      runtimeType,
+      anime,
+      const DeepCollectionEquality().hash(episodes),
+      const DeepCollectionEquality().hash(recommendation),
+      character);
 
   @override
   String toString() {
-    return 'DetailData(anime: $anime, episides: $episides)';
+    return 'DetailData(anime: $anime, episodes: $episodes, recommendation: $recommendation, character: $character)';
   }
 }
 
@@ -127,7 +137,11 @@ abstract mixin class $DetailDataCopyWith<$Res> {
           DetailData value, $Res Function(DetailData) _then) =
       _$DetailDataCopyWithImpl;
   @useResult
-  $Res call({FullAnime? anime, List<Episode> episides});
+  $Res call(
+      {FullAnime? anime,
+      List<Episode> episodes,
+      List<Recommendation> recommendation,
+      CharacterParam character});
 }
 
 /// @nodoc
@@ -143,17 +157,27 @@ class _$DetailDataCopyWithImpl<$Res> implements $DetailDataCopyWith<$Res> {
   @override
   $Res call({
     Object? anime = freezed,
-    Object? episides = null,
+    Object? episodes = null,
+    Object? recommendation = null,
+    Object? character = null,
   }) {
     return _then(_self.copyWith(
       anime: freezed == anime
           ? _self.anime
           : anime // ignore: cast_nullable_to_non_nullable
               as FullAnime?,
-      episides: null == episides
-          ? _self.episides
-          : episides // ignore: cast_nullable_to_non_nullable
+      episodes: null == episodes
+          ? _self.episodes
+          : episodes // ignore: cast_nullable_to_non_nullable
               as List<Episode>,
+      recommendation: null == recommendation
+          ? _self.recommendation
+          : recommendation // ignore: cast_nullable_to_non_nullable
+              as List<Recommendation>,
+      character: null == character
+          ? _self.character
+          : character // ignore: cast_nullable_to_non_nullable
+              as CharacterParam,
     ));
   }
 }
@@ -162,18 +186,33 @@ class _$DetailDataCopyWithImpl<$Res> implements $DetailDataCopyWith<$Res> {
 
 class _DetailData implements DetailData {
   const _DetailData(
-      {required this.anime, required final List<Episode> episides})
-      : _episides = episides;
+      {required this.anime,
+      required final List<Episode> episodes,
+      required final List<Recommendation> recommendation,
+      required this.character})
+      : _episodes = episodes,
+        _recommendation = recommendation;
 
   @override
   final FullAnime? anime;
-  final List<Episode> _episides;
+  final List<Episode> _episodes;
   @override
-  List<Episode> get episides {
-    if (_episides is EqualUnmodifiableListView) return _episides;
+  List<Episode> get episodes {
+    if (_episodes is EqualUnmodifiableListView) return _episodes;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_episides);
+    return EqualUnmodifiableListView(_episodes);
   }
+
+  final List<Recommendation> _recommendation;
+  @override
+  List<Recommendation> get recommendation {
+    if (_recommendation is EqualUnmodifiableListView) return _recommendation;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_recommendation);
+  }
+
+  @override
+  final CharacterParam character;
 
   /// Create a copy of DetailData
   /// with the given fields replaced by the non-null parameter values.
@@ -189,16 +228,24 @@ class _DetailData implements DetailData {
         (other.runtimeType == runtimeType &&
             other is _DetailData &&
             (identical(other.anime, anime) || other.anime == anime) &&
-            const DeepCollectionEquality().equals(other._episides, _episides));
+            const DeepCollectionEquality().equals(other._episodes, _episodes) &&
+            const DeepCollectionEquality()
+                .equals(other._recommendation, _recommendation) &&
+            (identical(other.character, character) ||
+                other.character == character));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, anime, const DeepCollectionEquality().hash(_episides));
+      runtimeType,
+      anime,
+      const DeepCollectionEquality().hash(_episodes),
+      const DeepCollectionEquality().hash(_recommendation),
+      character);
 
   @override
   String toString() {
-    return 'DetailData(anime: $anime, episides: $episides)';
+    return 'DetailData(anime: $anime, episodes: $episodes, recommendation: $recommendation, character: $character)';
   }
 }
 
@@ -210,7 +257,11 @@ abstract mixin class _$DetailDataCopyWith<$Res>
       __$DetailDataCopyWithImpl;
   @override
   @useResult
-  $Res call({FullAnime? anime, List<Episode> episides});
+  $Res call(
+      {FullAnime? anime,
+      List<Episode> episodes,
+      List<Recommendation> recommendation,
+      CharacterParam character});
 }
 
 /// @nodoc
@@ -226,17 +277,27 @@ class __$DetailDataCopyWithImpl<$Res> implements _$DetailDataCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   $Res call({
     Object? anime = freezed,
-    Object? episides = null,
+    Object? episodes = null,
+    Object? recommendation = null,
+    Object? character = null,
   }) {
     return _then(_DetailData(
       anime: freezed == anime
           ? _self.anime
           : anime // ignore: cast_nullable_to_non_nullable
               as FullAnime?,
-      episides: null == episides
-          ? _self._episides
-          : episides // ignore: cast_nullable_to_non_nullable
+      episodes: null == episodes
+          ? _self._episodes
+          : episodes // ignore: cast_nullable_to_non_nullable
               as List<Episode>,
+      recommendation: null == recommendation
+          ? _self._recommendation
+          : recommendation // ignore: cast_nullable_to_non_nullable
+              as List<Recommendation>,
+      character: null == character
+          ? _self.character
+          : character // ignore: cast_nullable_to_non_nullable
+              as CharacterParam,
     ));
   }
 }

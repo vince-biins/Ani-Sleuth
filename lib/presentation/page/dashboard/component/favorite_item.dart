@@ -9,10 +9,12 @@ import '../../../../core/platform_provider.dart';
 class FavoriteItem extends StatelessWidget {
   final FullAnime favoriteAnime;
   final double height;
+  final Function(int) onClicked;
   const FavoriteItem({
     super.key,
     required this.favoriteAnime,
     required this.height,
+    required this.onClicked,
   });
 
   @override
@@ -219,7 +221,9 @@ class FavoriteItem extends StatelessWidget {
                       child: Row(
                         children: [
                           OutlinedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              onClicked(favoriteAnime.malId);
+                            },
                             child: Text(
                               'Show Details',
                               style: Theme.of(context)

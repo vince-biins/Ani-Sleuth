@@ -6,9 +6,14 @@ import 'package:flutter/material.dart';
 
 class HeaderCarouselSection extends StatelessWidget {
   final List<FullAnime> favoriteAnime;
+  final Function(int) onClicked;
   final CarouselSliderController buttonCarouselController =
       CarouselSliderController();
-  HeaderCarouselSection({super.key, required this.favoriteAnime});
+  HeaderCarouselSection({
+    super.key,
+    required this.favoriteAnime,
+    required this.onClicked,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +27,7 @@ class HeaderCarouselSection extends StatelessWidget {
           return FavoriteItem(
             favoriteAnime: item,
             height: height,
+            onClicked: onClicked,
           );
         }).toList(),
         carouselController: buttonCarouselController,

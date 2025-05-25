@@ -35,10 +35,11 @@ class GridSection<T> extends StatelessWidget {
       child: SizedBox(
         child: Column(
           children: [
-            SizedBox(
-              height: sectionHeadingHeight,
-              child: SectionHeading(title: title),
-            ),
+            if (items.isNotEmpty)
+              SizedBox(
+                height: sectionHeadingHeight,
+                child: SectionHeading(title: title),
+              ),
             LayoutBuilder(
               builder: (context, constraints) {
                 return GridView.builder(
