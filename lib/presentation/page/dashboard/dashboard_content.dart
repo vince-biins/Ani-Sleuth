@@ -80,38 +80,6 @@ class DashboardContent extends StatelessWidget {
                 icon: Icons.info_rounded,
               ),
             ),
-            // VisibilityDetector(
-            //   key: const Key('top_characters_section'),
-            //   onVisibilityChanged: (visibilityInfo) {
-            //     if (visibilityInfo.visibleFraction > 0 &&
-            //         data.topCharacter.isEmpty) {
-            //       context
-            //           .read<DashboardBloc>()
-            //           .add(DashboardEvent.loadPage(ApiBatch.second));
-            //     }
-            //   },
-            //   child: GridSection(
-            //     title: 'Top Characters',
-            //     items: data.topCharacter,
-            //     onHover: (isHovered) {},
-            //     onClickMore: () {},
-            //     itemBuilder: (context, character) => MediaItemTile(
-            //       id: character.malId,
-            //       title: character.name,
-            //       imageUrl: character.images,
-            //       leftBadgeValue: character.rank,
-            //       isRankedTile: true,
-            //       rating: character.favorites?.toDouble(),
-            //       onTap: (id) {
-            //         context.read<NavigationCubit>().navigateTo(
-            //               CharacterDetailRoute(id: id),
-            //             );
-            //       },
-            //       onHover: (isHovering) {},
-            //       icon: Icons.info_rounded,
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       ),

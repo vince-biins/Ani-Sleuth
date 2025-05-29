@@ -1,4 +1,4 @@
-import 'package:ani_sleuth/application/detail/bloc/detail_bloc.dart';
+import 'package:ani_sleuth/application/detail/anime/detail_bloc.dart';
 import 'package:ani_sleuth/core/util.dart';
 import 'package:ani_sleuth/presentation/page/detail/component/episode_section.dart';
 import 'package:ani_sleuth/presentation/page/detail/component/header_detail_section.dart';

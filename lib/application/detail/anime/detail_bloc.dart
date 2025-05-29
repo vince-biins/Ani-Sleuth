@@ -57,7 +57,7 @@ class DetailBloc extends Bloc<DetailEvent, DetailState> {
       (success) => recommendations = success as List<Recommendation>,
     );
 
-    await Future.delayed(Duration(milliseconds: 100));
+    await Future.delayed(Duration(seconds: 1));
     final characterResult = await _repository.getAnimeCharactersById(_paramId);
     characterResult.fold(
       (error) => emit(DetailState.error(error.message)),

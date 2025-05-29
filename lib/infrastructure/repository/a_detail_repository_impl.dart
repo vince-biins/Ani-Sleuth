@@ -3,6 +3,7 @@ import 'package:ani_sleuth/domain/model/anime/entity/episode.dart';
 
 import 'package:ani_sleuth/domain/model/anime/entity/full_anime.dart';
 import 'package:ani_sleuth/domain/model/character/entity/anime_character.dart';
+import 'package:ani_sleuth/domain/model/character/entity/character.dart';
 import 'package:ani_sleuth/domain/model/common/recommendation.dart';
 import 'package:ani_sleuth/domain/repository/anime_repository.dart';
 import 'package:ani_sleuth/domain/repository/character_repository.dart';
@@ -37,4 +38,9 @@ class ADetailRepositoryImpl implements ADetailRepository {
   Future<Either<AFailure, List<AnimeCharacter>>> getAnimeCharactersById(
           int id) async =>
       await _characterRepository.getCharacterInAnime(id: id);
+
+  @override
+  Future<Either<AFailure, Character?>> getAnimeCharacterFullById(
+          int id) async =>
+      await _characterRepository.getCharacterFullById(id: id);
 }

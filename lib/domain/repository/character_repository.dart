@@ -9,7 +9,7 @@ abstract class CharacterRepository {
   Future<Either<AFailure, List<TopCharacter>>> getListOfTopCharacters({
     required int limit,
   });
-  Future<Either<AFailure, List<Character>>> getCharacterFullById({
+  Future<Either<AFailure, Character?>> getCharacterFullById({
     required int id,
   });
 

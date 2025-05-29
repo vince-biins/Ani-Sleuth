@@ -18,7 +18,7 @@ abstract class CharacterService {
   });
 
   @GET('v4/characters/{id}/full')
-  Future<ApiSuccess<List<CharacterDto>>> fetchCharacterFullById({
+  Future<ApiSuccess<CharacterDto>> fetchCharacterFullById({
     @Path('id') required int id,
   });
 

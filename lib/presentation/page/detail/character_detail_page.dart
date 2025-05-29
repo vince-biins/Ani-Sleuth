@@ -1,24 +1,26 @@
-import 'package:ani_sleuth/application/detail/anime/detail_bloc.dart';
+import 'package:ani_sleuth/application/detail/character/character_bloc.dart';
 import 'package:ani_sleuth/core/injectors/dependency_injection.dart';
-import 'package:ani_sleuth/presentation/components/ani_image_network.dart';
-import 'package:ani_sleuth/presentation/page/detail/detail_content.dart';
+import 'package:ani_sleuth/presentation/page/detail/character_detail_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../application/base/base_state.dart';
 import '../../../application/base/cubit/navigation_cubit.dart';
 
-class DetailPage extends StatelessWidget {
-  final int? animeId;
+class CharacterDetailPage extends StatelessWidget {
+  final int characterId;
   final String pageTitle;
-
-  const DetailPage({super.key, this.animeId, required this.pageTitle});
+  const CharacterDetailPage({
+    super.key,
+    required this.characterId,
+    required this.pageTitle,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<DetailBloc>(param1: animeId)
-        ..add(const DetailEvent.loadedDetailPage()),
+      create: (context) => getIt<CharacterBloc>(param1: characterId)
+        ..add(CharacterEvent.loadedCharacterDetailPage()),
       child: Scaffold(
         appBar: AppBar(
           surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
@@ -29,7 +31,7 @@ class DetailPage extends StatelessWidget {
             BlocListener<NavigationCubit, NavigationState>(
               listener: (context, state) {},
             ),
-            BlocListener<DetailBloc, DetailState>(
+            BlocListener<CharacterBloc, CharacterState>(
               listener: (context, state) {
                 if (state is Error) {
                   final message = state as Error;
@@ -40,13 +42,13 @@ class DetailPage extends StatelessWidget {
               },
             ),
           ],
-          child: BlocBuilder<DetailBloc, DetailState>(
+          child: BlocBuilder<CharacterBloc, CharacterState>(
             builder: (context, state) {
               switch (state) {
                 case Initial() || Loading():
                   return const CircularProgressIndicator();
-                case Success(:final DetailData data):
-                  return DetailContent(data: data);
+                case Success(:final CharacterData data):
+                  return CharacterDetailContent(data: data);
 
                 case Error(:final String message):
                   return Text('Error: $message');

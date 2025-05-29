@@ -1,4 +1,4 @@
-import 'package:ani_sleuth/application/detail/bloc/character_param.dart';
+import 'package:ani_sleuth/application/detail/anime/character_param.dart';
 import 'package:ani_sleuth/domain/model/character/entity/anime_character.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

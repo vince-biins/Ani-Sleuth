@@ -13,15 +13,15 @@ class CharacterRepositoryImpl implements CharacterRepository {
   CharacterRepositoryImpl({required CharacterService characterService})
       : _characterService = characterService;
   @override
-  Future<Either<AFailure, List<Character>>> getCharacterFullById({
+  Future<Either<AFailure, Character?>> getCharacterFullById({
     required int id,
   }) {
     return _characterService
         .fetchCharacterFullById(id: id)
-        .then<Either<AFailure, List<Character>>>((value) {
-      return Right(value.data?.map((e) => e.transformFull()).toList() ?? []);
+        .then<Either<AFailure, Character?>>((value) {
+      return Right(value.data?.transformFull());
     }).catchError((e) {
-      return Left<AFailure, List<Character>>(
+      return Left<AFailure, Character?>(
         AFailure.fromDioException(e),
       );
     });
@@ -36,6 +36,7 @@ class CharacterRepositoryImpl implements CharacterRepository {
         .then<Either<AFailure, List<AnimeCharacter>>>((value) {
       return Right(value.data?.map((e) => e.transform()).toList() ?? []);
     }).catchError((e) {
+      print(e);
       return Left<AFailure, List<AnimeCharacter>>(
         AFailure.fromDioException(e),
       );

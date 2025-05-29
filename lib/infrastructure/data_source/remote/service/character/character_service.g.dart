@@ -57,14 +57,14 @@ class _CharacterService implements CharacterService {
   }
 
   @override
-  Future<ApiSuccess<List<CharacterDto>>> fetchCharacterFullById({
+  Future<ApiSuccess<CharacterDto>> fetchCharacterFullById({
     required int id,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<ApiSuccess<List<CharacterDto>>>(
+    final _options = _setStreamType<ApiSuccess<CharacterDto>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -75,17 +75,11 @@ class _CharacterService implements CharacterService {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late ApiSuccess<List<CharacterDto>> _value;
+    late ApiSuccess<CharacterDto> _value;
     try {
-      _value = ApiSuccess<List<CharacterDto>>.fromJson(
+      _value = ApiSuccess<CharacterDto>.fromJson(
         _result.data!,
-        (json) => json is List<dynamic>
-            ? json
-                .map<CharacterDto>(
-                  (i) => CharacterDto.fromJson(i as Map<String, dynamic>),
-                )
-                .toList()
-            : List.empty(),
+        (json) => CharacterDto.fromJson(json as Map<String, dynamic>),
       );
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);

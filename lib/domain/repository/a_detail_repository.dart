@@ -4,6 +4,7 @@ import 'package:ani_sleuth/domain/model/anime/entity/full_anime.dart';
 import 'package:ani_sleuth/domain/model/character/entity/anime_character.dart';
 import 'package:dartz/dartz.dart';
 
+import '../model/character/entity/character.dart';
 import '../model/common/recommendation.dart';
 
 abstract class ADetailRepository {
@@ -13,4 +14,5 @@ abstract class ADetailRepository {
       int id);
 
   Future<Either<AFailure, List<AnimeCharacter>>> getAnimeCharactersById(int id);
+  Future<Either<AFailure, Character?>> getAnimeCharacterFullById(int id);
 }

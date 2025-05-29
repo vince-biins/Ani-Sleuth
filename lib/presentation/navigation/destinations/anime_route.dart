@@ -39,7 +39,7 @@ class CharacterDetailRoute extends AnimeRoute {
   CharacterDetailRoute({required this.id});
   @override
   Widget build(BuildContext context, GoRouterState state) =>
-      DetailPage(animeId: id, pageTitle: 'Character');
+      CharacterDetailPage(characterId: id, pageTitle: 'Character');
 }
 
 @immutable
