@@ -10,6 +10,7 @@ class CharacterDto {
   final String url;
   final ImageDto? images;
   final String name;
+  @JsonKey(name: 'name_kanji')
   final String? nameKanji;
   final List<String>? nicknames;
   final int? favorites;

@@ -10,8 +10,9 @@ abstract class DetailData with _$DetailData {
   }) = _DetailData;
 
   factory DetailData.initialized() => const DetailData(
-      anime: null,
-      episodes: [],
-      recommendation: [],
-      character: CharacterParam());
+        anime: null,
+        episodes: [],
+        recommendation: [],
+        character: CharacterParam(),
+      );
 }

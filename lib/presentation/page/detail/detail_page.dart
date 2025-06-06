@@ -1,6 +1,5 @@
 import 'package:ani_sleuth/application/detail/anime/detail_bloc.dart';
 import 'package:ani_sleuth/core/injectors/dependency_injection.dart';
-import 'package:ani_sleuth/presentation/components/ani_image_network.dart';
 import 'package:ani_sleuth/presentation/page/detail/detail_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -64,10 +64,12 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     final characterResult =
         await _dashboardRepository.getTopCharacters(limit: _LIMIT);
     if (characterResult.isLeft()) {
-      errors.add(characterResult
-          .swap()
-          .getOrElse(() => AFailure(message: 'Uknown'))
-          .message);
+      errors.add(
+        characterResult
+            .swap()
+            .getOrElse(() => AFailure(message: 'Uknown'))
+            .message,
+      );
     }
     final topCharacters = characterResult.getOrElse(() => []);
     if (errors.isNotEmpty) {

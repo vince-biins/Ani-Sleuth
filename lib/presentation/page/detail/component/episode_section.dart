@@ -93,9 +93,10 @@ class EpisodeItemTile extends StatelessWidget {
                 episode.title,
                 maxLines: 1,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    letterSpacing: 1.2,
-                    fontStyle: FontStyle.italic,
-                    overflow: TextOverflow.ellipsis),
+                      letterSpacing: 1.2,
+                      fontStyle: FontStyle.italic,
+                      overflow: TextOverflow.ellipsis,
+                    ),
               ),
             ),
           ),

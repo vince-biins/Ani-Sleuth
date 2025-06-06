@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/model/anime/entity/full_anime.dart';
-import '../../../domain/model/character/entity/character.dart';
 import '../../../domain/repository/a_detail_repository.dart';
 import '../../base/base_state.dart';
 import 'character_param.dart';

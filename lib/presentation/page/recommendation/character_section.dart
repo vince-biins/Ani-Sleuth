@@ -21,44 +21,45 @@ class CharacterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverList(
-        delegate: SliverChildListDelegate(
-      [
-        SectionHeading(title: title),
-        if (character.mainCharacters.isNotEmpty)
-          Padding(
-            padding: const EdgeInsets.only(
-              left: UiConstantsProvider.containerPadding,
+      delegate: SliverChildListDelegate(
+        [
+          SectionHeading(title: title),
+          if (character.mainCharacters.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(
+                left: UiConstantsProvider.containerPadding,
+              ),
+              child: _buildGridSection(
+                context: context,
+                char: character.mainCharacters,
+                sectionTitle: 'Main',
+              ),
             ),
-            child: _buildGridSection(
-              context: context,
-              char: character.mainCharacters,
-              sectionTitle: 'Main',
+          if (character.supportingCharacters.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(
+                left: UiConstantsProvider.containerPadding,
+              ),
+              child: _buildGridSection(
+                context: context,
+                char: character.supportingCharacters,
+                sectionTitle: 'Supporting',
+              ),
             ),
-          ),
-        if (character.supportingCharacters.isNotEmpty)
-          Padding(
-            padding: const EdgeInsets.only(
-              left: UiConstantsProvider.containerPadding,
+          if (character.otherCharacters.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(
+                left: UiConstantsProvider.containerPadding,
+              ),
+              child: _buildGridSection(
+                context: context,
+                char: character.otherCharacters,
+                sectionTitle: 'Others',
+              ),
             ),
-            child: _buildGridSection(
-              context: context,
-              char: character.supportingCharacters,
-              sectionTitle: 'Supporting',
-            ),
-          ),
-        if (character.otherCharacters.isNotEmpty)
-          Padding(
-            padding: const EdgeInsets.only(
-              left: UiConstantsProvider.containerPadding,
-            ),
-            child: _buildGridSection(
-              context: context,
-              char: character.otherCharacters,
-              sectionTitle: 'Others',
-            ),
-          ),
-      ],
-    ));
+        ],
+      ),
+    );
   }
 
   _buildGridSection({

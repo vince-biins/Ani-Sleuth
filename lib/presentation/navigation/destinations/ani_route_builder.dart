@@ -41,14 +41,20 @@ class DashboardRoute extends GoRouteData {
 )
 class AnimeSubRoute extends AnimeRoute {}
 
-@TypedGoRoute<MangaSubRoute>(path: '/manga', routes: [
-  TypedGoRoute<TopMangaRoute>(path: 'top'),
-])
+@TypedGoRoute<MangaSubRoute>(
+  path: '/manga',
+  routes: [
+    TypedGoRoute<TopMangaRoute>(path: 'top'),
+  ],
+)
 class MangaSubRoute extends MangaRoute {}
 
-@TypedGoRoute<CharacterSubRoute>(path: '/character', routes: [
-  TypedGoRoute<TopCharacterRoute>(path: 'top'),
-])
+@TypedGoRoute<CharacterSubRoute>(
+  path: '/character',
+  routes: [
+    TypedGoRoute<TopCharacterRoute>(path: 'top'),
+  ],
+)
 class CharacterSubRoute extends CharacterRoute {}
 
 @TypedGoRoute<ErrorRoute>(path: '/error')

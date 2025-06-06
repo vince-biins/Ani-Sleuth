@@ -9,15 +9,16 @@ import 'package:ani_sleuth/infrastructure/data_source/remote/dto/character/manga
 extension CharacterMapper on CharacterDto {
   TopCharacter transform(int index) {
     return TopCharacter(
-        malId: malId,
-        url: url,
-        images: images?.jpg?.imageUrl ?? images?.webp?.imageUrl,
-        name: name,
-        nameKanji: nameKanji,
-        nicknames: nicknames ?? [],
-        favorites: favorites,
-        about: about,
-        rank: '#$index');
+      malId: malId,
+      url: url,
+      images: images?.jpg?.imageUrl ?? images?.webp?.imageUrl,
+      name: name,
+      nameKanji: nameKanji,
+      nicknames: nicknames ?? [],
+      favorites: favorites,
+      about: about,
+      rank: '#$index',
+    );
   }
 
   Character transformFull() {

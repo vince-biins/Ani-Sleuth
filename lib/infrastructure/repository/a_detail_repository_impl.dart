@@ -31,16 +31,19 @@ class ADetailRepositoryImpl implements ADetailRepository {
 
   @override
   Future<Either<AFailure, List<Recommendation>>> getAnimeRecommendationById(
-          int id) async =>
+    int id,
+  ) async =>
       await _animeRepository.getAnimeRecommendationById(id: id);
 
   @override
   Future<Either<AFailure, List<AnimeCharacter>>> getAnimeCharactersById(
-          int id) async =>
+    int id,
+  ) async =>
       await _characterRepository.getCharacterInAnime(id: id);
 
   @override
   Future<Either<AFailure, Character?>> getAnimeCharacterFullById(
-          int id) async =>
+    int id,
+  ) async =>
       await _characterRepository.getCharacterFullById(id: id);
 }

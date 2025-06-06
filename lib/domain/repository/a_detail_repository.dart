@@ -11,7 +11,8 @@ abstract class ADetailRepository {
   Future<Either<AFailure, FullAnime?>> getFullAnimeDetail(int id);
   Future<Either<AFailure, List<Episode>>> getAnimeEpisodes(int id);
   Future<Either<AFailure, List<Recommendation>>> getAnimeRecommendationById(
-      int id);
+    int id,
+  );
 
   Future<Either<AFailure, List<AnimeCharacter>>> getAnimeCharactersById(int id);
   Future<Either<AFailure, Character?>> getAnimeCharacterFullById(int id);

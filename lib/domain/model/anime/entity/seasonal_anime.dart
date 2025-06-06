@@ -32,6 +32,6 @@ class SeasonalAnime extends Anime {
         score,
         scoredBy,
         episodes,
-        genres
+        genres,
       ];
 }

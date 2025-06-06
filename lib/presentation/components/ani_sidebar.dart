@@ -54,7 +54,7 @@ class AniSidebar extends StatelessWidget {
       isExpanded: false,
       expandedTitles: [],
       destination: CharacterSubRoute(),
-    )
+    ),
   ];
 
   @override

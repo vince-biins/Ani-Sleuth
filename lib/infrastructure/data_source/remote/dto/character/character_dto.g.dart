@@ -13,7 +13,7 @@ CharacterDto _$CharacterDtoFromJson(Map<String, dynamic> json) => CharacterDto(
           ? null
           : ImageDto.fromJson(json['images'] as Map<String, dynamic>),
       name: json['name'] as String,
-      nameKanji: json['nameKanji'] as String?,
+      nameKanji: json['name_kanji'] as String?,
       nicknames: (json['nicknames'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
@@ -27,7 +27,7 @@ Map<String, dynamic> _$CharacterDtoToJson(CharacterDto instance) =>
       'url': instance.url,
       'images': instance.images,
       'name': instance.name,
-      'nameKanji': instance.nameKanji,
+      'name_kanji': instance.nameKanji,
       'nicknames': instance.nicknames,
       'favorites': instance.favorites,
       'about': instance.about,

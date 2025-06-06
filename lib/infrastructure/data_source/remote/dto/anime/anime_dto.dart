@@ -13,7 +13,7 @@ part 'anime_dto.g.dart';
 
 @JsonSerializable()
 class AnimeDto extends MediaDto {
-  // final int? episodes;
+  final int? episodes;
 
   @JsonKey(name: 'airing')
   final bool isAiring;
@@ -30,7 +30,7 @@ class AnimeDto extends MediaDto {
   })? theme;
 
   AnimeDto({
-    // required this.episodes,
+    required this.episodes,
     required this.isAiring,
     required this.aired,
     required this.duration,

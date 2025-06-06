@@ -59,7 +59,7 @@ class RecommendationSection extends StatelessWidget {
                 onHover: (isHovering) {},
               );
             },
-          )
+          ),
         ],
       ),
     );

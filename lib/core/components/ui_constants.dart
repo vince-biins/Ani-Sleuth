@@ -1,4 +1,3 @@
-import 'package:ani_sleuth/core/platform_provider.dart';
 import 'package:ani_sleuth/core/util.dart';
 import 'package:flutter/material.dart';
 

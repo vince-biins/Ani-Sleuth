@@ -129,8 +129,8 @@ class AnimeRepositoryImpl implements AnimeRepository {
         .fetchAnimeRecommendationById(id: id)
         .then<Either<AFailure, List<Recommendation>>>(
           (value) => Right(
-              value.data?.take(10).map((reco) => reco.transform()).toList() ??
-                  []),
+            value.data?.take(10).map((reco) => reco.transform()).toList() ?? [],
+          ),
         )
         .catchError(
           (e) => Left<AFailure, List<Recommendation>>(
