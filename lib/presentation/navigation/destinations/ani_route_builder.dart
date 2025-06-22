@@ -2,6 +2,7 @@ import 'package:ani_sleuth/presentation/page/dashboard/dashboard_page.dart';
 import 'package:ani_sleuth/presentation/page/detail/character_detail_page.dart';
 import 'package:ani_sleuth/presentation/page/detail/detail_page.dart';
 import 'package:ani_sleuth/presentation/page/error_route_page.dart';
+import 'package:ani_sleuth/presentation/page/library/library_page.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 

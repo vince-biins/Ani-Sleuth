@@ -16,22 +16,25 @@ class AniImageNetwork extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(
-      src,
-      width: width,
-      height: height,
-      fit: fit,
-      errorBuilder: (context, error, stackTrace) {
-        return const Center(
-          child: Icon(Icons.error),
-        );
-      },
-      loadingBuilder: (context, child, loadingProgress) =>
-          loadingProgress == null
-              ? child
-              : const Center(
-                  child: CircularProgressIndicator(),
-                ),
+    return Container(
+      color: Colors.brown.shade500,
+      child: Image.network(
+        src,
+        width: width,
+        height: height,
+        fit: fit,
+        errorBuilder: (context, error, stackTrace) {
+          return const Center(
+            child: Icon(Icons.error),
+          );
+        },
+        loadingBuilder: (context, child, loadingProgress) =>
+            loadingProgress == null
+                ? child
+                : const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+      ),
     );
   }
 }
